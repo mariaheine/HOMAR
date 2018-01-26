@@ -6,7 +6,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Unity src="Build/build.json" loader="Build/UnityLoader.js" />
+        <Unity src="UnityBuild/build.json" loader="UnityBuild/UnityLoader.js" />
       </div>
     );
   }
