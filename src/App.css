@@ -21,14 +21,20 @@
 
 .unity-container {
   background: #000;
+  margin: auto;
 }
 
 .unity-container canvas {
+  margin: auto;
   width: 722px;
   height: 100vh;
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
