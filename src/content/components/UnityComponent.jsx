@@ -1,12 +1,17 @@
 import React, { Component } from "react";
-// import Unity from "react-unity-webgl";
 import Unity, { RegisterExternalListener, UnityEvent } from "react-unity-webgl";
-import "./App.css";
+import "./../../styles/styles.css";
 
-class App extends Component {
+class UnityComponent extends Component {
   constructor(props) {
     super(props);
     RegisterExternalListener("OpenMenu", this._openMenu.bind(this));
+    this.onProgress = this.onProgress.bind(this);
+  }
+
+  onProgress(progression) {
+    console.log(`Loading ${progression * 100} % ...`);
+    if (progression === 1) console.log(`Loading done!`);
   }
 
   _openMenu() {
@@ -27,9 +32,18 @@ class App extends Component {
       background: "black"
     };
 
+    // return (
+    //   <div className="webgl-content">
+    //     <p>webgl</p>
+    //   </div>
+    // );
     return (
-      <div>
-        <Unity src="UnityBuild/build.json" loader="UnityBuild/UnityLoader.js" />
+      <div className="webgl-content">
+        <Unity
+          src="UnityBuild/build.json"
+          loader="UnityBuild/UnityLoader.js"
+          onProgress={this.onProgress}
+        />
       </div>
     );
   }
@@ -70,4 +84,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default UnityComponent;
