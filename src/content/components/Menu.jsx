@@ -5,7 +5,7 @@ class Menu extends Component {
   render() {
     return (
       <div className="menu">
-        <p>ASDASD</p>
+        <h1>menu</h1>
       </div>
     );
   }

@@ -7,11 +7,21 @@ class UnityComponent extends Component {
     super(props);
     RegisterExternalListener("OpenMenu", this._openMenu.bind(this));
     this.onProgress = this.onProgress.bind(this);
+
+    this.state = {
+      loadStatus: false,
+      loaderText: "0%"
+    };
   }
 
   onProgress(progression) {
-    console.log(`Loading ${progression * 100} % ...`);
-    if (progression === 1) console.log(`Loading done!`);
+    this.setState({ loaderText: `${parseInt(progression * 100)} %` });
+    if (progression === 1) {
+      this.setState({ loaderText: "Almost there..." });
+      setTimeout(() => {
+        this.setState({ loadStatus: true });
+      }, 5000);
+    }
   }
 
   _openMenu() {
@@ -28,22 +38,43 @@ class UnityComponent extends Component {
   }
 
   render() {
-    let styles = {
-      background: "black"
-    };
+    // let styles = {
+    //   background: "black"
+    // };
+
+    let loader;
+    if (this.state.loadStatus === false) {
+      loader = (
+        <h1 id="loader">
+          {this.state.loaderText}
+        </h1>
+      );
+    } else loader = null;
 
     // return (
-    //   <div className="webgl-content">
-    //     <p>webgl</p>
+    //   <div>
+    //     <div className="webgl-content">
+    //       <div className="webgl-content">
+    //         <p>webgl</p>
+    //       </div>
+    //     </div>
+    //     <div className="webgl-loader">
+    //       <h1 id="loader">asd as</h1>
+    //     </div>
     //   </div>
     // );
     return (
-      <div className="webgl-content">
-        <Unity
-          src="UnityBuild/build.json"
-          loader="UnityBuild/UnityLoader.js"
-          onProgress={this.onProgress}
-        />
+      <div>
+        <div className="webgl-content">
+          <Unity
+            src="UnityBuild/build.json"
+            loader="UnityBuild/UnityLoader.js"
+            onProgress={this.onProgress}
+          />
+        </div>
+        <div className="webgl-loader">
+          {loader}
+        </div>
       </div>
     );
   }

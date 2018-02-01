@@ -1,57 +1,87 @@
 .main-container {
-  width: 100%;
-  height: 100%;
-  /* if you want to center a div you need to set its width and then set
-  its left and right margin to auto */
-  margin: auto;
+  position: absolute;
+  top: 15%;
+  bottom: 15%;
+  left: 12%;
+  right: 12%;
+}
 
-  /* using flex to position divs */
-  display: flex;
-  flex-direction: row;
-  align-content: center;
-  justify-content: center;
+.webgl-content,
+.webgl-loader,
+.webgl-locker {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  /* background-color: #0074d9; */
+}
+
+.webgl-content {
+  z-index: 1;
+  background-color: SlateGray;
+}
+
+.webgl-loader {
+  top: 45%;
+  z-index: 2;
+  height: 5%;
+  text-align: center;
+}
+
+.webgl-locker {
 }
 
 .menu,
-.webgl-content {
-  align-self: center;
-  margin: 2px;
-  height: 60%;
+.header,
+.fullscreen {
+  position: absolute;
+  height: 35px;
 }
 
 .menu {
-  /* display: inline-block;
-  this can be used to easily align two divs one next to another
-  but using flexes seems to be a better idea */
-  background-color: #000;
-  width: 12%;
+  top: -37px;
+  width: 8vw;
 }
 
-.webgl-content {
-  background-color: #0074d9;
-  width: 60%;
+.header {
+  bottom: -37px;
+  width: 60vw;
 }
 
-/* this will assign style only to p inside element styled with .menu */
-.menu p {
-  font-size: 24px;
-  margin: 15px 15px 15px 15px;
-}
-
-.menu a:hover {
-  background: cyan;
-}
-
-p.alert {
-  color: red;
-}
-
-p.yes {
-  color: blue;
+.fullscreen {
+  bottom: -37px;
+  width: 8vw;
+  right: 0;
 }
 
 h1 {
+  font-size: 20px;
+  margin: 5px 0px;
+  color: white;
+  font-weight: 400;
+  font-family: "Helvetica", sans-serif;
 }
 
-li {
+.header h1 {
+  text-align: left;
+}
+
+/* this will assign style only to p inside element styled with .menu */
+.menu,
+.fullscreen h1 {
+  text-align: center;
+}
+
+.menu:hover,
+.fullscreen:hover {
+  /* background-color: white;   */
+  border: 1px;
+  border-style: dashed;
+  border-color: white;
+}
+
+.menu:hover h1,
+.fullscreen:hover h1 {
+  text-decoration: none;
 }
