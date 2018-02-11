@@ -1,11 +1,16 @@
 {
-  "TOTAL_MEMORY": 268435456,
-  "dataUrl": "build.data.unityweb",
-  "wasmCodeUrl": "build.wasm.code.unityweb",
-  "wasmFrameworkUrl": "build.wasm.framework.unityweb",
-  "asmCodeUrl": "build.asm.code.unityweb",
-  "asmMemoryUrl": "build.asm.memory.unityweb",
-  "asmFrameworkUrl": "build.asm.framework.unityweb",
-  "splashScreenStyle": "Dark",
-  "backgroundColor": "#000000"
+"companyName": "DefaultCompany",
+"productName": "HOMAR.unity",
+"dataUrl": "build.data.unityweb",
+"wasmCodeUrl": "build.wasm.code.unityweb",
+"wasmFrameworkUrl": "build.wasm.framework.unityweb",
+"asmCodeUrl": "build.asm.code.unityweb",
+"asmMemoryUrl": "build.asm.memory.unityweb",
+"asmFrameworkUrl": "build.asm.framework.unityweb",
+"TOTAL_MEMORY": 268435456,
+"graphicsAPI": ["WebGL 2.0", "WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#171717",
+"cacheControl": {"dataUrl": "must-revalidate"}
 }

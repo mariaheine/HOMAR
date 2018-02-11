@@ -1,15 +1,10 @@
 import React, { Component } from "react";
-import UnityComponent from "./components/UnityComponent";
+import UnityComponent from "./components/unity/UnityComponent";
 import Menu from "./components/Menu";
 import "./../styles/styles.css";
 
 class App extends Component {
   render() {
-    let styles = {
-      background: "white",
-      height: "30px",
-      width: "30px"
-    };
     return (
       <div>
         <div className="main-container">
@@ -20,9 +15,6 @@ class App extends Component {
           </div>
           <div className="fullscreen">
             <h1>fullscreen</h1>
-          </div>
-          <div className="header">
-            <canvas style={styles} />
           </div>
         </div>
       </div>
