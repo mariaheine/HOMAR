@@ -5,67 +5,50 @@ import "./../../../styles/styles.css";
 class UnityLocker extends Component {
   constructor(props) {
     super(props);
-    RegisterExternalListener("UnityLoaded", this._unityLoaded.bind(this));
     this.state = {
-      lockStatus: false
+      lockStatus: true
     };
   }
 
-  _unityLoaded() {
-    this.setState({ lockStatus: true });
-  }
-
   render() {
-    let locker;
-    if (this.state.lockStatus === true) {
-      locker = "active";
-    } else locker = "inactive";
+    // Display lock screen only when both unity is loaded and screen is locked
+    let lockerStyle;
+    if (this.props.loadStatus === true && this.state.lockStatus === true) {
+      lockerStyle = "active";
+    } else lockerStyle = "inactive";
 
     return (
-      <div className={"webgl-locker " + locker}>
+      <div className={"webgl-locker " + lockerStyle}>
         <canvas id="cnvs" />
       </div>
     );
   }
 
   componentDidMount() {
-    // Screen unlocking && pointer locking
-
+    // Pointer and Unity locking
     var canvas = document.querySelector("canvas");
 
     canvas.requestPointerLock =
       canvas.requestPointerLock || canvas.mozRequestPointerLock;
 
-    let UnlockTheScreenUnity = new UnityEvent(
-      "BrowserCommunication",
-      "UnlockTheScreen"
-    );
+    let UnlockUnity = new UnityEvent("BrowserCommunication", "UnlockTheScreen");
 
+    // On lock screen canvas click: unlock unity, "turn off" the lock screen (that is change its style to nonvisible) and request pointerlock
     canvas.onclick = () => {
-      canvas.requestPointerLock(); // request the lock
+      canvas.requestPointerLock(); // request the pointer lock
       this.setState({ lockStatus: false }, () => {
-        if (UnlockTheScreenUnity.canEmit() === true) {
-          UnlockTheScreenUnity.emit(); // unlock unity physics
+        if (UnlockUnity.canEmit() === true) {
+          UnlockUnity.emit(); // unlock unity physics
         }
-      }); // turn off the lock screen
+      });
     };
 
-    // Screen locking stuff?
+    let LockUnity = new UnityEvent("BrowserCommunication", "LockTheScreen");
 
-    let LockTheScreenUnity = new UnityEvent(
-      "BrowserCommunication",
-      "LockTheScreen"
-    );
-    // let LockTheScreen = () => {
-    //   this.setState({ lockStatus: true });
-    //   if (LockTheScreenUnity.canEmit() === true) {
-    //     LockTheScreenUnity.emit();
-    //   }
-    // };
     let LockTheScreen = () => {
       this.setState({ lockStatus: true }, () => {
-        if (LockTheScreenUnity.canEmit() === true) {
-          LockTheScreenUnity.emit();
+        if (LockUnity.canEmit() === true) {
+          LockUnity.emit();
         }
       });
     };
@@ -78,10 +61,7 @@ class UnityLocker extends Component {
       ) {
         LockTheScreen();
       } else {
-        // console.log("The pointer lock status is now locked");
-        // let canvas = document.getElementById("#cavnas");
-        // console.log(document.pointerLockElement);
-        // console.log(canvas);
+        // DO NUTHIN
       }
     };
 
