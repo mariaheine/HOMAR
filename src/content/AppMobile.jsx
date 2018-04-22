@@ -172,6 +172,10 @@ class AppMobile extends Component {
   }
 }
 
+function PageRoller(props) {
+  return <div>yo</div>
+}
+
 const Paragraph0 = 
 <div className="content">
   <h1 className="content vert-centered">choose ur emoji</h1>  
@@ -311,10 +315,10 @@ const Paragraph11 =
   <p className="content">
 Warunki transcendentalne obecnej syntezy patriarchatu przebiegają po kablach, ogniskują się w układach scalonych nawyków i przesądów, które rozpościerają się jak sieci wi-fi. Znajdujemy się już w domenie geologii afektów odkładających się na ściankach i w kątach naszego środowiska. Pulpująca maszyna przekraczając progi: y2k, 21:37, 404, 69, 420, 9/11 wypluwa na świat kolejne  hype-tagi, których propagacja zatruwa zmruszałe cyberujemne obwody. Memując-numerując, ustanawiając emoji-dodatnie systemy okultystyczne wywołujemy delirium-demona szyfrującego spetryfikowany układ ku przyjściu nowego eonu. Wywołując abdukcyjne nośniki, których imieniem jest milion, rozpościeramy wrażliwą sieć pomiędzy roztopiającymi się w rzeczy słowami, częstotliwościami i zwierzęcymi sygnałami qwerty.
   </p>
-  <p className="content">
+  <p className="content italic">
 Czarownice nie tworzą, one uczestniczą. W/Z Czymś co roi się, kipi, puchnie, pieni się, rozprzestrzenia się jak choroba zakaźna ... bezimiennym horrorem ... uogólnionym dekodowaniem wszystkich przepływów. Nie ma w tym nic złego, nie ma mowy o lekarstwie. Nie ma dla Tego żadnego kazusu. Jedyne dziury, z których może wypełznąć.
   </p>
-  <p className="content">
+  <p className="content italic">
 Takie jak ty.
   </p>
   <p className="content">
