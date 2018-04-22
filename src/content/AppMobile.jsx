@@ -12,6 +12,8 @@ class AppMobile extends Component {
     super(props);
 
     this.toggleNavbar = this.toggleNavbar.bind(this);
+    this.toggleParagraph = this.toggleParagraph.bind(this);
+
     this.state = {
       collapsed: false,
       activeParagraph: '0'
@@ -30,6 +32,12 @@ class AppMobile extends Component {
         activeParagraph: paragraph
       });
     }
+  }
+
+  setParagraph(number) {
+    this.setState({
+        activeParagraph: number
+      });
   }
 
   render() {
@@ -167,18 +175,61 @@ class AppMobile extends Component {
             </Row>
           </TabPane>
         </TabContent>
+
+        <PageRoller activeParagraph={this.state.activeParagraph} switchPage={this.toggleParagraph}/>
+      
       </div>
     );
   }
 }
 
-function PageRoller(props) {
-  return <div>yo</div>
+class PageRoller extends React.Component {  
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     activeParagraph: 0
+  //   };
+  // }
+
+  toggleParagraph(number) {
+    this.props.switchPage(number.toString());
+  }
+
+  render() {
+    var pageNumber = parseInt(this.props.activeParagraph);
+
+    console.log(pageNumber);
+
+    if(pageNumber > 1 && pageNumber < 11) {
+      return (
+        <div className="centered">
+          <button onClick={() => {this.toggleParagraph(pageNumber-1)}}>Previous</button>
+          <button onClick={() => {this.toggleParagraph(pageNumber+1)}}>Next</button>
+        </div>
+      );
+    }
+    else if (pageNumber === 1) {
+      return (
+        <div className="centered">
+          <button onClick={() => {this.toggleParagraph(pageNumber+1)}}>Next</button>
+        </div>
+      );
+    }
+    else if (pageNumber === 11 ) {
+      return (
+        <div className="centered">
+          <button onClick={() => {this.toggleParagraph(pageNumber-1)}}>Previous</button>
+        </div>
+      );
+    }
+    else
+     return <div>yo</div>;
+  }
 }
 
 const Paragraph0 = 
 <div className="content">
-  <h1 className="content vert-centered">choose ur emoji</h1>  
+  <h1 className="content vert-centered">choose ur emoticons</h1>  
 </div>
 
 const Paragraph1 = 
