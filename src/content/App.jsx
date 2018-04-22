@@ -4,7 +4,9 @@ import Unity, { RegisterExternalListener, UnityEvent } from "react-unity-webgl";
 
 import UnityComponent from "./components/unity/UnityComponent";
 import Menu from "./components/Menu";
-import "./../styles/styles.css";
+
+import AppDesktop from "./AppDesktop";
+import AppMobile from "./AppMobile";
 
 class App extends Component {
   constructor(props) {
@@ -22,22 +24,13 @@ class App extends Component {
   }
 
   render() {
-    console.log(window.navigator.userAgent.toLowerCase().includes("mobi"));
+    // var isMobile = window.navigator.userAgent.toLowerCase().includes("mobi");
+    var isMobile = true;
 
-    return (
-      <div>
-        <div className="main-container">
-          <Menu loadStatus={this.state.loadStatus} />
-          <UnityComponent loadStatus={this.state.loadStatus} />
-          <div className="header">
-            <h1>HOMAR Research Unit</h1>
-          </div>
-          <div className="fullscreen">
-            <h1>fullscreen</h1>
-          </div>
-        </div>
-      </div>
-    );
+    console.log(isMobile);
+
+    if(isMobile) return <AppMobile/>
+      else return <AppDesktop/>
   }
 }
 

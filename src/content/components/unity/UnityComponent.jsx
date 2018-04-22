@@ -47,8 +47,8 @@ class UnityComponent extends Component {
       <div>
         <div className="webgl-content">
           <Unity
-            src="Build/DefaultWebGL.json"
-            loader="Build/UnityLoader.js"
+            src="UnityBuild/DefaultWebGL.json"
+            loader="UnityBuild/UnityLoader.js"
             onProgress={this.onProgress}
           />
         </div>
