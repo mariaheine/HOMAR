@@ -5,9 +5,8 @@ html, body {
 
 div.content {
 	padding: 0.5rem 1rem;
+	position: relative;
 }
-
-
 
 h2 {
 	color: white;
@@ -30,6 +29,15 @@ h1.title {
 h1.content {
 	font-size: 1.5em;
 	text-align: left;
+}
+
+h1.vert-centered {
+	margin-top: 15vh;
+	text-align: center;
+}
+
+h1.text-centered {
+	text-align: center;
 }
 
 p {
