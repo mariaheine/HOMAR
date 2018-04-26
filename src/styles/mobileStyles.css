@@ -1,19 +1,55 @@
 html, body {
 	height: 100%;
 	background: black;
+	overflow-y: scroll; /*to keep the scrollbar always visible*/
 }
 
 div.content {
-	padding: 0.5rem 1rem;
-	position: relative;
 }
 
-div.centered {
-	/*chuj jebane gowno i tak nie dziala, bede stylowac to pozniej na razie zostawiamy styl windowsa 98*/
-	display: block;
+p.content {
+	max-width: 700px;
 	margin-left: auto;
 	margin-right: auto;
 }
+
+/* TAB HEADER AND ITS CHILDREN */
+div.tabHeader {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-end;
+}
+
+button.tabButton {	
+	background-color: black;
+	border: none;
+	outline: none;
+	color: white;	
+    text-decoration: none;
+}
+
+button.titleButton {
+	margin-right: auto; /*used to override justify-content; justify-self is cooming soon though*/
+	font-size: 1.5em;
+    padding: 0.5rem 1rem;
+}
+
+button.pageflip {
+	font-size: 1em;
+	max-width: 20vw;
+    padding-right: 2.3rem;
+}
+
+button.pageflip:hover {
+	text-decoration: underline;
+}
+
+button.titleButton:hover {
+	border-left: dashed;
+	border-width: 0.1em;
+}
+
+/* MAIN CSS */
 
 h2 {
 	color: white;
@@ -54,9 +90,10 @@ p {
 }
 
 p.title {
-	font-size: 0.85em;
-	padding: 0rem 0.75rem;
+	font-size: 1em;
+	padding: 0.4vh 0.75rem;
 	text-align: center;
+	line-height: 1;
 }
 
 p.italic {
