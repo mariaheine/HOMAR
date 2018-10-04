@@ -24,6 +24,9 @@ class App extends Component {
   }
 
   render() {
+
+    // TODO MOVE THAT TO THE WARP-RELATED COMPONENT
+    // NO NEED TO CHANGE ENTIRE APP
     // var isMobile = window.navigator.userAgent.toLowerCase().includes("mobi");
     var isMobile = true;
 
