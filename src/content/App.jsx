@@ -5,6 +5,11 @@ import Unity, { RegisterExternalListener, UnityEvent } from "react-unity-webgl";
 import UnityComponent from "./components/unity/UnityComponent";
 import Menu from "./components/Menu";
 
+import { BrowserRouter as Router } from "react-router-dom";
+import BaseRouter from "./routes";
+import MainLayout from "./containers/MainLayout";
+
+
 import AppDesktop from "./AppDesktop";
 import AppMobile from "./AppMobile";
 
@@ -20,20 +25,24 @@ class App extends Component {
 
   _unityLoaded() {
     this.setState({ loadStatus: true });
-    console.log("yay");
+    // console.log("yay");
   }
 
   render() {
-
     // TODO MOVE THAT TO THE WARP-RELATED COMPONENT
     // NO NEED TO CHANGE ENTIRE APP
     // var isMobile = window.navigator.userAgent.toLowerCase().includes("mobi");
-    var isMobile = true;
-
-    console.log(isMobile);
-
-    if(isMobile) return <AppMobile/>
-      else return <AppDesktop/>
+    // var isMobile = true;
+    // console.log(isMobile);
+    // if(isMobile) return <AppMobile/>
+    //   else return <AppDesktop/>
+    return (
+      <Router>
+        <MainLayout>
+          <BaseRouter />
+        </MainLayout>
+      </Router>
+    );
   }
 }
 
