@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import Unity, { RegisterExternalListener, UnityEvent } from "react-unity-webgl";
 
 import UnityComponent from "./components/unity/UnityComponent";
-import Menu from "./components/Menu";
 import "./../styles/styles.css";
 
 class AppDesktop extends Component {
@@ -26,7 +25,6 @@ class AppDesktop extends Component {
     return (
       <div>
         <div className="main-container">
-          <Menu loadStatus={this.state.loadStatus} />
           <UnityComponent loadStatus={this.state.loadStatus} />
           <div className="header">
             <h1>HOMAR Research Unit</h1>

@@ -18,9 +18,6 @@ import "./../styles/mobileStyles.css";
 
 import manifest from "../articles/manifest.json";
 
-// na razie nie uzywane, calosc jest w jednym komponencie, wiem ze syf ale nie ma czasu inaczej
-import Manifest from "./mobile/Manifest";
-
 class AppMobile extends Component {
   constructor(props) {
     super(props);
@@ -70,7 +67,7 @@ class AppMobile extends Component {
 
     // map every article part to an array containing all its paragraphs and default tab view elements (main button, prev, next)
     var paragraphContent = manifest.articleParts.map(x => (
-      <div>
+      <div className="content">
         <div className="tabHeader">
           <button
             onClick={() => {
@@ -100,7 +97,7 @@ class AppMobile extends Component {
     var paragraphTabs = paragraphContent.map((x, i) => (
       <TabPane key={i} tabId={`${i + 1}`}>
         <Row>
-          <Col sm="12">{x}</Col>
+          <Col>{x}</Col>
         </Row>
       </TabPane>
     ));
@@ -108,7 +105,7 @@ class AppMobile extends Component {
     return (
       <div>
         <Navbar color="faded" light>
-          <NavbarToggler onClick={this.toggleNavbar} className="mr-2">
+          <NavbarToggler onClick={this.toggleNavbar} className="manifestHeader">
             <h1 className="title">
               Manifest: Xeno-seksualność nadchodzi z przyszłości
             </h1>
@@ -120,7 +117,7 @@ class AppMobile extends Component {
         <TabContent activeTab={this.state.activeParagraph}>
           <TabPane tabId="0">
             <Row>
-              <Col sm="12">{Paragraph0}</Col>
+              <Col>{Paragraph0}</Col>
             </Row>
           </TabPane>
           {paragraphTabs}
@@ -191,7 +188,7 @@ class PageRoller extends React.Component {
 
 const Paragraph0 = (
   <div className="content">
-    <h1 className="content vert-centered">choose ur emoticons</h1>
+    <h1 className="content vert-centered"> o.0 </h1>
   </div>
 );
 

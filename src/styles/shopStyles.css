@@ -1,0 +1,68 @@
+/* GENERAL */
+div .content {
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.flex-container {
+  padding: 1rem;
+  margin: 0;
+
+  list-style: none;
+
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+
+  justify-content: space-around;
+}
+
+.flex-item {
+  padding: 5px;
+  width: 200px;
+  height: 150px;
+  margin-top: 10px;
+
+  line-height: 150px;
+  color: white;
+  font-size: 1em;
+  text-align: center;
+}
+
+/* OUTRO CUTENESS */
+.flex-container.outro {
+  max-width: 1200px;
+  margin: auto;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* justify-items: center; */
+}
+
+.flex-item.outro {
+  max-width: 400px;
+  width: auto;
+  height: auto;
+  margin: auto;
+  background: black;  
+  background: #27272767;
+}
+
+.flex-item.outro.image {
+  max-width: 80vw;
+  max-height: 80vh;
+  /* width: auto;
+  height: auto; */
+}
+
+div .flex-item.outro > p {
+  text-align: left;
+  line-height: 120%;
+  font-size: 1em;
+  font-family: Futura, ‘sans-serif’;
+  letter-spacing: 2px;
+}

@@ -3,9 +3,8 @@ import React, { Component } from "react";
 import Unity, { RegisterExternalListener, UnityEvent } from "react-unity-webgl";
 
 import UnityComponent from "./components/unity/UnityComponent";
-import Menu from "./components/Menu";
 
-import { BrowserRouter as Router } from "react-router-dom";
+import { HashRouter as Router } from "react-router-dom";
 import BaseRouter from "./routes";
 import MainLayout from "./containers/MainLayout";
 

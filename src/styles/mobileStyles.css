@@ -1,172 +1,299 @@
-html, body {
-	height: 100%;
-	background: black;
-	overflow-y: scroll; /*to keep the scrollbar always visible*/
+html,
+body {
+  height: 100%;
+  /* background: rgb(255, 77, 145); */
+  background: black;
+  /* background: white; */
+
+  overflow-y: scroll; /*to keep the scrollbar always visible*/
 }
 
 p.content {
-	max-width: 700px;
-	margin-left: auto;
-	margin-right: auto;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;  
 }
 
+div.content {
+	background-color: #27272767;
+}
 
-.mainNavbar > nav:nth-child(1) {
+/* navbar css, don't ask about that selector wtf */
+
+/* .mainNavbar > nav:nth-child(1) {
 	background-color: gray;
+	background-size: contain;
+	background-position: center;
+} */
+
+@keyframes shadow {
+  0%,
+  100% {
+    box-shadow: 10px 10px 5px red;
+  }
+  50% {
+    box-shadow: 11px 11px 10px orange;
+  }
 }
+
+.navbar {
+  margin: 5px 15px 5px 5px;
+  background-color: #272727;
+  /* background-color: slategray; */
+  box-shadow: 10px 10px 5px rgb(255, 77, 145);
+  /* box-shadow: 10px 10px 5px slategray; */
+  animation: infinite;
+  animation-name: shadow;
+  animation-duration: 4s;
+  border-radius: 5px;
+}
+
+.navbar-brand {
+  background: rgba(0, 0, 0, 0);
+  /* border: solid;	
+	border-width: 0.07em;
+	border-color: white; */
+}
+
+.mainNavbar > nav:nth-child(1) > div:nth-child(2) > button:nth-child(1):focus {
+  outline: none;
+}
+
+/* button box here */
+.mainNavbar > nav:nth-child(1) > div:nth-child(2) > div:nth-child(2) {
+  width: 35vw;
+  /* border: solid;	
+	border-width: 0.07em;
+	border-color: white;  */
+}
+.navbar-nav {
+  background-color: rgba(0, 0, 0, 0);
+  padding: 0.5rem;
+}
+
+/* NAVBAR MENU */
+div.menuButton {
+  color: white;
+  /* border: solid;	
+	border-width: 0.07em;	
+	padding: 0rem;	 */
+  width: 35vw;
+
+  background-color: rgba(0, 0, 0, 0);
+}
+
+p.menuButton {
+  /* lol */
+  color: white;
+  margin-bottom: 0;
+  /* text-shadow: 1px 1px 2px palevioletred, 0 0 25px white, 0 0 5px HOTPINK; */
+}
+
+p.menuButton:hover {
+  /* lol */
+  color: aquamarine;
+  margin-bottom: 0.15em;
+}
+
+a.nav-link {
+  /* background-color: #004758; */
+}
+
+h1.logo {
+  /* margin: 1rem; */
+  font-size: 5rem;
+  color: black;
+  letter-spacing: 0.2rem;
+  color: #ffffff;
+  /* text-shadow: 1px 1px 2px palevioletred, 0 0 25px white, 0 0 5px HOTPINK; */
+}
+
+@keyframes example {
+  0%,
+  100% {
+    background-color: red;
+  }
+  50% {
+    background-color: orange;
+  }
+}
+
+h1.menuButton {
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  border-right: 1rem;
+  /* text-decoration: underline; */
+  padding-top: 0.5rem;
+  /* text-shadow: 1px 1px 2px palevioletred, 0 0 25px white, 0 0 5px HOTPINK; */
+}
+
+li.nav-item:nth-child(2) > a:nth-child(1) > h1:nth-child(1) {
+  animation: infinite;
+  animation-name: example;
+  animation-duration: 4s;
+}
+
+@keyframes homarjumpy {
+  0%,
+  100% {
+  }
+  25% {
+    transform: translate(40vw, 0vh);
+  }
+  50% {
+    transform: translate(10vw, 80vh);
+  }
+  60% {
+    transform: translate(30vw, 60vh);
+  }
+  80% {
+    transform: translate(-20vw, 80vh);
+  } 
+  90% {
+    transform: translate(-30vw, 30vh);
+  }
+}
+
+img.homar {
+  max-width: 8vw;
+  width: auto;
+  height: auto;
+  position: relative;
+  margin: auto;
+  transition: transform 1s;
+  animation: infinite;
+  animation-name: homarjumpy;
+  animation-duration: 15s;
+  animation-play-state: running;
+}
+
+img.homar:active {
+	
+}
+
+/* end of navbar*/
 
 /* TAB HEADER AND ITS CHILDREN */
 
 div.tabHeader {
-	display: flex;
-	flex-direction: row;
-	justify-content: flex-end;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 2vh;
 }
 
-button.tabButton {	
-	background-color: black;
-	border: none;
-	outline: none;
-	color: white;	
-    text-decoration: none;
+button.tabButton {
+  background-color: black;
+  border: none;
+  outline: none;
+  color: white;
+  text-decoration: none;
 }
 
 button.titleButton {
-	margin-right: auto; /*used to override justify-content; justify-self is cooming soon though*/
-	font-size: 1.5em;
-    padding: 0.5rem 1rem;
+  margin-right: auto; /*used to override justify-content; justify-self is cooming soon though*/
+  font-size: 1.5em;
+  padding: 0.5rem 1rem;
 }
 
 button.pageflip {
-	font-size: 1em;
-	max-width: 20vw;
-    padding-right: 2.3rem;
+  font-size: 1em;
+  max-width: 20vw;
+  padding-right: 2.3rem;
 }
 
 button.pageflip:hover {
-	text-decoration: underline;
+  text-decoration: underline;
 }
 
 button.titleButton:hover {
-	border-left: dashed;
-	border-width: 0.1em;
+  border-left: dashed;
+  border-width: 0.1em;
 }
 
 /* MAIN CSS */
 
 h1 {
-	color: white;
-	font-size: 0.8em;
+  color: white;
+  font-size: 0.8em;
 }
 
 h1.title {
-	font-size: 1em;
-	text-align: center;
-	padding-bottom: 0.5em;
-}
-
-h1.logo {
-	margin: 1rem;
+  font-size: 1em;
+  text-align: center;
+  padding-bottom: 0.5em;
 }
 
 div.mainNavbar {
-	color: aquamarine;
-	padding-bottom: 12em
+  color: aquamarine;
+  padding-bottom: 12em;
 }
 
-h1.dashed {	
-	border-bottom: dashed;
-	border-width: 0.07em;
+h1.dashed {
+  border-bottom: dashed;
+  border-width: 0.07em;
 }
 
 h1.content {
-	font-size: 1.5em;
-	text-align: left;
+  font-size: 1.5em;
+  text-align: left;
 }
 
 h1.vert-centered {
-	margin-top: 13vh;
-	text-align: center;
+  margin-top: 13vh;
+  text-align: center;
 }
 
 h1.text-centered {
-	text-align: center;
+  text-align: center;
 }
 
 p {
-	background: black;
-	color: white;
-	padding: 0.5rem 1rem;
+  color: white;
+  padding: 0.5rem 1rem;
 }
 
 p.italic {
-	font-style: italic;
+  font-style: italic;
 }
 
 p.title {
-	font-size: 1em;
-	padding: 0.4vh 0.75rem;
-	text-align: center;
-	line-height: 1;
+  font-size: 1em;
+  padding: 0.4vh 0.75rem;
+  text-align: center;
+  line-height: 1;
 }
 
-/* Manifest paragraph link styling */
+/* Manifest */
+
 p.paragraphLink {
-	font-size: 1.2em;
-	text-align: center;
-	line-height: 1.2;
-	margin: 0;
+  font-size: 1.2em;
+  text-align: center;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.manifestHeader {
+  margin: auto;
 }
 /* end */
 
-/* NAVBAR MENU */
-div.menuButton {
-	color: white;
-	border: solid;	
-	border-width: 0.07em;	
-	margin: 1rem 1rem;
-	padding: 0rem;
-	width: 20vw;
-}
-
-p.menuButton {
-	/* lol */
-	color: white;
-	margin-bottom: 0.15em;
-	
-}
-
-p.menuButton:hover {
-	/* lol */
-	color: aquamarine;
-	margin-bottom: 0.15em;
-}
-
-h1.menuButton {
-	font-size: 1.1rem;
-	text-align: center;
-	border-right: 1rem;	
-	text-decoration: underline;
-}
-
 /* BOOTSTRAP EDITS BELOW */
 a.nav-link {
-	padding: 0rem 0rem;
+  padding: 0rem 0rem;
 }
 
-.tab-content {	
-	background: black;
-}
 
 div.card {
-	background-color: black;
+  background-color: black;
 }
 
 /* pardon i know nothing abut bootstrap */
 .navbar-toggler {
-	padding: 0;
+  padding: 0;
 }
 
 .navbar {
-	align-items: normal;
+  align-items: normal;
 }
