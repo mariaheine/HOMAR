@@ -48,7 +48,7 @@ export default class Menu extends Component {
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="#/shop" onClick={this.toggleNavbar}>
+              <NavLink href="#/outrocuteness" onClick={this.toggleNavbar}>
                 <h1 className="title menuButton">Shop [HOT!]</h1>
               </NavLink>
             </NavItem>

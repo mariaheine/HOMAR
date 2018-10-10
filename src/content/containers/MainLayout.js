@@ -47,23 +47,23 @@ export class MainLayout extends Component {
       document.getElementById("jumpyHomar").style.WebkitAnimationPlayState =
         "running";
     }
-    this.setState({isHomarUnleashed: !this.state.isHomarUnleashed})
+    this.setState({ isHomarUnleashed: !this.state.isHomarUnleashed });
   };
 
   render() {
     return (
       <div className="mainNavbar">
         <Navbar style={navbarStyle}>
-          <NavbarBrand href="/">
-            <h1 className="title logo">HOMAR</h1>
-          </NavbarBrand>
-          <img
-            id="jumpyHomar"
-            onClick={this.triggerHomar}
-            src={Homar}
-            className="homar"
-          />
-          <Menu />
+              <NavbarBrand href="/#">
+                <h1 className="title logo">HOMAR</h1>
+              </NavbarBrand>
+              <img
+                id="jumpyHomar"
+                onClick={this.triggerHomar}
+                src={Homar}
+                className="homar"
+              />
+              <Menu />
         </Navbar>
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="0">

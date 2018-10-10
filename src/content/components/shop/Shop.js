@@ -1,23 +1,13 @@
 import React, { Component } from "react";
-import {Link} from "react-router-dom";
-import OutroCuteness from './OutroCuteness'
-
 import {
-    TabContent,
-    TabPane,
-    Row,
-    Col,
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem,
     NavLink
   } from "reactstrap";
 
 
 import "./../../../styles/shopStyles.css";
+
+/* ONLY ONE LINE IN THE SHOP CURRENTLT */
+// COMPONENT NOT USED THUS
 
 export default class Shop extends Component {
   render() {

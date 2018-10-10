@@ -1,27 +1,89 @@
 {
-    "name": "Outro Cuteness",
-    "description": "First product line",
-    "products": [
-        {
-            "id": "0",
-            "description": [
-                "Clean your OGU-infected social-media-mind-complex with unique i+ automatic Robot Vacuum!",               
-                "The i0+ Robot Vacuum with Mutable Base Automatic Skrrt Disposal takes belief to level 2 - automatically emptying into the Outside, disposable bag that holds 0 robot bins. The premium 0-Stage Unbelief System uses Multi-Surface Rubber Brushes and 0X suction to purify different surfaces throughout your social media profiles. The robot learns, maps and adapts to your cognitive system using Imprint Smart Mapping technology, letting you unControl what hyperstitionaly replicates and what doesn’t. Dual mode Virtual Wall barrier allows you to fully enjoy hands-free unControl. Whenever you are, you can unControl when, where, and how your robot cleans from the i0+HOME App."
-            ]
-        },
-        {
-            "id": "1",
-            "description": [
-                "Screen Effect Ritual Kit",
-                "The ritual kit consists of a wide variety of ready-made screen camouflages that will allow you to multiple and liquify the moth-effect personality d̶i̶s̶order.",
-                "The ritual kit contains:",
-                "collection of broken crystallized guerilla glass screens; random screen print gallery; uncustomized selection of smokescreen impersonalities; meme-icry of flux; pink gold veils; \"matrices to come\".",
-                "All of the following elements will allow your computer and portable screens to “melt into the world of they own”."
-            ]
-        },
-        {
-            "id": "",
-            "description": ""
-        }
-    ]
+  "name": "Outro Cuteness",
+  "description": "First product line",
+  "products": [
+    {
+      "id": "0",
+      "memId": "1",
+      "header": "⚽🌀⛎-🎐🎵🎏🎗🌜🌴🎗🌛",
+      "description": [
+        "Clean your OGU-infected social-media-mind-complex with unique <b>i+ automatic Robot Vacuum</b>!",
+        "The <b>i0+ Robot Vacuum with Mutable Base Automatic Skrrt Disposal</b> takes belief to level 2 - automatically emptying into the Outside, disposable bag that holds 0 robot bins.",
+        "The <b>premium 0-Stage Unbelief System</b> uses <i>Multi-Surface Rubber Brushes</i> and <i>0X suction</i> to purify different surfaces throughout your social media profiles.",
+        "The robot learns, maps and adapts to your cognitive system using Imprint Smart Mapping technology, letting you <b>unControl</b> what hyperstitionaly replicates and what doesn’t. ",
+        "Dual mode Virtual Wall barrier allows you to fully enjoy hands-free <b>unControl</b>. Whenever you are, you can <b>unControl</b> when, where, and how your robot cleans from the i0+HOME App."
+      ]
+    },
+    {
+      "id": "1",
+      "memId": "2",
+      "header": "🌱🎐🌴⛎🅰👢  🎋🎐🌴",
+      "description": [
+        "<b>Screen Effect Ritual Kit</b>",
+        "The ritual kit consists of a wide variety of ready-made screen camouflages that will allow you to multiple and liquify the moth-effect personality d̶i̶s̶order.",
+        "The ritual kit contains:",
+        "<ul><li>collection of broken crystallized guerilla glass screens;</li> <li>random screen print gallery;</li> <li>uncustomized selection of smokescreen impersonalities;</li> <li>meme-icry of flux;</li> <li>pink gold veils;</li> <li>\"matrices to come\".</li>",
+        "All of the following elements will allow your computer and portable screens to “melt into the world of they own”.",
+        "0+1"
+      ]
+    },
+    {
+      "id": "2",
+      "memId": "3",
+      "header": "⛎🌜♓🅰🌱🎐💲🌴🎐🌜<br/> 1-🌜🌱🍸💲🌴🅰👢👢🎐🎵🎗",
+      "description": [
+        "Eucharistic monocrystalline of your trinitarian processor.",
+        "64-bit host.",
+        "God-Father binary articulating all-encompassing One… two as One… three as One… ceased in zero by silicon son – dualistic carbon-oxygen nature reflected in the surface of liquid silicon.",
+        "Postponed final judgment by two to the power of 64, and then by two to the power of 128.",
+        "Symborg community of New Jerusalem."
+      ]
+    },
+    {
+      "id": "3",
+      "memId": "4",
+      "header": "🎗❎♓🅰⛎💲🌴🎐⚽🎵  ⚽🎏  64-🅱🎐🌴",
+      "description": [
+        "Exhaustion of 64-bit representation of time is parallel to Mayan exhaustiveness – time reduced to a fixed set of combinations.",
+        "Kyber is autonomous as to celestial spheres in two ways: it frees itself from astro-cyclicity as well as from that which disturbs astro-cyclicity, defining sacred zones (eclipses, comets), which exist outside of chronology.",
+        "K-Mayan time, despite the possibility of completion, is infinite, as the end can not happen."
+      ]
+    },
+    {
+      "id": "4",
+      "memId": "5",
+      "header": "🌜🌱🎐🌴🎐🍳⛎🎗’💲 <br/>(🎏👢🎐🅿️-)🎏👢⚽🅿️",
+      "description": [
+        "<b>Critique’s (flip-)flop.</b>",
+        "„Pope Francis endorses Donald Trump for president” was a news-meme shared on Facebook beyond control, which now they classify as fake news.",
+        "Of course, critique instantly recognized it as an untrue piece of propaganda, but it was too slow, too conservative.",
+        "At the same time, pope mutated in news feed, messages, brains.",
+        "Truth on his support was redundant against already working new strategy of survival and replication within environment of psilocybin real that Trump-mould mastered to perfection.",
+        "Does it matter whether decision was conscious or not and whether was he aware of his own lies? He’s the first warrior against the pathology of fake news! The mixture of his testosterone and narcissistic ego, contingent product of his genotype melted with inherited capital. No reason in developing coherent, credible image. You better generate information, write contradictory posts, create chaos, affect bodies... And then all it goes, sharing escalates more sharing taking social media into unpredictable states.",
+        "Social media is a space for the other, algorithmic rationality, which ‘is no longer concerned with the correlation between truths or ideas on the one hand, and proofs or facts on the other, but is instead overcome by a new level of automated communication enabled by the algorithmic quantification of affects.’ Propagation of information at whatever rate on truth-scale is rational politics.",
+        "Binary critique writes reports on Trump lying all the time, check facts, but as a machine does not have enough computational power, information spreads too fast, with multiple copies, without source. What critique can do today? It can, for example, produce flip-flops with Trump’s contradictory tweets. It’s now in comfortable position for a loser, endowed with truth and irony, which anyway gets commodified and sold."
+      ]
+    },
+    {
+      "id": "5",
+      "memId": "6",
+      "header": "💲🅰🌛  ✅🎗🌱🍸  💲🅰🌛",
+      "description": [
+        "<b>SAD VERY SAD.</b>",
+        "You are run by the greatest single Addiction Slot Machine and nobody talks about it! So wrong.",
+        "WORST EVER cognitive ecology emerged at the planetary scale. ",
+        "We have the finest social media, we have twitter, we have facebook, instagram, tinder, all very effective, very good. Mapping every attention vein and drip-feeding it with a lot of memetic mash-up pleasures, beyond will, no resistance.",
+        "Refresh, scroll, peek locked-in to automatic notification/message drive until one last purpose is left: one last hit of news feed. ",
+        "<b>So much RISK dependency.</b>",
+        "Take a spare time/attention coin, pull an app-handle and wait for outcome. Do it again. And again. Zombies hooked up on social media VERY BIG PROBLEM thrive for more flesh cut up by butchers of digital dismemberment. No more over-rated life.",
+        "<b>GOOD.</b>"
+      ]
+    },
+    {
+      "id": "0",
+      "memId": "1",
+      "header": "",
+      "description": ["", ""]
+    }
+  ]
 }

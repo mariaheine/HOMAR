@@ -97,7 +97,7 @@ class AppMobile extends Component {
     var paragraphTabs = paragraphContent.map((x, i) => (
       <TabPane key={i} tabId={`${i + 1}`}>
         <Row>
-          <Col>{x}</Col>
+          <Col >{x}</Col>
         </Row>
       </TabPane>
     ));

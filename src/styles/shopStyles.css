@@ -43,26 +43,38 @@ div .content {
   /* justify-items: center; */
 }
 
-.flex-item.outro {
+.flex-item.outro { 
   max-width: 400px;
   width: auto;
   height: auto;
-  margin: auto;
-  background: black;  
-  background: #27272767;
+  background: #272727bc;
 }
 
-.flex-item.outro.image {
-  max-width: 80vw;
-  max-height: 80vh;
-  /* width: auto;
-  height: auto; */
+img.flex-item.outro {
+  max-width:95%;
+  max-height:95%; 
+  background: none;
+  opacity: 0.9;
 }
 
-div .flex-item.outro > p {
+div.flex-item.outro > p {
   text-align: left;
   line-height: 120%;
   font-size: 1em;
-  font-family: Futura, ‘sans-serif’;
+  font: 1rem Helvetica, ‘sans-serif’;
   letter-spacing: 2px;
 }
+
+#outroHeader {
+  padding-top: 3vh;
+  text-align: center;
+  background: none;
+  font-size : 1rem;
+}
+
+#outroDescription {
+  align-self: center;
+}
+
+
+
