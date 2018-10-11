@@ -121,7 +121,9 @@ div.flex-item.outro > p {
 }
 
 #outroHeader {
-  padding-top: 3vh;
+  padding: 3vh;
+  margin-bottom: -3vh;
+  line-height: 1.5em;
   text-align: center;
   background: none;
   font-size : 1rem;
