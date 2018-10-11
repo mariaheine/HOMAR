@@ -6,12 +6,11 @@ import outroproducts from "./../../../articles/products/outrocuteness.json";
 var tmpImg =
   "https://s3.eu-central-1.amazonaws.com/homar/outrocuteness/mem1.jpg";
 
-// var products = JSON.parse(outroproducts);
-
 export default class OutroCuteness extends Component {
   render() {
+
     var finalprofucts = outroproducts.products.map(x => (
-      <CuteProduct id={x.id} />
+      <CuteProduct id={x.id} imgSrc={x.memId} />
     ));
 
     var listedProducts = finalprofucts.map(x => (
@@ -30,11 +29,14 @@ export default class OutroCuteness extends Component {
 }
 
 const CuteProduct = props => {
+
+  let imgSrc = `https://s3.eu-central-1.amazonaws.com/homar/outrocuteness/meme${props.imgSrc}.jpg`;
+
   return (
     <NavLink href={`#/outrocuteness/${props.id}`}>
       <div className="listedOutro">
         {/* {props.id} */}
-        <img className="listedOutro" alt="" src={tmpImg} />
+        <img className="listedOutro" alt="" src={imgSrc} />
       </div>
     </NavLink>
   );

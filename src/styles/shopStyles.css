@@ -33,7 +33,7 @@ h1.productHeader {
 	position: relative;
   text-align: center;
   font: 3em Helvetica, Sans-Serif;
-	letter-spacing: -3px;
+	letter-spacing: -5px;
   color: rgba(255, 255, 255, 0.918);
   animation: infinite;
   animation-name: flicker;

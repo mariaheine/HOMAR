@@ -9,7 +9,7 @@ export default class Home extends Component {
     return (
       <div className="aframeContainer">
         <Scene embedded vr-mode-ui="enabled: false">
-          <Entity environment="preset: yavapai;" />
+          <Entity environment={{preset: 'yavapai'}} />
           <Entity
             position="0 2 -5"
             geometry="primitive: plane; height: 2; width: 4;"

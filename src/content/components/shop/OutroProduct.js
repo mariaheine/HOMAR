@@ -3,14 +3,8 @@ import { NavLink } from "reactstrap";
 
 import outroproducts from "./../../../articles/products/outrocuteness.json";
 
-var str = JSON.stringify(outroproducts, null, 2);
-
 export default class OutroProduct extends Component {
   render() {
-    console.log("=======================================");
-    console.log("ss: ", this.props.match.params.productId);
-    console.log("=======================================");
-
     var id = this.props.match.params.productId;
 
     var product = outroproducts.products.find(x => x.id == `${id}`);
@@ -23,7 +17,6 @@ export default class OutroProduct extends Component {
     ));
 
     // var header = product.header.map(x => <p className="flex-item outro">{x}</p>);
-    // var header = <p className="flex-item outro header">{product.header}</p>;
     var header = (
       <NavLink href="#/outrocuteness">
         <p
@@ -33,16 +26,14 @@ export default class OutroProduct extends Component {
       </NavLink>
     );
 
-    var imageSrc = `https://s3.eu-central-1.amazonaws.com/homar/outrocuteness/mem${id}.jpg`;
-
-    var tmpImg =
-      "https://s3.eu-central-1.amazonaws.com/homar/outrocuteness/mem1.jpg";
+    let memeId = product.memId;
+    var imageSrc = `https://s3.eu-central-1.amazonaws.com/homar/outrocuteness/meme${memeId}.jpg`;
 
     return (
       <div className="flex-container outro">
         <div className="flex-item outro">
           {header}
-          <img className="flex-item outro" src={tmpImg} />
+          <img className="flex-item outro" src={imageSrc} />
         </div>
         <div id="outroDescription" className="flex-item outro">
           {paragraphs}
@@ -57,11 +48,3 @@ export default class OutroProduct extends Component {
     );
   }
 }
-
-const Asd = props => {
-  return (
-    <div>
-      <p className="flex-item outro">{props.description}</p>
-    </div>
-  );
-};
