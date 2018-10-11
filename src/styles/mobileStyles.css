@@ -24,18 +24,14 @@ div.content {
   background-color: #27272767;
 }
 
-/* navbar css, don't ask about that selector wtf */
+/* AFRAME COMPONENT */
 
-/* .mainNavbar > nav:nth-child(1) {
-	background-color: gray;
-	background-size: contain;
-	background-position: center;
-} */
+div.aframeContainer {
+  width: 100vw;
+  height: 80vh;
+}
 
-/* div.columnFlexed {
-	display: flex;
-	flex-direction: column;
-} */
+/* NAVBAR CSS */
 
 @keyframes shadow {
   /* 0%, */
@@ -50,13 +46,19 @@ div.content {
   0%,
   50%,
   100% {
-    box-shadow: 2vw 2vh 5px black;
+    box-shadow: 0vw 1vh 5px black;
   }
   25% {
-    box-shadow: 1vw 1vh 1rem rgb(246, 188, 27);
+    /* box-shadow: 1vw 1vh 1rem rgb(246, 188, 27); */
+    box-shadow: 0vw 0vh 1rem rgb(55, 248, 255);
   }
-  75% {
-    box-shadow: 1vw 1vh 1rem rgb(243, 0, 81);
+  76% {
+    box-shadow: none;
+  }
+  75%,77% {
+    /* box-shadow: 1vw 1vh 1rem rgb(243, 0, 81); */
+    box-shadow: 0vw 0vh 1rem rgb(55, 248, 255);
+
   }
 }
 
@@ -247,11 +249,6 @@ h1.title {
   font-size: 1em;
   text-align: center;
   padding-bottom: 0.5em;
-}
-
-div.mainNavbar {
-  color: aquamarine;
-  padding-bottom: 12em;
 }
 
 h1.dashed {
