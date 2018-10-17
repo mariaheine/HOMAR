@@ -25,7 +25,7 @@ class AppDesktop extends Component {
     return (
       <div>
         <div className="main-container">
-          <UnityComponent loadStatus={this.state.loadStatus} />
+          <UnityComponent height="100%" width="100%" loadStatus={this.state.loadStatus} />
           <div className="header">
             <h1>HOMAR Research Unit</h1>
           </div>
