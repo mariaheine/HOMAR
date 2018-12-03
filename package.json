@@ -2,7 +2,7 @@
   "name": "space-shooter",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://psthmn-cnd.github.io/HOMAR/",
+  "homepage": "https://homar.xyz/",
   "dependencies": {
     "aframe": "^0.8.2",
     "aframe-environment-component": "^1.1.0",
