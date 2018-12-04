@@ -4,10 +4,16 @@ import App from "./content/App.jsx";
 // import "./index.css";
 
 import rootReducer from "./reduxStore/reducers/rootReducer";
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
+import thunk from 'redux-thunk'
 
-const store = createStore(rootReducer);
+/* 
+ We could have many diffrent store enhancers/middleware here
+ Thunk lets us return a function inside our action creators
+ which can then interact with the database
+ */
+const store = createStore(rootReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Provider store={store}>

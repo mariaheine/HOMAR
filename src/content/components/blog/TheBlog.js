@@ -8,11 +8,11 @@ class TheBlog extends Component {
   render() {
 
     // This cool "trick" grabs just the articles off the props 
-    const { articles } = this.props;
-    console.log(articles);
+    const { posts } = this.props;
+    console.log(posts);
 
-    var listedArticles = articles && articles.map(article => (
-      <BlogPost post={article} key={article.id}/>
+    var listedArticles = posts && posts.map(post => (
+      <BlogPost post={post} key={post.id}/>
     ))
 
     return (
@@ -25,7 +25,7 @@ class TheBlog extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    articles: state.article.articles
+    posts: state.post.posts
   }
 }
 
