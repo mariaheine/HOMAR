@@ -27,7 +27,7 @@ class BlogPost extends Component {
         <Editor
           readOnly="true"
           editorState={postContent}
-          placeholder="whoops, a post should totally like display here 💔👽💦"
+          placeholder="Whoops, a post should like totally display here 💔👽💦"
         />
       </div>
     );
@@ -41,8 +41,24 @@ const mapStateToProps = (state, ownProps) => {
 
   let DBEditorState;
 
-  if(post) {
-    let DataToDisplay = post.content;
+  if (post) {
+
+    var dataSource;
+    switch (state.language.selectedLanguage) {
+      case "pl":
+        dataSource = post.polish;
+        break;
+      case "en":
+        dataSource = post.english ? post.english : post.polish;
+        break;
+      default:
+        dataSource = post.polish;
+        break;
+    }
+
+    // let DataToDisplay = post.content;
+    let DataToDisplay = dataSource.content;
+
     let DataFromRaw = convertFromRaw(JSON.parse(DataToDisplay));
     DBEditorState = EditorState.createWithContent(DataFromRaw);
   } else {

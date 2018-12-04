@@ -19,9 +19,9 @@ export const createPost = post => {
         content: post.rawContent,
         summary: post.rawSummary,
         polish: {
-            title: "",
-            summary: "",
-            content: ""
+            title: post.title,
+            summary: post.rawSummary,
+            content: post.rawContent
         },
         english: {
             title: "",
