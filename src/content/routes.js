@@ -7,6 +7,7 @@ import AppMobile from "./AppMobile";
 import AppDesktop from "./AppDesktop";
 import OutroCuteness from "./components/shop/OutroCuteness";
 import OutroProduct from "./components/shop/OutroProduct";
+import TheBlog from './components/blog/TheBlog';
 
 const BaseRouter = () => {
   return (
@@ -17,7 +18,8 @@ const BaseRouter = () => {
         <Route path="/shop" component={Shop} />
         <Route exact path="/outrocuteness/" component={OutroCuteness} />
         <Route path="/outrocuteness/:productId" component={OutroProduct} />
-        <Route exact path="/thewarp" component={AppDesktop} />
+        <Route exact path="/warp" component={AppDesktop} />
+        <Route path="/blog" component={TheBlog} />
         <Route component={Asd} />
       </Switch>
     </div>
