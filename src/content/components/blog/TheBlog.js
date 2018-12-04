@@ -1,32 +1,32 @@
-import React, { Component } from 'react'
-import BlogPost from "./BlogPost.js"
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import BlogPost from "./BlogPost.js";
+import { connect } from "react-redux";
+import { firestoreConnect } from "react-redux-firebase";
+import { compose } from "redux";
 
 import "./../../../styles/components/blog/blogContainer.css";
 
 class TheBlog extends Component {
   render() {
-
-    // This cool "trick" grabs just the articles off the props 
+    // This cool "trick" grabs just the articles off the props
     const { posts } = this.props;
-    console.log(posts);
+    // console.log(posts);
 
-    var listedArticles = posts && posts.map(post => (
-      <BlogPost post={post} key={post.id}/>
-    ))
+    var listedArticles =
+      posts && posts.map(post => <BlogPost post={post} key={post.id} />);
 
-    return (
-      <div className="container">
-        {listedArticles}
-      </div>
-    )
+    return <div className="container">{listedArticles}</div>;
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
+  // console.log(state);
   return {
-    posts: state.post.posts
-  }
-}
+    posts: state.firestore.ordered.blogPosts
+  };
+};
 
-export default connect(mapStateToProps)(TheBlog);
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([{ collection: "blogPosts" }])
+)(TheBlog);
