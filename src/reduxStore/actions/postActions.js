@@ -1,10 +1,10 @@
 export const createPost = post => {
   /*
-        thunk.withExtraArgument({...}) at index.js
-        lets us pass an extra argument below, after getState
+    thunk.withExtraArgument({...}) at index.js
+    lets us pass an extra argument below, after getState
 
-        both getFirebase, getFirestore know where to connect
-        to thanks to the redux firebase connection in index.js
+    both getFirebase, getFirestore know where to connect
+    to thanks to the redux firebase connection in index.js
     */
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     /* Pause dispatch, make async call to the database */
@@ -17,6 +17,17 @@ export const createPost = post => {
       .add({
         title: post.title,
         content: post.rawContent,
+        summary: post.rawSummary,
+        polish: {
+            title: "",
+            summary: "",
+            content: ""
+        },
+        english: {
+            title: "",
+            summary: "",
+            content: ""
+        },
         author: "Marie",
         authorId: 5,
         createdAt: new Date()

@@ -8,6 +8,7 @@ import AppDesktop from "./AppDesktop";
 import OutroCuteness from "./components/shop/OutroCuteness";
 import OutroProduct from "./components/shop/OutroProduct";
 import TheBlog from './components/blog/TheBlog';
+import BlogPost from './components/blog/BlogPost';
 import CreatePost from './components/dashboard/CreatePost';
 
 const BaseRouter = () => {
@@ -20,7 +21,8 @@ const BaseRouter = () => {
         <Route exact path="/outrocuteness/" component={OutroCuteness} />
         <Route path="/outrocuteness/:productId" component={OutroProduct} />
         <Route exact path="/warp" component={AppDesktop} />
-        <Route path="/blog" component={TheBlog} />
+        <Route exact path="/blog/" component={TheBlog} />
+        <Route path="/blog/:postId" component={BlogPost} />
         <Route path="/create" component={CreatePost} />
         <Route component={Asd} />
       </Switch>

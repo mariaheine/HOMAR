@@ -8,7 +8,9 @@ class CreatePost extends Component {
   state = {
     title: "",
     rawContent: "",
-    editorState: EditorState.createEmpty()
+    rawSummary: "",
+    contentEditor: EditorState.createEmpty(),
+    summaryEditor: EditorState.createEmpty()
   };
 
   handleTitleChange = e => {
@@ -17,24 +19,31 @@ class CreatePost extends Component {
     });
   };
 
-  handleEditorChange = e => {
+  handleContentChange = e => {
     this.setState({
-      //   rawContent: () => {convertToRaw(e)},
-      editorState: e
+      contentEditor: e
     });
   };
+
+  handleSummaryChange = e => {
+    this.setState({
+      summaryEditor: e
+    });
+  }
 
   handleSubmit = e => {
     e.preventDefault();
     //console.log(this.state);
-    let raw = convertToRaw(this.state.editorState.getCurrentContent());
+    let rawContent = convertToRaw(this.state.contentEditor.getCurrentContent());
+    let rawSummary = convertToRaw(this.state.summaryEditor.getCurrentContent());
 
     this.setState(
       {
-        rawContent: JSON.stringify(raw)
+        rawContent: JSON.stringify(rawContent),
+        rawSummary: JSON.stringify(rawSummary)
       },
       () => {
-        // console.log(this.state.rawContent);
+        console.log(this.state.rawSummary);
         this.props.createPost(this.state);
       }
     );
@@ -44,19 +53,31 @@ class CreatePost extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <h5>POST CONTENT</h5>
+          <h5>NEW POST</h5>
           <div>
-            <label htmlFor="content">Content</label>
+            <h5>Title:</h5>
             <input type="text" onChange={this.handleTitleChange} />
+          </div>          
+          <div>
+            <h5>POST SUMMARY</h5>
+            <Editor
+              id="editor"
+              onChange={e => {
+                this.handleSummaryChange(e);
+              }}
+              editorState={this.state.summaryEditor}
+              placeholder="SUMMARY HERE"
+            />
           </div>
           <div>
+            <h5>POST CONTENT</h5>
             <Editor
               id="editor"
               onChange={editorState => {
-                this.handleEditorChange(editorState);
+                this.handleContentChange(editorState);
               }}
-              editorState={this.state.editorState}
-              placeholder="EDITOR HERE"
+              editorState={this.state.contentEditor}
+              placeholder="CONTENT HERE"
             />
           </div>
           <div>
