@@ -4,7 +4,7 @@ import { Editor, EditorState, convertToRaw } from "draft-js";
 
 import { createPost } from "./../../../reduxStore/actions/postActions";
 
-class CreatePost extends Component {
+class PostForm extends Component {
   state = {
     title: "",
     rawContent: "",
@@ -108,4 +108,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   null,
   mapDispatchToProps
-)(CreatePost);
+)(PostForm);

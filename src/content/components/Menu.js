@@ -1,19 +1,12 @@
-    import React, { Component } from "react";
+import React, { Component } from "react";
 import {
-  TabContent,
-  TabPane,
-  Row,
-  Col,
   Collapse,
-  Navbar,
   NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
   NavLink
 } from "reactstrap";
 import "./../../styles/mobileStyles.css";
-
 
 export default class Menu extends Component {
   constructor(props) {
