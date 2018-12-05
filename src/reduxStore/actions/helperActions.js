@@ -15,8 +15,8 @@ const covertDataFromRaw = data => {
 export const requestDisplayablePostByLanguage = (post, language) => {
   let postTitle;
   let postContent;
-  let postSummary
-
+  let postSummary;
+  let doesTranslationExist;
 
   if (post) {
     var dataSource;
@@ -27,7 +27,16 @@ export const requestDisplayablePostByLanguage = (post, language) => {
       case "en":
         // Check here if data isnt empty, itf is - fallback to polish version
         // Also could add a notification that its not available in english
-        dataSource = post.english.title ? post.english : post.polish;
+        if(post.english.title)
+        {
+          dataSource = post.english;
+          doesTranslationExist = true;
+        }
+        else {
+          dataSource = post.polish;
+          doesTranslationExist = false;
+        }
+        
         break;
     }
     postTitle = dataSource.title;

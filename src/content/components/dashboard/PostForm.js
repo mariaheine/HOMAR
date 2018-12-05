@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect } from 'react-router-dom'
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { Editor, EditorState, convertToRaw, convertFromRaw } from "draft-js";
 
@@ -11,15 +11,29 @@ class PostForm extends Component {
   constructor(props) {
     super(props);
 
+    // console.log(this.props.data);
+    
+    const {data} = this.props;
+    let title;
+    let summary;
+    let content;
+    if(data)
+    {
+      title = data.title;
+      summary = data.summary;
+      content = data.content;
+    }
+    // console.log(content);
+
     this.state = {
       mode: {
         isEmpty: true,
         editEnabled: true
       },
       editor: {
-        title: "",
-        summaryEditor: EditorState.createEmpty(),
-        contentEditor: EditorState.createEmpty()
+        title: title || "",
+        summaryEditor: summary || EditorState.createEmpty(),
+        contentEditor: content || EditorState.createEmpty()
       },
       staged: {
         title: "",
@@ -90,7 +104,11 @@ class PostForm extends Component {
           <h5>NEW POST</h5>
           <div>
             <h5>Title:</h5>
-            <input type="text" value={this.state.editor.title} onChange={this.handleTitleChange} />
+            <input
+              type="text"
+              value={this.state.editor.title}
+              onChange={this.handleTitleChange}
+            />
           </div>
           <div>
             <h5>POST SUMMARY</h5>
@@ -122,69 +140,85 @@ class PostForm extends Component {
     );
   }
 
-  componentDidMount() {
-    
-    /* 
-    
-     IMPORTANT!
+  componentWillReceiveProps() {
+    const { data } = this.props;
 
-     IMPLEMENT REDIRECT LATER IF REFRESHED THAT PAGE,
-     FORCE FALLBACK TO THE DASHBOARD
-    
-    */
+    console.log(data);
 
-    if (this.props.data) {
-        
-      const data = this.props.data;
-      
+    if (data) {
+      console.log("letsgo");
       this.setState(prevState => ({
         editor: {
           ...prevState.editor,
-          title: data.title
+          contentEditor: data.content
         }
       }));
-      
-      let summaryData = data.summary;
-      if (summaryData) {
-        // console.log(summaryData);
-        let DataFromRaw = convertFromRaw(JSON.parse(summaryData));
-        let EditorData = EditorState.createWithContent(DataFromRaw);
-        this.setState(prevState => ({
-          editor: {
-            ...prevState.editor,
-            summaryEditor: EditorData
-          }
-        }));
-      } else {
-        this.setState(prevState => ({
-          editor: {
-            ...prevState.editor,
-            summaryEditor: EditorState.createEmpty()
-          }
-        }));
-      }
-
-      let contentData = data.content;
-      if (contentData) {
-        // console.log(contentData);
-        let DataFromRaw = convertFromRaw(JSON.parse(contentData));
-        let EditorData = EditorState.createWithContent(DataFromRaw);
-        this.setState(prevState => ({
-          editor: {
-            ...prevState.editor,
-            contentEditor: EditorData
-          }
-        }));
-      } else {
-        this.setState(prevState => ({
-          editor: {
-            ...prevState.editor,
-            contentEditor: EditorState.createEmpty()
-          }
-        }));
-      }
     }
   }
+
+  // componentDidMount() {
+  //   /* 
+    
+  //    IMPORTANT!
+
+  //    IMPLEMENT REDIRECT LATER IF REFRESHED THAT PAGE,
+  //    FORCE FALLBACK TO THE DASHBOARD
+    
+  //   */
+
+  //   console.log("mounted");
+
+  //   if (this.props.data) {
+  //     const data = this.props.data;
+
+  //     this.setState(prevState => ({
+  //       editor: {
+  //         ...prevState.editor,
+  //         title: data.title
+  //       }
+  //     }));
+
+  //     let summaryData = data.summary;
+  //     if (summaryData) {
+  //       // console.log(summaryData);
+  //       let DataFromRaw = convertFromRaw(JSON.parse(summaryData));
+  //       let EditorData = EditorState.createWithContent(DataFromRaw);
+  //       this.setState(prevState => ({
+  //         editor: {
+  //           ...prevState.editor,
+  //           summaryEditor: EditorData
+  //         }
+  //       }));
+  //     } else {
+  //       this.setState(prevState => ({
+  //         editor: {
+  //           ...prevState.editor,
+  //           summaryEditor: EditorState.createEmpty()
+  //         }
+  //       }));
+  //     }
+
+  //     let contentData = data.content;
+  //     if (contentData) {
+  //       // console.log(contentData);
+  //       let DataFromRaw = convertFromRaw(JSON.parse(contentData));
+  //       let EditorData = EditorState.createWithContent(DataFromRaw);
+  //       this.setState(prevState => ({
+  //         editor: {
+  //           ...prevState.editor,
+  //           contentEditor: EditorData
+  //         }
+  //       }));
+  //     } else {
+  //       this.setState(prevState => ({
+  //         editor: {
+  //           ...prevState.editor,
+  //           contentEditor: EditorState.createEmpty()
+  //         }
+  //       }));
+  //     }
+  //   }
+  // }
 }
 
 export default PostForm;

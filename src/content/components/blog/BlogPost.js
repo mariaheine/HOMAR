@@ -6,7 +6,7 @@ import { compose } from "redux";
 // Temporary draft-js display using readonly Editor
 import { Editor, EditorState, convertFromRaw } from "draft-js";
 
-import {requestDisplayablePostByLanguage} from './../dashboard/helperActions'
+import {requestDisplayablePostByLanguage} from './../../../reduxStore/actions/helperActions'
 
 import { setLanguage } from "./../../../reduxStore/actions/langActions";
 

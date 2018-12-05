@@ -7,12 +7,13 @@ import "./../../../styles/components/blog/blogContainer.css";
 import "./../../../styles/components/dashboard/postEditor.css";
 
 import { createPost } from "./../../../reduxStore/actions/postActions";
+import { requestDisplayablePostByLanguage } from "./../../../reduxStore/actions/helperActions";
 
 import PostForm from "./PostForm";
 
 class EditPost extends Component {
   state = {
-    editingLanguage: "pl",
+    editingLanguage: "en",
     translatedData: null
   };
 
@@ -28,6 +29,14 @@ class EditPost extends Component {
         targetLanguage = "pl";
         break;
       case "btnEN":
+
+        /*
+          CHECK IF ENGLISH VERSION ISNT NULL
+          IF IT IS CREATE NEW EMPTY BECAUSE CURRENTLY WE GET FALLBACK
+          TO POLISH VERSION ON ENG BUTTON CLICK
+        */
+
+
         targetLanguage = "en";
         break;
     }
@@ -35,27 +44,31 @@ class EditPost extends Component {
   };
 
   render() {
-    const { postData } = this.props;
-    // console.log(this.props);
-    
-    console.log(postData);
+    const { postData, postPL, postEN } = this.props;
+
+    // console.log(postData);
     var translatedData;
+
+    var translation;
     if (postData) {
       switch (this.state.editingLanguage) {
         case "pl":
-          translatedData = postData.polish;
+          translation = postPL;
           break;
         case "en":
-          translatedData = postData.english;
-          break;
-        default:
-          translatedData = postData.polish;
+          console.log("fuck")
+          translation = postEN;
           break;
       }
-      // console.log(translatedData);
-      // this.setState({translatedData: translatedData})
     }
-    
+
+    console.log(this.state.editingLanguage)
+    console.log(translation);
+
+    var FormDisplayer = <PostForm key={`form${translation}`} data={translation} />;
+
+    // console.log(FormDisplayer);
+
     return (
       <div className="container">
         <div className="navbar">
@@ -77,7 +90,8 @@ class EditPost extends Component {
             </button>
           </div>
         </div>
-        <PostForm data={translatedData} />
+        {/* <PostForm data={translatedData} /> */}
+        {FormDisplayer}
       </div>
     );
   }
@@ -88,8 +102,17 @@ const mapStateToProps = (state, ownProps) => {
   const posts = state.firestore.data.blogPosts;
   const post = posts ? posts[id] : null;
   // console.log(post)
+
+  var displayablePostPL = requestDisplayablePostByLanguage(post, "pl");
+  var displayablePostEN = requestDisplayablePostByLanguage(post, "en");
+
+  console.log(displayablePostPL);
+  console.log(displayablePostEN)
+
   return {
-    postData: post
+    postData: post,
+    postPL: displayablePostPL,
+    postEN: displayablePostEN
   };
 };
 
