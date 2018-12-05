@@ -6,6 +6,10 @@ import { compose } from "redux";
 // Temporary draft-js display using readonly Editor
 import { Editor, EditorState, convertFromRaw } from "draft-js";
 
+import {requestDisplayablePostByLanguage} from './../dashboard/helperActions'
+
+import { setLanguage } from "./../../../reduxStore/actions/langActions";
+
 import "./../../../styles/components/blog/blogPost.css";
 
 class BlogPost extends Component {
@@ -17,64 +21,49 @@ class BlogPost extends Component {
     };
   }
 
+  changelang = () => {
+    this.props.setLanguage('en');
+  }
+
   render() {
-    const { postContent } = this.props;
-    // console.log(this.props);
-    console.log(this.props.postTitle);
+    const { post } = this.props;
+    // console.log(post);
+    // console.log(this.props.displayablePost.postContent);
 
     return (
       <div className="blogItem">
-        <h3>{this.props.postTitle}</h3>
+        <h3>{post.title}</h3>
         <Editor
           readOnly="true"
-          editorState={postContent}
+          editorState={post.content}
           placeholder="Whoops, a post should like totally display here 💔👽💦"
         />
+        <button onClick={this.changelang}>asdaslk kdslkd</button>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
+
   const id = ownProps.match.params.postId;
   const posts = state.firestore.data.blogPosts;
   const post = posts ? posts[id] : null;
 
-  let postTitle;
-  let postContent;
-
-  if (post) {
-    var dataSource;
-    switch (state.language.selectedLanguage) {
-      case "pl":
-        dataSource = post.polish;
-        break;
-      case "en":
-        dataSource = post.english ? post.english : post.polish;
-        break;
-      default:
-        dataSource = post.polish;
-        break;
-    }
-    postTitle = dataSource.title;
-
-    let DataToDisplay = dataSource.content;
-    let DataFromRaw = convertFromRaw(JSON.parse(DataToDisplay));
-    postContent = EditorState.createWithContent(DataFromRaw);
-  } else {
-    postTitle = "🌊wait🐋for🐟🐳it💦"
-    postContent = EditorState.createEmpty();
-  }
-
-
+  var displayablePost = requestDisplayablePostByLanguage(post, state.language.selectedLanguage)
 
   return {
-    postContent: postContent,
-    postTitle: postTitle
+    post: displayablePost
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setLanguage: language => dispatch(setLanguage(language))
   };
 };
 
 export default compose(
-  connect(mapStateToProps),
+  connect(mapStateToProps,mapDispatchToProps),
   firestoreConnect([{ collection: "blogPosts" }])
 )(BlogPost);

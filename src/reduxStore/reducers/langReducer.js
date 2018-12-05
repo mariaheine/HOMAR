@@ -1,9 +1,15 @@
 const initState = {
-    selectedLanguage: 'pl'
+  selectedLanguage: "pl"
 };
 
 const langReducer = (state = initState, action) => {
-    return state;
+  switch (action.type) {
+    case "SET_LANGUAGE":
+      // return { ...state, selectedLanguage: action.language };
+      return Object.assign({}, state, {selectedLanguage: action.language})
+    default:
+      return state;
+  }
 };
 
 export default langReducer;

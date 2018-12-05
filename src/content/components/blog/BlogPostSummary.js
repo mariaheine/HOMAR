@@ -33,7 +33,7 @@ class BlogPostSummary extends Component {
     return (
       <div className="blogItem">
         <Link to={`/blog/${this.props.post.id}`}>
-        <h3>{this.props.postTitle}</h3>
+          <h3>{this.props.postTitle}</h3>
           <Editor
             readOnly="true"
             // editorState={this.state.content}
@@ -46,7 +46,45 @@ class BlogPostSummary extends Component {
   }
 }
 
+const getEditorStateByLanguage = (post, language) => {
+  let DBEditorState;
+
+  let postTitle;
+  let postContent;
+
+  if (post) {
+    var dataSource;
+    switch (language) {
+      case "pl":
+        dataSource = post.polish;
+        break;
+      case "en":
+        dataSource = post.english.title ? post.english : post.polish;
+        break;
+    }
+    postTitle = dataSource.title;
+
+    let DataToDisplay = dataSource.summary;
+    let DataFromRaw = convertFromRaw(JSON.parse(DataToDisplay));
+    postContent = EditorState.createWithContent(DataFromRaw);
+  } else {
+    postTitle = "🌊wait🐋for🐟🐳it💦";
+    postContent = EditorState.createEmpty();
+  }
+
+  return {
+    postContent: postContent,
+    postTitle: postTitle
+  };
+};
+
 const mapStateToProps = (state, ownProps) => {
+  var result = getEditorStateByLanguage(
+    ownProps.post,
+    state.language.selectedLanguage
+  );
+  console.log(result);
+
   let DBEditorState;
 
   let postTitle;
