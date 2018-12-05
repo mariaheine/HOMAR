@@ -11,6 +11,7 @@ import TheBlog from './components/blog/TheBlog';
 import BlogPost from './components/blog/BlogPost';
 import CreatePost from './components/dashboard/CreatePost';
 import Homaremenon from './components/dashboard/Homaremenon';
+import EditPost from './components/dashboard/EditPost';
 
 const BaseRouter = () => {
   return (
@@ -25,7 +26,8 @@ const BaseRouter = () => {
         <Route exact path="/blog/" component={TheBlog} />
         <Route path="/blog/:postId" component={BlogPost} />
         <Route path="/create" component={CreatePost} />
-        <Route path="/homaremenon" component={Homaremenon} />
+        <Route exact path="/homaremenon/" component={Homaremenon} />        
+        <Route path="/homaremenon/edit/:postId" component={EditPost} />
         <Route component={Asd} />
       </Switch>
     </div>

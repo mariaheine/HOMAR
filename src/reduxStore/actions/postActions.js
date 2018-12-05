@@ -15,9 +15,9 @@ export const createPost = post => {
     firestore
       .collection("blogPosts")
       .add({
-        title: post.title,
-        content: post.rawContent,
-        summary: post.rawSummary,
+        // title: post.title,
+        // content: post.rawContent,
+        // summary: post.rawSummary,
         polish: {
             title: post.title,
             summary: post.rawSummary,

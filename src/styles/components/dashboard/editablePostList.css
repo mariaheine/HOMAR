@@ -1,0 +1,14 @@
+div.container {
+    margin-left: auto;
+    background: orange;
+    padding: 0.9rem;
+}
+
+button.postTitle {
+    background: orange;
+    height: 6vh;
+    width: 20vw;
+}
+button.postTitle:hover {
+    background: orangered;
+}

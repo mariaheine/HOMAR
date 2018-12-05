@@ -1,73 +1,97 @@
 import React, { Component } from "react";
+import { Redirect } from 'react-router-dom'
 import { connect } from "react-redux";
-import { Editor, EditorState, convertToRaw } from "draft-js";
+import { Editor, EditorState, convertToRaw, convertFromRaw } from "draft-js";
+
+import "./../../../styles/components/blog/blogPost.css";
 
 import { createPost } from "./../../../reduxStore/actions/postActions";
 
 class PostForm extends Component {
-  state = {
-    title: "",
-    rawContent: "",
-    rawSummary: "",
-    contentEditor: EditorState.createEmpty(),
-    summaryEditor: EditorState.createEmpty(),
-    mode: {
-      isNewPost: true,
-      editEnabled: true
-    },
-    staged: {
-      title: "",
-      rawSummary: "",
-      rawContent: ""
-    }
-  };
+  constructor(props) {
+    super(props);
 
-  handleTitleChange = e => {
-    this.setState({
-      title: e.target.value
-    });
-  };  
-
-  handleSummaryChange = e => {
-    this.setState({
-      summaryEditor: e
-    });
+    this.state = {
+      mode: {
+        isEmpty: true,
+        editEnabled: true
+      },
+      editor: {
+        title: "",
+        summaryEditor: EditorState.createEmpty(),
+        contentEditor: EditorState.createEmpty()
+      },
+      staged: {
+        title: "",
+        rawSummary: "",
+        rawContent: ""
+      }
+    };
   }
 
+  handleTitleChange = e => {
+    e.persist();
+    this.setState(prevState => ({
+      editor: {
+        ...prevState.editor,
+        title: e.target.value
+      }
+    }));
+  };
+
+  handleSummaryChange = e => {
+    this.setState(prevState => ({
+      editor: {
+        ...prevState.editor,
+        summaryEditor: e
+      }
+    }));
+  };
+
   handleContentChange = e => {
-    this.setState({
-      contentEditor: e
-    });
+    this.setState(prevState => ({
+      editor: {
+        ...prevState.editor,
+        contentEditor: e
+      }
+    }));
   };
 
   handleSubmit = e => {
     e.preventDefault();
-    //console.log(this.state);
-    
-    let rawContent = convertToRaw(this.state.contentEditor.getCurrentContent());
-    let rawSummary = convertToRaw(this.state.summaryEditor.getCurrentContent());
+
+    let rawContent = convertToRaw(
+      this.state.editor.contentEditor.getCurrentContent()
+    );
+    let rawSummary = convertToRaw(
+      this.state.editor.summaryEditor.getCurrentContent()
+    );
 
     this.setState(
       {
-        rawContent: JSON.stringify(rawContent),
-        rawSummary: JSON.stringify(rawSummary)
+        staged: {
+          title: this.state.editor.title,
+          rawSummary: JSON.stringify(rawSummary),
+          rawContent: JSON.stringify(rawContent)
+        }
       },
       () => {
-        console.log(this.state.rawSummary);
-        this.props.createPost(this.state);
+        // console.log(this.state.staged);
+        // this.props.createPost(this.state);
+        this.props.handleSubmit(this.state.staged);
       }
     );
   };
 
   render() {
     return (
-      <div>
+      <div className="blogItem">
         <form onSubmit={this.handleSubmit}>
           <h5>NEW POST</h5>
           <div>
             <h5>Title:</h5>
-            <input type="text" onChange={this.handleTitleChange} />
-          </div>          
+            <input type="text" value={this.state.editor.title} onChange={this.handleTitleChange} />
+          </div>
           <div>
             <h5>POST SUMMARY</h5>
             <Editor
@@ -75,7 +99,7 @@ class PostForm extends Component {
               onChange={e => {
                 this.handleSummaryChange(e);
               }}
-              editorState={this.state.summaryEditor}
+              editorState={this.state.editor.summaryEditor}
               placeholder="SUMMARY HERE"
             />
           </div>
@@ -86,7 +110,7 @@ class PostForm extends Component {
               onChange={editorState => {
                 this.handleContentChange(editorState);
               }}
-              editorState={this.state.contentEditor}
+              editorState={this.state.editor.contentEditor}
               placeholder="CONTENT HERE"
             />
           </div>
@@ -97,15 +121,70 @@ class PostForm extends Component {
       </div>
     );
   }
+
+  componentDidMount() {
+    
+    /* 
+    
+     IMPORTANT!
+
+     IMPLEMENT REDIRECT LATER IF REFRESHED THAT PAGE,
+     FORCE FALLBACK TO THE DASHBOARD
+    
+    */
+
+    if (this.props.data) {
+        
+      const data = this.props.data;
+      
+      this.setState(prevState => ({
+        editor: {
+          ...prevState.editor,
+          title: data.title
+        }
+      }));
+      
+      let summaryData = data.summary;
+      if (summaryData) {
+        // console.log(summaryData);
+        let DataFromRaw = convertFromRaw(JSON.parse(summaryData));
+        let EditorData = EditorState.createWithContent(DataFromRaw);
+        this.setState(prevState => ({
+          editor: {
+            ...prevState.editor,
+            summaryEditor: EditorData
+          }
+        }));
+      } else {
+        this.setState(prevState => ({
+          editor: {
+            ...prevState.editor,
+            summaryEditor: EditorState.createEmpty()
+          }
+        }));
+      }
+
+      let contentData = data.content;
+      if (contentData) {
+        // console.log(contentData);
+        let DataFromRaw = convertFromRaw(JSON.parse(contentData));
+        let EditorData = EditorState.createWithContent(DataFromRaw);
+        this.setState(prevState => ({
+          editor: {
+            ...prevState.editor,
+            contentEditor: EditorData
+          }
+        }));
+      } else {
+        this.setState(prevState => ({
+          editor: {
+            ...prevState.editor,
+            contentEditor: EditorState.createEmpty()
+          }
+        }));
+      }
+    }
+  }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    createPost: post => dispatch(createPost(post))
-  };
-};
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(PostForm);
+export default PostForm;

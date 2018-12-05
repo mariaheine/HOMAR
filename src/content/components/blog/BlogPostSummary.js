@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
 // Temporary draft-js display using readonly Editor
 import { Editor, EditorState, convertFromRaw } from "draft-js";
@@ -11,14 +12,20 @@ class BlogPostSummary extends Component {
     super(props);
     // console.log(this.props.post)
 
-    const DataToDisplay = this.props.post.summary
-      ? this.props.post.summary
-      : this.props.post.content;
+    // const DataToDisplay = this.props.post.summary
+    //   ? this.props.post.summary
+    //   : this.props.post.content;
 
-    const DBEditorState = convertFromRaw(JSON.parse(DataToDisplay));
+    // const DBEditorState = convertFromRaw(JSON.parse(DataToDisplay));
+
+    console.log();
+
+    // var DBEditorState;
+    // if (this.props.post) {
+    // }
 
     this.state = {
-      content: EditorState.createWithContent(DBEditorState)
+      // content: EditorState.createWithContent(DBEditorState)
     };
   }
 
@@ -26,9 +33,11 @@ class BlogPostSummary extends Component {
     return (
       <div className="blogItem">
         <Link to={`/blog/${this.props.post.id}`}>
+        <h3>{this.props.postTitle}</h3>
           <Editor
             readOnly="true"
-            editorState={this.state.content}
+            // editorState={this.state.content}
+            editorState={this.props.postContent}
             placeholder="EDITOR HERE"
           />
         </Link>
@@ -37,4 +46,36 @@ class BlogPostSummary extends Component {
   }
 }
 
-export default BlogPostSummary;
+const mapStateToProps = (state, ownProps) => {
+  let DBEditorState;
+
+  let postTitle;
+  let postContent;
+
+  if (ownProps.post) {
+    var dataSource;
+    switch (state.language.selectedLanguage) {
+      case "pl":
+        dataSource = ownProps.post.polish;
+        break;
+      case "en":
+        dataSource = ownProps.post.english || ownProps.post.polish;
+        break;
+    }
+    postTitle = dataSource.title;
+
+    let DataToDisplay = dataSource.summary;
+    let DataFromRaw = convertFromRaw(JSON.parse(DataToDisplay));
+    postContent = EditorState.createWithContent(DataFromRaw);
+  } else {
+    postTitle = "🌊wait🐋for🐟🐳it💦";
+    postContent = EditorState.createEmpty();
+  }
+
+  return {
+    postContent: postContent,
+    postTitle: postTitle
+  };
+};
+
+export default connect(mapStateToProps)(BlogPostSummary);

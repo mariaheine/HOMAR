@@ -1,4 +1,24 @@
 div .container {
   display: flex;
+  background: #272727bc;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+div.createNewPost {
+  padding: 0.9rem;
+  padding-top: 0rem;
+}
+
+h2 {
+  color: orange;
+  padding: 0.5rem;
+  margin: 0.5rem;
+}
+
+h3 {
+  color: orange;
+  padding: 2rem;
+  margin: 0.5rem;
 }

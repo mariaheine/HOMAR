@@ -20,10 +20,11 @@ class BlogPost extends Component {
   render() {
     const { postContent } = this.props;
     // console.log(this.props);
-    // console.log(postContent);
+    console.log(this.props.postTitle);
 
     return (
       <div className="blogItem">
+        <h3>{this.props.postTitle}</h3>
         <Editor
           readOnly="true"
           editorState={postContent}
@@ -39,10 +40,10 @@ const mapStateToProps = (state, ownProps) => {
   const posts = state.firestore.data.blogPosts;
   const post = posts ? posts[id] : null;
 
-  let DBEditorState;
+  let postTitle;
+  let postContent;
 
   if (post) {
-
     var dataSource;
     switch (state.language.selectedLanguage) {
       case "pl":
@@ -55,18 +56,21 @@ const mapStateToProps = (state, ownProps) => {
         dataSource = post.polish;
         break;
     }
+    postTitle = dataSource.title;
 
-    // let DataToDisplay = post.content;
     let DataToDisplay = dataSource.content;
-
     let DataFromRaw = convertFromRaw(JSON.parse(DataToDisplay));
-    DBEditorState = EditorState.createWithContent(DataFromRaw);
+    postContent = EditorState.createWithContent(DataFromRaw);
   } else {
-    DBEditorState = EditorState.createEmpty();
+    postTitle = "🌊wait🐋for🐟🐳it💦"
+    postContent = EditorState.createEmpty();
   }
 
+
+
   return {
-    postContent: DBEditorState
+    postContent: postContent,
+    postTitle: postTitle
   };
 };
 
