@@ -17,7 +17,7 @@ export const requestDisplayablePostByLanguage = (post, language) => {
   let postSummary;
   let hasContent;
 
-  console.log("went through, lang: " + language)
+  // console.log("went through, lang: " + language)
 
   if (post) {
     var dataSource;
@@ -35,7 +35,7 @@ export const requestDisplayablePostByLanguage = (post, language) => {
           let altSummary = "not translated yet, sorry 😿⛅️";
           let altContent = "👭";
           return {
-            title: "englisz",
+            title: altTitle,
             summary: EditorState.createWithContent(ContentState.createFromText(altSummary)),
             content: EditorState.createWithContent(ContentState.createFromText(altContent)),
             hasContent: false

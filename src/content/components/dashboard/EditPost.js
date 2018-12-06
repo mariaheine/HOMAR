@@ -19,7 +19,10 @@ class EditPost extends Component {
 
   _editPost = stagedPost => {
     console.log(this.props.postData.id);
-    this.props.editPost(stagedPost);
+    const postId = this.props.match.params.postId;
+    const language = this.state.editingLanguage;
+
+    this.props.editPost(postId,stagedPost,language);
   };
 
   _changeEditedLanguage = e => {
@@ -99,8 +102,8 @@ const mapStateToProps = (state, ownProps) => {
   var displayablePostPL = requestDisplayablePostByLanguage(post, "pl");
   var displayablePostEN = requestDisplayablePostByLanguage(post, "en");
 
-  console.log(displayablePostPL);
-  console.log(displayablePostEN);
+  // console.log(displayablePostPL);
+  // console.log(displayablePostEN);
 
   return {
     postData: post,
@@ -112,7 +115,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     // createPost: post => dispatch(createPost(post))
-    editPost: editedPost => dispatch(editPost(editedPost))
+    editPost: (postId, editedPost, language) => dispatch(editPost(postId, editedPost, language))
   };
 };
 

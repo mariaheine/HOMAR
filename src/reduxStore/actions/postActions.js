@@ -19,14 +19,14 @@ export const createPost = post => {
         // content: post.rawContent,
         // summary: post.rawSummary,
         polish: {
-            title: post.title,
-            summary: post.rawSummary,
-            content: post.rawContent
+          title: post.title,
+          summary: post.rawSummary,
+          content: post.rawContent
         },
         english: {
-            title: "",
-            summary: "",
-            content: ""
+          title: "",
+          summary: "",
+          content: ""
         },
         author: "Marie",
         authorId: 5,
@@ -46,17 +46,53 @@ export const createPost = post => {
         });
       });
   };
-}
+};
 
-
-
-export const editPost = (editedPost, language) => {
-  return (dispatch, getState, {getFirebase, getFirestore}) => {
+export const editPost = (postId, editedPost, language) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
 
     console.log("were here!");
+    // console.log(postId + editedPost + language);
 
-    // firestore
-    //   .collection('blogPosts')
-  }
-}
+    var englishSend = {};
+    var polish = {};
+
+    if (language === "en") {
+      console.log("english");
+      englishSend.title = editedPost.title;
+      englishSend.summary = editedPost.rawSummary;
+      englishSend.content = editedPost.rawContent;
+      console.log(englishSend);
+    }
+
+    // var firestoreGetById = firestore
+    //   .collection("blogPosts")
+    //   .doc(postId)
+    //   .get()
+    //   .then(doc => {
+    //     if (doc.exists) {
+    //       console.log(doc.data());
+    //     }
+    //   })
+    //   .catch(err => {
+    //     console.log("Error getting doooc): " + err);
+    //   });
+
+    firestore
+      .collection("blogPosts")
+      .doc(postId)
+      .set(
+        {
+          english: englishSend
+        },
+        { merge: true }
+      )
+      .then(() => {
+        console.log("Succesfull post update!");
+      })
+      .catch(err => {
+        console.log("Error updating data: " + err);
+      });
+  };
+};
