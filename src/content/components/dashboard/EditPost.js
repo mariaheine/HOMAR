@@ -6,7 +6,7 @@ import { compose } from "redux";
 import "./../../../styles/components/blog/blogContainer.css";
 import "./../../../styles/components/dashboard/postEditor.css";
 
-import { createPost } from "./../../../reduxStore/actions/postActions";
+import { editPost } from "./../../../reduxStore/actions/postActions";
 import { requestDisplayablePostByLanguage } from "./../../../reduxStore/actions/helperActions";
 
 import PostForm from "./PostForm";
@@ -18,7 +18,8 @@ class EditPost extends Component {
   };
 
   _editPost = stagedPost => {
-    // this.props.createPost(stagedPost);
+    console.log(this.props.postData.id);
+    this.props.editPost(stagedPost);
   };
 
   _changeEditedLanguage = e => {
@@ -29,14 +30,6 @@ class EditPost extends Component {
         targetLanguage = "pl";
         break;
       case "btnEN":
-
-        /*
-          CHECK IF ENGLISH VERSION ISNT NULL
-          IF IT IS CREATE NEW EMPTY BECAUSE CURRENTLY WE GET FALLBACK
-          TO POLISH VERSION ON ENG BUTTON CLICK
-        */
-
-
         targetLanguage = "en";
         break;
     }
@@ -46,28 +39,29 @@ class EditPost extends Component {
   render() {
     const { postData, postPL, postEN } = this.props;
 
-    // console.log(postData);
-    var translatedData;
-
-    var translation;
+    var FormDisplayer;
     if (postData) {
       switch (this.state.editingLanguage) {
         case "pl":
-          translation = postPL;
+          FormDisplayer = (
+            <PostForm
+              handleSubmit={this._editPost}
+              key={`form${postPL.title}`}
+              data={postPL}
+            />
+          );
           break;
         case "en":
-          console.log("fuck")
-          translation = postEN;
+          FormDisplayer = (
+            <PostForm
+              handleSubmit={this._editPost}
+              key={`form${postEN.title}`}
+              data={postEN}
+            />
+          );
           break;
       }
     }
-
-    console.log(this.state.editingLanguage)
-    console.log(translation);
-
-    var FormDisplayer = <PostForm key={`form${translation}`} data={translation} />;
-
-    // console.log(FormDisplayer);
 
     return (
       <div className="container">
@@ -90,7 +84,6 @@ class EditPost extends Component {
             </button>
           </div>
         </div>
-        {/* <PostForm data={translatedData} /> */}
         {FormDisplayer}
       </div>
     );
@@ -107,7 +100,7 @@ const mapStateToProps = (state, ownProps) => {
   var displayablePostEN = requestDisplayablePostByLanguage(post, "en");
 
   console.log(displayablePostPL);
-  console.log(displayablePostEN)
+  console.log(displayablePostEN);
 
   return {
     postData: post,
@@ -119,10 +112,14 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     // createPost: post => dispatch(createPost(post))
+    editPost: editedPost => dispatch(editPost(editedPost))
   };
 };
 
 export default compose(
-  connect(mapStateToProps),
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
   firestoreConnect([{ collection: "blogPosts" }])
 )(EditPost);

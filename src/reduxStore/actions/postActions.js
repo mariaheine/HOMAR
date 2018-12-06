@@ -47,3 +47,16 @@ export const createPost = post => {
       });
   };
 }
+
+
+
+export const editPost = (editedPost, language) => {
+  return (dispatch, getState, {getFirebase, getFirestore}) => {
+    const firestore = getFirestore();
+
+    console.log("were here!");
+
+    // firestore
+    //   .collection('blogPosts')
+  }
+}

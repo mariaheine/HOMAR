@@ -9,11 +9,10 @@ import { createPost } from "./../../../reduxStore/actions/postActions";
 
 class PostForm extends Component {
   constructor(props) {
-    super(props);
-
-    // console.log(this.props.data);
+    super(props);    
     
     const {data} = this.props;
+    console.log("here");
     let title;
     let summary;
     let content;
@@ -140,21 +139,21 @@ class PostForm extends Component {
     );
   }
 
-  componentWillReceiveProps() {
-    const { data } = this.props;
+  // componentWillReceiveProps() {
+  //   const { data } = this.props;
 
-    console.log(data);
+  //   console.log(data);
 
-    if (data) {
-      console.log("letsgo");
-      this.setState(prevState => ({
-        editor: {
-          ...prevState.editor,
-          contentEditor: data.content
-        }
-      }));
-    }
-  }
+  //   if (data) {
+  //     console.log("letsgo");
+  //     this.setState(prevState => ({
+  //       editor: {
+  //         ...prevState.editor,
+  //         contentEditor: data.content
+  //       }
+  //     }));
+  //   }
+  // }
 
   // componentDidMount() {
   //   /* 

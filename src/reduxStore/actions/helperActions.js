@@ -1,22 +1,23 @@
-import { Editor, EditorState, convertFromRaw } from "draft-js";
+import { EditorState, ContentState, convertFromRaw } from "draft-js";
 
 // export const postDisplayFilers = {};
 
 const covertDataFromRaw = data => {
+  let DataFromRaw = convertFromRaw(JSON.parse(data));
+  let EditorData = EditorState.createWithContent(DataFromRaw);
 
-    let DataFromRaw = convertFromRaw(JSON.parse(data));
-    let EditorData = EditorState.createWithContent(DataFromRaw);
-
-    return {
-        EditorData
-    }  
-}
+  return {
+    EditorData
+  };
+};
 
 export const requestDisplayablePostByLanguage = (post, language) => {
   let postTitle;
   let postContent;
   let postSummary;
-  let doesTranslationExist;
+  let hasContent;
+
+  console.log("went through, lang: " + language)
 
   if (post) {
     var dataSource;
@@ -27,16 +28,19 @@ export const requestDisplayablePostByLanguage = (post, language) => {
       case "en":
         // Check here if data isnt empty, itf is - fallback to polish version
         // Also could add a notification that its not available in english
-        if(post.english.title)
-        {
+        if (post.english.title) {
           dataSource = post.english;
-          doesTranslationExist = true;
+        } else {
+          let altTitle = post.polish.title;
+          let altSummary = "not translated yet, sorry 😿⛅️";
+          let altContent = "👭";
+          return {
+            title: "englisz",
+            summary: EditorState.createWithContent(ContentState.createFromText(altSummary)),
+            content: EditorState.createWithContent(ContentState.createFromText(altContent)),
+            hasContent: false
+          };
         }
-        else {
-          dataSource = post.polish;
-          doesTranslationExist = false;
-        }
-        
         break;
     }
     postTitle = dataSource.title;
@@ -48,7 +52,6 @@ export const requestDisplayablePostByLanguage = (post, language) => {
     // let DataFromRaw = convertFromRaw(JSON.parse(DataToDisplay));
     // postContent = EditorState.createWithContent(DataFromRaw);
     // console.log(postContent);
-
   } else {
     postTitle = "🌊wait🐋for🐟🐳it💦";
     postSummary = EditorState.createEmpty();
@@ -58,6 +61,7 @@ export const requestDisplayablePostByLanguage = (post, language) => {
   return {
     title: postTitle,
     summary: postSummary,
-    content: postContent
+    content: postContent,
+    hasContent: true
   };
 };
