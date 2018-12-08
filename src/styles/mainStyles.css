@@ -26,10 +26,11 @@ div.content {
 
 /* AFRAME COMPONENT */
 
-div.aframeContainer {
+/* div.aframeContainer {
+  
   width: 100vw;
   height: 80vh;
-}
+} */
 
 /* NAVBAR CSS */
 
@@ -62,9 +63,15 @@ div.aframeContainer {
   }
 }
 
+.boxShadowed {
+  box-shadow: 0vw 1vh 5px black;
+}
+
 .navbar {
   /* margin: 5px 10px 5px 10px; */
-  margin: 2vh 4vw 2vh 6vw;
+  /* margin: 2vh 4vw 2vh 4vw; */
+  margin: 2vh 5%;
+  /* margin: 0, auto; */
   /* margin-left: 10vw; */
   width: 90%;
   background-color: #272727;
@@ -81,17 +88,15 @@ div.aframeContainer {
 	border-color: white; */
 }
 
+
+.navbar {
+  align-items: normal;
+}
+
 .mainNavbar > nav:nth-child(1) > div:nth-child(2) > button:nth-child(1):focus {
   outline: none;
 }
 
-/* button box here */
-.mainNavbar > nav:nth-child(1) > div:nth-child(2) > div:nth-child(2) {
-  width: 35vw;
-  /* border: solid;	
-	border-width: 0.07em;
-	border-color: white;  */
-}
 .navbar-nav {
   background-color: rgba(0, 0, 0, 0);
   padding: 0.5rem;
@@ -185,7 +190,7 @@ li.nav-item:nth-child(2) > a:nth-child(1) > h1:nth-child(1) {
 img.homar {
   width: 45px;
   height: auto;
-  position: relative;
+  position: absolute;
   margin: auto;
   transition: transform 0.5s;
   animation: infinite;
@@ -315,8 +320,4 @@ div.card {
 button.navbar-toggler {
   padding: 0;
   outline: none;
-}
-
-.navbar {
-  align-items: normal;
 }

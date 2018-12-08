@@ -14,7 +14,7 @@ import {
 } from "reactstrap";
 
 import "bootstrap/dist/css/bootstrap.css";
-import "./../styles/mobileStyles.css";
+// import "./../styles/mobileStyles.css";
 
 import manifest from "../articles/manifest.json";
 

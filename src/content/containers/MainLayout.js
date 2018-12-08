@@ -4,7 +4,7 @@ import {
   TabPane,
   Row,
   Col,
-  Collapse,
+  Button,
   Navbar,
   NavbarToggler,
   NavbarBrand,
@@ -12,22 +12,13 @@ import {
   NavItem,
   NavLink
 } from "reactstrap";
-import Menu from "../components/Menu";
+import Menu from "../components/navigation/Menu";
+import LanguageSelection from "../components/navigation/LanguageSelection";
 
-import "bootstrap/dist/css/bootstrap.css";
-import "./../../styles/mobileStyles.css";
+// import "bootstrap/dist/css/bootstrap.css";
+import "./../../styles/mainStyles.css";
 
-import HomarImage from "./../../styles/assets/homarFlat.jpg";
 import Homar from "./../../styles/assets/homar-ruch.gif";
-
-var navbarStyle = {
-  // backgroundImage: `url(${HomarImage})`,
-  // background: 'rgb(255, 77, 145)'
-  // background: 'black'
-  // background: 'white'
-};
-
-var navbarHomeLinkStyle = {};
 
 export class MainLayout extends Component {
   constructor(props) {
@@ -53,17 +44,19 @@ export class MainLayout extends Component {
   render() {
     return (
       <div className="mainNavbar">
-        <Navbar style={navbarStyle}>
-              <NavbarBrand href="/#">
-                <h1 className="title logo">HOMAR</h1>
-              </NavbarBrand>
-              <img
-                id="jumpyHomar"
-                onClick={this.triggerHomar}
-                src={Homar}
-                className="homar"
-              />
-              <Menu />
+        <Navbar>
+          {/* <NavbarBrand href="/">
+              <h1 className="title logo">HOMAR</h1>
+            </NavbarBrand> */}
+          <LanguageSelection />
+
+          <Menu />
+          <img
+            id="jumpyHomar"
+            onClick={this.triggerHomar}
+            src={Homar}
+            className="homar"
+          />
         </Navbar>
         <TabContent activeTab={this.state.activeTab}>
           <TabPane tabId="0">

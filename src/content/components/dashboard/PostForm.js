@@ -9,15 +9,14 @@ import { createPost } from "./../../../reduxStore/actions/postActions";
 
 class PostForm extends Component {
   constructor(props) {
-    super(props);    
-    
-    const {data} = this.props;
+    super(props);
+
+    const { data } = this.props;
     console.log("here");
     let title;
     let summary;
     let content;
-    if(data)
-    {
+    if (data) {
       title = data.title;
       summary = data.summary;
       content = data.content;
@@ -36,8 +35,8 @@ class PostForm extends Component {
       },
       staged: {
         title: "",
-        rawSummary: "",
-        rawContent: ""
+        summary: "",
+        content: ""
       }
     };
   }
@@ -84,8 +83,8 @@ class PostForm extends Component {
       {
         staged: {
           title: this.state.editor.title,
-          rawSummary: JSON.stringify(rawSummary),
-          rawContent: JSON.stringify(rawContent)
+          summary: JSON.stringify(rawSummary),
+          content: JSON.stringify(rawContent)
         }
       },
       () => {
@@ -152,17 +151,23 @@ class PostForm extends Component {
           contentEditor: data.content
         }
       }));
+      this.setState(prevState => ({
+        editor: {
+          ...prevState.editor,
+          summaryEditor: data.summary
+        }
+      }));
     }
   }
 
   // componentDidMount() {
-  //   /* 
-    
+  //   /*
+
   //    IMPORTANT!
 
   //    IMPLEMENT REDIRECT LATER IF REFRESHED THAT PAGE,
   //    FORCE FALLBACK TO THE DASHBOARD
-    
+
   //   */
 
   //   console.log("mounted");

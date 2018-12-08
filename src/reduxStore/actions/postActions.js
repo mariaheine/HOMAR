@@ -20,8 +20,8 @@ export const createPost = post => {
         // summary: post.rawSummary,
         polish: {
           title: post.title,
-          summary: post.rawSummary,
-          content: post.rawContent
+          summary: post.summary,
+          content: post.content
         },
         english: {
           title: "",
@@ -53,46 +53,58 @@ export const editPost = (postId, editedPost, language) => {
     const firestore = getFirestore();
 
     console.log("were here!");
-    // console.log(postId + editedPost + language);
 
-    var englishSend = {};
-    var polish = {};
-
+    var payload = {};
     if (language === "en") {
-      console.log("english");
-      englishSend.title = editedPost.title;
-      englishSend.summary = editedPost.rawSummary;
-      englishSend.content = editedPost.rawContent;
-      console.log(englishSend);
+      payload.english = editedPost;
+    } else if (language === "pl") {
+      payload.polish = editedPost;
+    } else {
+      console.log("Firestore posts db incorrect language selection.");
+      return;
     }
 
-    // var firestoreGetById = firestore
-    //   .collection("blogPosts")
-    //   .doc(postId)
-    //   .get()
-    //   .then(doc => {
-    //     if (doc.exists) {
-    //       console.log(doc.data());
-    //     }
-    //   })
-    //   .catch(err => {
-    //     console.log("Error getting doooc): " + err);
-    //   });
+    /*
 
-    firestore
-      .collection("blogPosts")
-      .doc(postId)
-      .set(
-        {
-          english: englishSend
-        },
-        { merge: true }
-      )
-      .then(() => {
-        console.log("Succesfull post update!");
-      })
-      .catch(err => {
-        console.log("Error updating data: " + err);
-      });
+      I DON'T LIKE THIS THING BELOW.
+      Could someone please tell me how to change that
+      single line with payload?
+    
+    */
+
+    if (language === "en") {
+      firestore
+        .collection("blogPosts")
+        .doc(postId)
+        .set(
+          {
+            english: payload.english
+          },
+          { merge: true }
+        )
+        .then(() => {
+          console.log("Succesfull post update!");
+        })
+        .catch(err => {
+          console.log("Error updating data: " + err);
+        });
+    } else if(language === "pl")
+    {
+      firestore
+        .collection("blogPosts")
+        .doc(postId)
+        .set(
+          {
+            polish: payload.polish
+          },
+          { merge: true }
+        )
+        .then(() => {
+          console.log("Succesfull post update!");
+        })
+        .catch(err => {
+          console.log("Error updating data: " + err);
+        });
+    }
   };
 };
