@@ -51,6 +51,11 @@ class SignIn extends Component {
   render() {
     const { authError } = this.props;
 
+    if(this.props.authError !== null)
+    {
+        
+    }
+
     // console.log(authError);
     return (
       <div>
@@ -86,26 +91,11 @@ class SignIn extends Component {
       </div>
     );
   }
-
-  //   compo() {
-  //     const { authError } = this.props;
-
-  //     console.log("error: " + authError);
-
-  //     if (authError !== null) {
-  //       this.togglePopover();
-  //     }
-  //   }
-
-  static getDerivedStateFromProps(nextProps, nextState) {
-    console.log("nexte: " + nextProps);
-
-    return null;
-  }
 }
 
 const mapStateToProps = state => {
   console.log(state);
+
   return {
     authError: state.auth.authError
   };
