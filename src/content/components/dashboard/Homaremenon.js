@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-import EditablePostList from './EditablePostList'
+import EditablePostList from "./EditablePostList";
 
 import "./../../../styles/components/dashboard/homaremenon.css";
 
@@ -19,10 +20,14 @@ class Homaremenon extends Component {
             <button>Create new post!</button>
           </Link>
         </div>
-        <EditablePostList/>
+        <EditablePostList />
       </div>
     );
   }
 }
 
-export default Homaremenon;
+const mapStateToProps = state => {
+  // console.log(state);
+};
+
+export default connect(mapStateToProps)(Homaremenon);

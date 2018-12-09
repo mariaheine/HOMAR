@@ -7,7 +7,7 @@ export default class OutroProduct extends Component {
   render() {
     var id = this.props.match.params.productId;
 
-    var product = outroproducts.products.find(x => x.id == `${id}`);
+    var product = outroproducts.products.find(x => x.id === `${id}`);
 
     // OLD:
     // var paragraphs = product.description.map(x => <p>{x}</p>);

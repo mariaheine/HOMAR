@@ -26,9 +26,8 @@ export default class Menu extends Component {
   }
 
   render() {
-
     var littleInline = {
-      margin: "1.2rem",      
+      margin: "1.2rem",
       marginLeft: "0.2rem",
       boxShadow: "0vw 1vh 5px black",
       alignSelf: "flex-end"
@@ -41,12 +40,19 @@ export default class Menu extends Component {
 
     return (
       <div style={littleInline}>
-        <NavbarToggler onClick={this.toggleNavbar}>
-          {/* <div className="menuButton">
+        {/* <NavbarToggler onClick={this.toggleNavbar}> */}
+        {/* <div className="menuButton">
             <p className="menuButton">{`# <- o.0`}</p>
           </div> */}
-          <Button style={littleOverride} outline color="secondary">NAVIGATE</Button>
-        </NavbarToggler>
+        <Button
+          style={littleOverride}
+          onClick={this.toggleNavbar}
+          outline
+          color="secondary"
+        >
+          NAVIGATE
+        </Button>
+        {/* </NavbarToggler> */}
         <Collapse isOpen={!this.state.collapsed} navbar>
           <Nav navbar>
             <NavItem>

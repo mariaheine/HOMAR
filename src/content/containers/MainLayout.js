@@ -49,7 +49,6 @@ export class MainLayout extends Component {
               <h1 className="title logo">HOMAR</h1>
             </NavbarBrand> */}
           <LanguageSelection />
-
           <Menu />
           <img
             id="jumpyHomar"
