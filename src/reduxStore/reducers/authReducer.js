@@ -1,3 +1,5 @@
+import { auth } from "firebase";
+
 const initState = {
   authError: null
 };
@@ -5,11 +7,13 @@ const initState = {
 const authReducer = (state = initState, action) => {
   switch (action.type) {
     case "LOGIN_ERROR":
-      console.log("Login error");
-      return { ...state, authError: "Login Failed" };
+      // console.log("Login error");
+      return { ...state, authError: action.err };
     case "LOGIN_SUCCESS":
-      console.log("login cool");
+      // console.log("login cool");
       return { ...state, authError: null };
+    case 'LOGOUT_SUCCESS':
+      return state;
     default:
       return state;
   }

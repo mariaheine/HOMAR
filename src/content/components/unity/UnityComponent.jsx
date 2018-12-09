@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Unity, { RegisterExternalListener, UnityEvent } from "react-unity-webgl";
+import Unity, { UnityContent } from "react-unity-webgl";
 import "./../../../styles/styles.css";
 
 import UnityLocker from "./UnityLocker";
@@ -7,14 +7,20 @@ import UnityLocker from "./UnityLocker";
 class UnityComponent extends Component {
   constructor(props) {
     super(props);
-    RegisterExternalListener("OpenMenu", this._openMenu.bind(this));
-    RegisterExternalListener("UnityLoaded", this._unityLoaded.bind(this));
+    // DEPREACTED
+    // RegisterExternalListener("OpenMenu", this._openMenu.bind(this));
+    // RegisterExternalListener("UnityLoaded", this._unityLoaded.bind(this));
     this.onProgress = this.onProgress.bind(this);
 
     this.state = {
       loadStatus: false,
       loaderText: "0%"
     };
+
+    this.unityContent = new UnityContent(
+      "UnityBuild/DefaultWebGL.json",
+      "UnityBuild/UnityLoader.js"
+    )
   }
 
   onProgress(progression) {
@@ -47,8 +53,9 @@ class UnityComponent extends Component {
       <div>
         <div className="webgl-content">
           <Unity
-            src="UnityBuild/DefaultWebGL.json"
-            loader="UnityBuild/UnityLoader.js"
+            // src="UnityBuild/DefaultWebGL.json"
+            // loader="UnityBuild/UnityLoader.js"
+            unityContent={this.unityContent}
             onProgress={this.onProgress}
           />
         </div>
@@ -57,7 +64,7 @@ class UnityComponent extends Component {
           {loader}
         </div>
 
-        <UnityLocker loadStatus={this.state.loadStatus} />
+        {/* <UnityLocker loadStatus={this.state.loadStatus} /> */}
       </div>
     );
   }

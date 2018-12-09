@@ -18,7 +18,7 @@
     "react-redux": "^5.1.1",
     "react-redux-firebase": "^2.2.4",
     "react-router-dom": "^4.3.1",
-    "react-unity-webgl": "6.4.4",
+    "react-unity-webgl": "7.0.7",
     "reactstrap": "^5.0.0-beta.3",
     "redux": "^4.0.1",
     "redux-firestore": "^0.6.0",

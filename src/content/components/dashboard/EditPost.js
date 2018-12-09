@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
+import { Redirect } from "react-router-dom";
 
 import "./../../../styles/components/blog/blogContainer.css";
 import "./../../../styles/components/dashboard/postEditor.css";
@@ -40,7 +41,9 @@ class EditPost extends Component {
   };
 
   render() {
-    const { postData, postPL, postEN } = this.props;
+    const { postData, postPL, postEN, auth } = this.props;
+
+    if(!auth.uid) return <Redirect to="/" />
 
     var FormDisplayer;
     if (postData) {
@@ -108,7 +111,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     postData: post,
     postPL: displayablePostPL,
-    postEN: displayablePostEN
+    postEN: displayablePostEN,
+    auth: state.firebase.auth
   };
 };
 

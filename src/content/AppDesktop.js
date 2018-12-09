@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import Unity, { RegisterExternalListener, UnityEvent } from "react-unity-webgl";
+// import Unity, { RegisterExternalListener, UnityEvent } from "react-unity-webgl";
 
 import UnityComponent from "./components/unity/UnityComponent";
 import "./../styles/styles.css";
@@ -8,7 +8,7 @@ import "./../styles/styles.css";
 class AppDesktop extends Component {
   constructor(props) {
     super(props);
-    RegisterExternalListener("UnityLoaded", this._unityLoaded.bind(this));
+    // RegisterExternalListener("UnityLoaded", this._unityLoaded.bind(this));
 
     this.state = {
       loadStatus: false

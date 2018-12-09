@@ -51,9 +51,7 @@ class SignIn extends Component {
   render() {
     const { authError } = this.props;
 
-    if(this.props.authError !== null)
-    {
-        
+    if (this.props.authError !== null) {
     }
 
     // console.log(authError);
@@ -76,20 +74,30 @@ class SignIn extends Component {
           </FormGroup>
           <Button id="submit1">Submit</Button>
           <Popover
-            placement="bottom"
+            placement="right"
             isOpen={this.state.popoverOpen}
-            target="submit1"
+            target="passwordInput"
             toggle={this.togglePopover}
+            onClick={this.togglePopover}
           >
-            <PopoverHeader>Popover Title</PopoverHeader>
+            <PopoverHeader>LOGIN FAILED</PopoverHeader>
             <PopoverBody>
-              Sed posuere consectetur est at lobortis. Aenean eu leo quam.
-              Pellentesque ornare sem lacinia quam venenatis vestibulum.
+              {`${this.props.authError}`}
             </PopoverBody>
           </Popover>
         </Form>
       </div>
     );
+  }
+
+  componentDidUpdate(prevProps) {
+    const { authError } = this.props;
+    if (authError && authError !== prevProps.authError) {
+      // console.log("error: " + this.props.authError);
+      this.setState({
+        popoverOpen: true
+      });
+    }
   }
 }
 

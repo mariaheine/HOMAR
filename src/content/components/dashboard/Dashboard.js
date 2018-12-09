@@ -8,17 +8,23 @@ import "./../../../styles/components/dashboard/homaremenon.css";
 
 class Dashboard extends Component {
   render() {
+    const { auth } = this.props;
+    console.log(auth);
+
+    const content = auth.uid ? <Homaremenon /> : <SignIn />
+
     return (
       <div className="container">
-        <SignIn />
-        {/* <Homaremenon/> */}
+        { content }
       </div>
     );
   }
 }
 
 const mapStateToProps = state => {
-//   console.log(state);
+  return {
+    auth: state.firebase.auth
+  };
 };
 
 export default connect(mapStateToProps)(Dashboard);

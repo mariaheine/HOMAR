@@ -13,19 +13,6 @@ import AppDesktop from "./AppDesktop";
 import AppMobile from "./AppMobile";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    RegisterExternalListener("UnityLoaded", this._unityLoaded.bind(this));
-
-    this.state = {
-      loadStatus: false
-    };
-  }
-
-  _unityLoaded() {
-    this.setState({ loadStatus: true });
-    // console.log("yay");
-  }
 
   render() {
     // TODO MOVE THAT TO THE WARP-RELATED COMPONENT
