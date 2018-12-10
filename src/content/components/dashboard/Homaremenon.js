@@ -13,7 +13,7 @@ class Homaremenon extends Component {
     return (
       <div className="container">
         <div className="userPanel">
-          <Link
+          <Link 
             to={{
               pathname: "/create",
               state: { hello: true }
@@ -29,9 +29,9 @@ class Homaremenon extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  // console.log(state);
-};
+// const mapStateToProps = state => {
+//   // console.log(state);
+// };
 
 const mapDispatchToProps = dispatch => {
   return {
@@ -39,4 +39,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Homaremenon);
+export default connect(null, mapDispatchToProps)(Homaremenon);
