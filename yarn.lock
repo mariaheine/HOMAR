@@ -1121,6 +1121,14 @@ aframe-environment-component@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/aframe-environment-component/-/aframe-environment-component-1.1.0.tgz#0c2c5842b86e91b59968150f7965402df859d8d7"
 
+aframe-html-shader@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/aframe-html-shader/-/aframe-html-shader-0.2.0.tgz#fb4c76c6978287a3ee687dcb9d3dd84df46c4599"
+
+aframe-mouse-cursor-component@^0.5.2:
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/aframe-mouse-cursor-component/-/aframe-mouse-cursor-component-0.5.2.tgz#6ce6926a3718691fba3be7561d853de33ba5cce4"
+
 aframe-react@^4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/aframe-react/-/aframe-react-4.4.0.tgz#f8af660bc4f64746d7cddb065ad9cc5e88f358b9"

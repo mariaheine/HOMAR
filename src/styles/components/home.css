@@ -1,0 +1,21 @@
+div.htmlElement {
+  /* background: #2e2e2eb9; */
+  background: black;
+  width: 512px;
+  height: 512px;
+}
+
+div.htmlElement h3 {
+  /* margin: 2rem; */
+  color: white;
+  padding: 1rem;
+  font-family: "Ubuntu", sans-serif;
+}
+
+div.htmlElement p {
+  color: white;
+  margin: 0.5rem;
+  padding: 1rem;
+  padding-top: 0;
+  font-family: 'Anonymous Pro', monospace;
+}

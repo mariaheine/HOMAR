@@ -31,7 +31,7 @@ class BlogPostSummary extends Component {
 
   render() {
     return (
-      <div className="blogItem">
+      <div className="postAbstract">
         <Link to={`/blog/${this.props.post.id}`}>
           <h3>{this.props.postTitle}</h3>
           <Editor

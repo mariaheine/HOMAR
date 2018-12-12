@@ -1,6 +1,24 @@
-div .blogItem {
+div .postAbstract {
   color: orange;
-  background: #272727bc;
+  background: #2e2e2eb9;
   padding: 2rem;
   margin: 0.5rem;
+  max-width: 700px;
 }
+
+div.postAbstract a {
+  text-decoration: none
+}
+
+div.postAbstract h3 {  
+  color: white;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+div.postAbstract span {  
+  color: white;
+  font-size: 1em;
+  /* font-family: 'Ubuntu', sans-serif; */
+  font-family: 'Anonymous Pro', monospace;
+}
+

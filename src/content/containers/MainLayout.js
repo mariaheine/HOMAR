@@ -4,13 +4,9 @@ import {
   TabPane,
   Row,
   Col,
-  Button,
   Navbar,
-  NavbarToggler,
   NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink
+  Button
 } from "reactstrap";
 import Menu from "../components/navigation/Menu";
 import LanguageSelection from "../components/navigation/LanguageSelection";
@@ -45,9 +41,19 @@ export class MainLayout extends Component {
     return (
       <div className="mainNavbar">
         <Navbar>
+          {/* <div>
+          <div><LanguageSelection /></div>
+          <div><Menu /></div>
+          </div> */}
           {/* <NavbarBrand href="/">
+            <div className="flexRow">
               <h1 className="title logo">HOMAR</h1>
-            </NavbarBrand> */}
+              <p className="title logo">pl</p>              
+              <p className="title logo">/</p>
+              <p className="title logo">en</p>
+            </div>
+          </NavbarBrand> */}
+
           <LanguageSelection />
           <Menu />
           <img
@@ -64,6 +70,9 @@ export class MainLayout extends Component {
             </Row>
           </TabPane>
         </TabContent>
+        <Navbar>
+          <p>pl / en</p>
+        </Navbar>
       </div>
     );
   }

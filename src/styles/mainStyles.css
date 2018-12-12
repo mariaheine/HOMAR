@@ -3,10 +3,7 @@ body {
   height: 100%;
   max-width: 100%;
   overflow-x: hidden;
-  /* background: rgb(255, 77, 145); */
   background: black;
-  /* background: white; */
-
   overflow-y: scroll; /*to keep the scrollbar always visible*/
 }
 
@@ -23,14 +20,6 @@ p.content {
 div.content {
   background-color: #27272767;
 }
-
-/* AFRAME COMPONENT */
-
-/* div.aframeContainer {
-  
-  width: 100vw;
-  height: 80vh;
-} */
 
 /* NAVBAR CSS */
 
@@ -71,8 +60,6 @@ div.content {
   /* margin: 5px 10px 5px 10px; */
   /* margin: 2vh 4vw 2vh 4vw; */
   margin: 2vh 5%;
-  /* margin: 0, auto; */
-  /* margin-left: 10vw; */
   width: 90%;
   background-color: #272727;
   animation: infinite;
@@ -100,6 +87,16 @@ div.content {
 .navbar-nav {
   background-color: rgba(0, 0, 0, 0);
   padding: 0.5rem;
+}
+
+div.flexRow {
+  display: flex;
+  margin: 3%
+}
+
+div.flexRow p {
+  padding: 0;
+  font-size: 1rem
 }
 
 /* NAVBAR MENU */

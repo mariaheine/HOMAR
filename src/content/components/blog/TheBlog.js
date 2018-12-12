@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import BlogPostSummary from "./BlogPostSummary.js"; 
+import BlogPostSummary from "./BlogPostSummary.js";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
@@ -18,7 +18,11 @@ class TheBlog extends Component {
     /*
       atm we are displaying only the list of posts here
     */
-    return <div className="container"> {listedPosts}</div>;
+    return (
+      <div className="outerContainer">
+        <div className="blogContainer">{listedPosts}</div>
+      </div>
+    );
   }
 }
 
@@ -26,7 +30,7 @@ const mapStateToProps = state => {
   console.log(state);
   return {
     posts: state.firestore.ordered.blogPosts
-    // posts: 
+    // posts:
   };
 };
 

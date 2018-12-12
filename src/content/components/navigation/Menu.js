@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import {
   Collapse,
-  NavbarToggler,
   Nav,
   NavItem,
   NavLink,
@@ -27,7 +26,10 @@ export default class Menu extends Component {
 
   render() {
     var littleInline = {
-      margin: "1.2rem",
+      // margin: "1.2rem",
+      margin: "3%",
+      // width: "35%",
+
       marginLeft: "0.2rem",
       boxShadow: "0vw 1vh 5px black",
       alignSelf: "flex-end"
@@ -55,6 +57,16 @@ export default class Menu extends Component {
         {/* </NavbarToggler> */}
         <Collapse isOpen={!this.state.collapsed} navbar>
           <Nav navbar>
+            <NavItem>
+              <NavLink href="/blog/" onClick={this.toggleNavbar}>
+                <h1 className="title menuButton">Blog</h1>
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink href="/warp/" onClick={this.toggleNavbar}>
+                <h1 className="title menuButton">Warp</h1>
+              </NavLink>
+            </NavItem>
             <NavItem>
               <NavLink href="/manifesto/" onClick={this.toggleNavbar}>
                 <h1 className="title menuButton">Manifesto</h1>
