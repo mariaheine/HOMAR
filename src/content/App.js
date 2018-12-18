@@ -9,8 +9,8 @@ import BaseRouter from "./routes";
 import MainLayout from "./containers/MainLayout";
 
 
-import AppDesktop from "./AppDesktop";
-import AppMobile from "./AppMobile";
+// import AppDesktop from "./AppDesktop";
+// import AppMobile from "./AppMobile";
 
 class App extends Component {
 
