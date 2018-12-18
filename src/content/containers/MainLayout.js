@@ -70,9 +70,6 @@ export class MainLayout extends Component {
             </Row>
           </TabPane>
         </TabContent>
-        <Navbar>
-          <p>pl / en</p>
-        </Navbar>
       </div>
     );
   }

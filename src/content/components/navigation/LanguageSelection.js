@@ -6,7 +6,7 @@ export default class LanguageSelection extends Component {
   render() {
     var littleInline = {
       // margin: "1.2rem",
-      margin: "3%",
+      margin: "1rem",
       // width: "55%",
       marginRight: "0.2rem",
       boxShadow: "0vw 1vh 5px black",

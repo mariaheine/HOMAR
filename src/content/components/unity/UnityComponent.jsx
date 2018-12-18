@@ -60,9 +60,9 @@ class UnityComponent extends Component {
           />
         </div>
 
-        <div className="webgl-loader">
+        {/* <div className="webgl-loader">
           {loader}
-        </div>
+        </div> */}
 
         {/* <UnityLocker loadStatus={this.state.loadStatus} /> */}
       </div>

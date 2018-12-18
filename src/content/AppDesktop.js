@@ -29,9 +29,9 @@ class AppDesktop extends Component {
           <div className="header">
             <h1>HOMAR Research Unit</h1>
           </div>
-          <div className="fullscreen">
+          {/* <div className="fullscreen">
             <h1>fullscreen</h1>
-          </div>
+          </div> */}
         </div>
       </div>
     );

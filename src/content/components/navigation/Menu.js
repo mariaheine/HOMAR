@@ -27,7 +27,7 @@ export default class Menu extends Component {
   render() {
     var littleInline = {
       // margin: "1.2rem",
-      margin: "3%",
+      margin: "1rem",
       // width: "35%",
 
       marginLeft: "0.2rem",
@@ -58,9 +58,9 @@ export default class Menu extends Component {
         <Collapse isOpen={!this.state.collapsed} navbar>
           <Nav navbar>
             <NavItem>
-              <NavLink href="/blog/" onClick={this.toggleNavbar}>
+              {/* <NavLink href="/blog/" onClick={this.toggleNavbar}>
                 <h1 className="title menuButton">Blog</h1>
-              </NavLink>
+              </NavLink> */}
             </NavItem>
             <NavItem>
               <NavLink href="/warp/" onClick={this.toggleNavbar}>

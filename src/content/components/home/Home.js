@@ -8,7 +8,7 @@ import "aframe-environment-component";
 import "aframe-html-shader";
 
 import "./../../../styles/components/home.css";
-import Diagram from "./diagram.jpg";
+import Diagram from "./calosc.png";
 import Tekst1 from "./brutaztekst1.jpg";
 require("./DejaVu-sdf.fnt");
 // import BrutazText1 from ""
@@ -92,6 +92,7 @@ export default class Home extends Component {
                 src={Tekst1}
                 width="3.5"
                 height="3.5"
+                rotation="0 15 0"
               />
             </Entity>
             <Entity
@@ -112,21 +113,22 @@ export default class Home extends Component {
                 value:
                   "INFO: THIS IS ONLY A MODEL DIAGRAM\n\nPlease, enter the warp (by double-pressing on the diagram) to find it's still functional replica.\n\nWARNING: Your smartphone will NOT handle that tech, use pc instead."
               }}
-              rotation="0 -30 0"
+              rotation="0 -35 0"
             />
             />
             <Entity
               geometry="primitive: plane; height: 4; width: 4;"
               material={{
                 src: Diagram,
-                shader: "flat"
+                shader: "flat",
+                transparent: true
               }}
               position="-3.308 2 -4.312"
               rotation="0 35 0"
               events={{ click: this.handleClick }}
             />
           </Entity>
-          <Entity camera position="-1 2 -1" look-controls wasd-controls>
+          <Entity camera position="-1.5 2 -2" look-controls>
             <Entity cursor={{ fuse: false, rayOrigin: "mouse" }} />
           </Entity>
         </Scene>
