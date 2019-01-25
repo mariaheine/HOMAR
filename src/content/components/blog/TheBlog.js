@@ -10,7 +10,6 @@ class TheBlog extends Component {
   render() {
     // This cool "trick" grabs just the articles off the props
     const { posts } = this.props;
-    // console.log(posts);
 
     var listedPosts =
       posts && posts.map(post => <BlogPostSummary post={post} key={post.id} />);
@@ -27,10 +26,9 @@ class TheBlog extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
+  // console.log(state);
   return {
     posts: state.firestore.ordered.blogPosts
-    // posts:
   };
 };
 

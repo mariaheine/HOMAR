@@ -22,7 +22,7 @@ const BaseRouter = () => {
         <Route path="/shop" component={Shop} />
         <Route exact path="/outrocuteness/" component={OutroCuteness} />
         <Route path="/outrocuteness/:productId" component={OutroProduct} />
-        <Route exact path="/warp" component={UnityContainer} />
+        <Route exact path="/entity" component={UnityContainer} />
         <Route exact path="/blog/" component={TheBlog} />
         <Route path="/blog/:postId" component={BlogPost} />
         <Route path="/create" component={CreatePost} />

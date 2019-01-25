@@ -11,7 +11,6 @@ import "./../../../styles/components/home.css";
 import Diagram from "./calosc.png";
 import Tekst1 from "./brutaztekst1.jpg";
 require("./DejaVu-sdf.fnt");
-// import BrutazText1 from ""
 
 export default class Home extends Component {
   constructor(props) {
@@ -24,7 +23,6 @@ export default class Home extends Component {
   }
 
   handleClick = () => {
-    // console.log("click!");
     if (this.state.count > 1) {
       this.setState({ redirectoToWarp: true });
     } else {
@@ -41,7 +39,7 @@ export default class Home extends Component {
     };
 
     if (this.state.redirectoToWarp) {
-      return <Redirect to="/warp" />;
+      return <Redirect to="/entity" />;
     }
 
     console.log();
@@ -71,8 +69,8 @@ export default class Home extends Component {
             }}
           />
           <Entity id="UI" position="0 0 0">
-            <Entity
-              position="-4.5 2 -0.8254339320791786"
+            {/* <Entity
+              position="-4.5 2 1"
               geometry={{
                 primitive: "plane",
                 width: 4.6,
@@ -94,7 +92,7 @@ export default class Home extends Component {
                 height="3.5"
                 rotation="0 15 0"
               />
-            </Entity>
+            </Entity> */}
             <Entity
               position="0.7 2 -4"
               geometry="primitive: plane; height: 2.5; width: 3.5;"
@@ -111,9 +109,10 @@ export default class Home extends Component {
                 align: "center",
                 width: "3",
                 value:
-                  "INFO: THIS IS ONLY A MODEL DIAGRAM\n\nPlease, enter the warp (by double-pressing on the diagram) to find it's still functional replica.\n\nWARNING: Your smartphone will NOT handle that tech, use pc instead."
+                  "INFO: THIS IS ONLY A MODEL DIAGRAM\n\nPlease, enter the Entity (by double-pressing on the diagram) to find it's still functional replica.\n\nWARNING: Your smartphone will NOT handle that tech, use pc instead."
               }}
               rotation="0 -35 0"
+              scale="0.6 0.6 0.6"
             />
             />
             <Entity
@@ -121,6 +120,7 @@ export default class Home extends Component {
               material={{
                 src: Diagram,
                 shader: "flat",
+                side: "double",
                 transparent: true
               }}
               position="-3.308 2 -4.312"
@@ -128,7 +128,7 @@ export default class Home extends Component {
               events={{ click: this.handleClick }}
             />
           </Entity>
-          <Entity camera position="-1.5 2 -2" look-controls>
+          <Entity camera position="-1.5 2 -2" look-controls wasd-controls>
             <Entity cursor={{ fuse: false, rayOrigin: "mouse" }} />
           </Entity>
         </Scene>

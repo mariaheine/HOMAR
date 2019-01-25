@@ -26,10 +26,8 @@ export default class Menu extends Component {
 
   render() {
     var littleInline = {
-      // margin: "1.2rem",
       margin: "1rem",
       // width: "35%",
-
       marginLeft: "0.2rem",
       boxShadow: "0vw 1vh 5px black",
       alignSelf: "flex-end"
@@ -42,10 +40,6 @@ export default class Menu extends Component {
 
     return (
       <div style={littleInline}>
-        {/* <NavbarToggler onClick={this.toggleNavbar}> */}
-        {/* <div className="menuButton">
-            <p className="menuButton">{`# <- o.0`}</p>
-          </div> */}
         <Button
           style={littleOverride}
           onClick={this.toggleNavbar}
@@ -58,13 +52,13 @@ export default class Menu extends Component {
         <Collapse isOpen={!this.state.collapsed} navbar>
           <Nav navbar>
             <NavItem>
-              {/* <NavLink href="/blog/" onClick={this.toggleNavbar}>
+              <NavLink href="/blog/" onClick={this.toggleNavbar}>
                 <h1 className="title menuButton">Blog</h1>
-              </NavLink> */}
+              </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/warp/" onClick={this.toggleNavbar}>
-                <h1 className="title menuButton">Warp</h1>
+              <NavLink href="/entity/" onClick={this.toggleNavbar}>
+                <h1 className="title menuButton">Entity</h1>
               </NavLink>
             </NavItem>
             <NavItem>

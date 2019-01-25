@@ -1,13 +1,7 @@
 import React, { Component } from "react";
-
-import Unity, { RegisterExternalListener, UnityEvent } from "react-unity-webgl";
-
-import UnityComponent from "./components/unity/UnityComponent";
-
 import { BrowserRouter as Router } from "react-router-dom";
 import BaseRouter from "./routes";
 import MainLayout from "./containers/MainLayout";
-
 
 // import AppDesktop from "./AppDesktop";
 // import AppMobile from "./AppMobile";
