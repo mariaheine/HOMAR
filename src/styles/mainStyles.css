@@ -86,7 +86,7 @@ div.content {
 
 .navbar-nav {
   background-color: rgba(0, 0, 0, 0);
-  padding: 0.5rem;
+  /* padding: 0.3rem; */
 }
 
 div.flexRow {
@@ -102,11 +102,7 @@ div.flexRow p {
 /* NAVBAR MENU */
 div.menuButton {
   color: white;
-  /* border: solid;	
-	border-width: 0.07em;	
-	padding: 0rem;	 */
   width: 35vw;
-
   background-color: rgba(0, 0, 0, 0);
 }
 
@@ -149,19 +145,19 @@ h1.logo {
 
 h1.menuButton {
   color: white;
-  font-size: 2rem;
-  text-align: center;
+  text-align: left;
+  font-size: 1em;
   border-right: 1rem;
-  /* text-decoration: underline; */
-  padding-top: 0.5rem;
+  padding: 0.5rem 2% 0.5rem 2%;
+  margin: 0.5rem 2% 0.5rem 2%;
   /* text-shadow: 1px 1px 2px palevioletred, 0 0 25px white, 0 0 5px HOTPINK; */
 }
 
-li.nav-item:nth-child(2) > a:nth-child(1) > h1:nth-child(1) {
+/* li.nav-item:nth-child(4) > a:nth-child(1) > h1:nth-child(1) {
   animation: infinite;
   animation-name: warning;
   animation-duration: 4s;
-}
+} */
 
 @keyframes homarjumpy {
   0%,

@@ -32,10 +32,10 @@ export const requestDisplayablePostByLanguage = (post, language) => {
           dataSource = post.english;
         } else {
           let altTitle = post.polish.title;
-          let altSummary = "not translated yet, sorry 😿⛅️";
-          let altContent = "👭";
+          let altSummary = "Not translated yet, sorry 😿";
+          let altContent = "Not translated yet, sorry 😿";
           return {
-            title: altTitle,
+            title: covertDataFromRaw(altTitle).EditorData,
             summary: EditorState.createWithContent(ContentState.createFromText(altSummary)),
             content: EditorState.createWithContent(ContentState.createFromText(altContent)),
             hasContent: false
@@ -43,8 +43,8 @@ export const requestDisplayablePostByLanguage = (post, language) => {
         }
         break;
     }
-    postTitle = dataSource.title;
 
+    postTitle = covertDataFromRaw(dataSource.title).EditorData;
     postSummary = covertDataFromRaw(dataSource.summary).EditorData;
     postContent = covertDataFromRaw(dataSource.content).EditorData;
 
@@ -53,7 +53,7 @@ export const requestDisplayablePostByLanguage = (post, language) => {
     // postContent = EditorState.createWithContent(DataFromRaw);
     // console.log(postContent);
   } else {
-    postTitle = "🌊wait🐋for🐟🐳it💦";
+    postTitle = EditorState.createEmpty();
     postSummary = EditorState.createEmpty();
     postContent = EditorState.createEmpty();
   }

@@ -16,11 +16,11 @@ class LanguageSelection extends Component {
   render() {
     var littleInline = {
       // margin: "1.2rem",
-      margin: "1rem",
-      // width: "55%",
+      margin: "2%",
       marginRight: "0.2rem",
       boxShadow: "0vw 1vh 5px black",
-      height: "38px"
+      height: "38px",
+      transform: "scale(1)"
     };
 
     var littleOverride = {

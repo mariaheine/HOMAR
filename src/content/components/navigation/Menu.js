@@ -7,6 +7,8 @@ import {
   Button
 } from "reactstrap";
 
+var navHashtags = Array('NAVIGATE', 'EXTRAPOLATE', 'MANIPULATE', 'DISORIENTATE');
+
 export default class Menu extends Component {
   constructor(props) {
     super(props);
@@ -26,7 +28,7 @@ export default class Menu extends Component {
 
   render() {
     var littleInline = {
-      margin: "1rem",
+      margin: "2%",
       // width: "35%",
       marginLeft: "0.2rem",
       boxShadow: "0vw 1vh 5px black",
@@ -34,9 +36,13 @@ export default class Menu extends Component {
     };
 
     var littleOverride = {
-      paddingLeft: "4vw",
-      paddingRight: "4vw"
+      width: "11vw",
+      minWidth: "130px",
+      paddingLeft: "1vw",
+      paddingRight: "1vw"
     };
+
+    var navHashtag = navHashtags[Math.floor(Math.random()*navHashtags.length)];
 
     return (
       <div style={littleInline}>
@@ -46,29 +52,29 @@ export default class Menu extends Component {
           outline
           color="secondary"
         >
-          NAVIGATE
+          {navHashtag}
         </Button>
         {/* </NavbarToggler> */}
         <Collapse isOpen={!this.state.collapsed} navbar>
           <Nav navbar>
             <NavItem>
               <NavLink href="/blog/" onClick={this.toggleNavbar}>
-                <h1 className="title menuButton">Blog</h1>
+                <h1 className="menuButton">👾 blog</h1>
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/entity/" onClick={this.toggleNavbar}>
-                <h1 className="title menuButton">Entity</h1>
+                <h1 className="menuButton">🔮 die Entität</h1>
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/manifesto/" onClick={this.toggleNavbar}>
-                <h1 className="title menuButton">Manifesto</h1>
+                <h1 className="menuButton">✨ manifesto</h1>
               </NavLink>
             </NavItem>
             <NavItem>
               <NavLink href="/outrocuteness" onClick={this.toggleNavbar}>
-                <h1 className="title menuButton">Shop [HOT!]</h1>
+                <h1 className="menuButton">🏧 outro cuteness</h1>
               </NavLink>
             </NavItem>
           </Nav>

@@ -9,7 +9,7 @@ import "./../../../styles/components/dashboard.css";
 class Dashboard extends Component {
   render() {
     const { auth } = this.props;
-    console.log(auth);
+    // console.log(auth);
 
     const content = auth.uid ? <Homaremenon /> : <SignIn />
 

@@ -32,7 +32,7 @@ export const createPost = post => {
           summary: "",
           content: ""
         },
-        authorId: user.uid, 
+        authorId: user.displayName, 
         createdAt: moment().format("MMM Do YYYY")
       })
       .then(() => {

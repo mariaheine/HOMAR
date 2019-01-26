@@ -1,8 +1,7 @@
-
 /* COMMON */
 
 div .outerContainer {
-  margin: 2vh 5%;  
+  margin: 2vh 5%;
   background: #272727bc;
 }
 
@@ -16,64 +15,97 @@ div .post {
   color: white;
   background: #2e2e2e52;
   width: 90%;
-  max-width: 700px;  
+  max-width: 700px;
   margin: 1rem;
 }
 
 div.post a {
-  text-decoration: none
+  text-decoration: none;
 }
 
-div.post h3, h5 {  
+div.post h3,
+h5 {
   color: white;
-  font-family: 'Ubuntu', sans-serif;
+  font-family: "Ubuntu", sans-serif;
 }
 
-div.post span {  
+div.post span {
   color: white;
   font-size: 1em;
-  font-family: 'Anonymous Pro', monospace;
+  font-family: "Anonymous Pro", monospace;
 }
 
 /* POST ABSTRACT STYLING */
 
+/* inplace */
 div .postAbstract {
-  color: orange;
-  background: #2e2e2eb9;
-  padding: 2rem;
+  background: #2e2e2e81;
+  padding: 0.5rem;
   margin: 0.5rem;
-  width: 90%;
+  width: 95%;
   max-width: 700px;
 }
 
-div.postAbstract a {
-  text-decoration: none
+/* header */
+
+div .postAbstract a {
+  text-decoration: none;
 }
 
-div.postAbstract h3 {  
-  color: white;
-  font-family: 'Ubuntu', sans-serif;
+div.abstractHeader {
+  animation: infinite;
+  animation-name: shadow;
+  animation-duration: 8s;
 }
 
-div.postAbstract span {  
+div .abstractHeader div {
   color: white;
-  font-size: 1em;
-  font-family: 'Anonymous Pro', monospace;
+  font-family: "Ubuntu", sans-serif;
+}
+
+div .abstractTitle span {
+  font-size: 1.3em;
+}
+
+div.abstractHeader .abstractDetails {
+  font-family: "Anonymous Pro", monospace;
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+/* content */
+
+div .abstractContent {
+  padding: 0.2rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+div .abstractContent span {
+  color: white;
+  /* font-family: "Raleway", sans-serif; */
+  /* font-family: "Montserrat", sans-serif; */
+  /* font-family: "Open Sans", sans-serif; */
+  font-family: "Anonymous Pro", monospace;
 }
 
 /* POST CONTENT STYLING */
 
-
 /* POST CREATING / EDITING */
 
-div .editorField {  
+div .editorField {
   background: #131313b9;
+  min-height: 200px;
 }
 
-div .editorField.title div {
+div .editorField.title {
+  min-height: 50px;
+}
+
+/* div .editorField.title div {
   min-height: 50px;
 }
 
 div .editorField div {
   min-height: 200px;
-}
+} */
