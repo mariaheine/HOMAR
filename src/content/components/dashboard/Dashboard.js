@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import Homaremenon from "./Homaremenon";
 import SignIn from "./authentication/SignIn";
 
-import "./../../../styles/components/dashboard/homaremenon.css";
+import "./../../../styles/components/dashboard.css";
 
 class Dashboard extends Component {
   render() {

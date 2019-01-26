@@ -10,7 +10,7 @@ import {requestDisplayablePostByLanguage} from './../../../reduxStore/actions/he
 
 import { setLanguage } from "./../../../reduxStore/actions/langActions";
 
-import "./../../../styles/components/blog/blogPost.css";
+import "./../../../styles/components/blog.css";
 
 class BlogPost extends Component {
   constructor(props) {

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Editor } from "draft-js"; // Draft-js displaying using readonly Editor
 
 import { requestDisplayablePostByLanguage } from "./../../../reduxStore/actions/helperActions";
-import "./../../../styles/components/blog/blogPost.css";
+import "./../../../styles/components/blog.css";
 
 class BlogPostSummary extends Component {
   constructor(props) {

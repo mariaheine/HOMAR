@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Editor, EditorState, convertToRaw, convertFromRaw } from "draft-js";
 
 import "./../../../../styles/components/blog/blogContainer.css";
-import "./../../../../styles/components/blog/blogPost.css";
+import "./../../../../styles/components/blog.css";
 
 import { createPost } from "../../../../reduxStore/actions/postActions";
 

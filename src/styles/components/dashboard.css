@@ -22,3 +22,9 @@ h3 {
   padding: 2rem;
   margin: 0.5rem;
 }
+
+/* USER AUTHENTICATION */
+
+div .userAuth label {
+  color: white;
+}

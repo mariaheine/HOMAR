@@ -6,7 +6,7 @@ import { Button } from 'reactstrap';
 import EditablePostList from "./postEditing/EditablePostList";
 import { signOut } from "./../../../reduxStore/actions/authActions";
 
-import "./../../../styles/components/dashboard/homaremenon.css";
+import "./../../../styles/components/dashboard.css";
 
 class Homaremenon extends Component {
   render() {
@@ -26,7 +26,7 @@ class Homaremenon extends Component {
               pathname: "/editUser"
             }}
           >
-          <Button color="primary"> ̿̿ ̿̿ ̿'̿'\̵͇̿̿\з= ( ▀ ͜͞ʖ▀) =ε/̵͇̿̿/’̿’̿ ̿ ̿̿ ̿̿ ̿̿</Button>
+          <Button color="warning">(▀̿Ĺ̯▀̿ ̿)</Button>
           </Link>
           <Button onClick={this.props.signOut} color="danger">┬┴┬┴┤ ͜ʖ ͡°) ├┬┴┬┴</Button>
         </div>

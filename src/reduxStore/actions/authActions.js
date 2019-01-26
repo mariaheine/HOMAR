@@ -6,7 +6,7 @@ export const signIn = credentials => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
 
-    console.log(credentials);
+    // console.log(credentials);
 
     firebase
       .auth()
@@ -29,6 +29,30 @@ export const signOut = () => {
       .signOut()
       .then(() => {
         dispatch({ type: "LOGOUT_SUCCESS" });
+      });
+  };
+};
+
+export const editUser = userData => {
+  return (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+
+    var user = firebase.auth().currentUser;
+
+    console.log(user);
+    console.log(userData);
+
+
+    user
+      .updateProfile({
+        displayName: userData.nick,
+        photoURL: userData.url
+      })
+      .then(() => {
+        dispatch({ type: "USEREDIT_SUCCESS" });
+      })
+      .catch(err => {
+        dispatch({ type: "USEREDIT_ERROR", err });
       });
   };
 };

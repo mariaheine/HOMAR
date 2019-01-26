@@ -102,7 +102,7 @@ class SignIn extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
+  // console.log(state);
 
   return {
     authError: state.auth.authError
