@@ -1,8 +1,18 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
 
-export default class LanguageSelection extends Component {
+import { setLanguage } from "./../../../reduxStore/actions/langActions";
+
+class LanguageSelection extends Component {
+
+  onClick = e => {
+    // console.log(e.target.name);
+    e.preventDefault();
+    this.props.setLanguage(e.target.name);
+  };
+
   render() {
     var littleInline = {
       // margin: "1.2rem",
@@ -22,10 +32,20 @@ export default class LanguageSelection extends Component {
     var buttonHeight = {
       // height: "25px",
       // width: "25px"
-    }
-      
-    var langText = {
+    };
 
+    // console.log(this.props.language);
+
+    var plOutlined;
+    var enOutlined;
+    switch (this.props.language) {
+      case "pl":
+        plOutlined = false;
+        enOutlined = true;
+        break;
+      case "en":
+        plOutlined = true;
+        enOutlined = false;
     }
 
     return (
@@ -35,14 +55,42 @@ export default class LanguageSelection extends Component {
             HOMAR
           </Button>
         </Link>
-        <Button color="warning" style={buttonHeight}>
+        <Button
+          outline={plOutlined}
+          name="pl"
+          onClick={this.onClick}
+          color="warning"
+          style={buttonHeight}
+        >
           pl
         </Button>
-        <Button outline color="danger" style={buttonHeight}>
+        <Button
+          outline={enOutlined}
+          name="en"
+          onClick={this.onClick}
+          color="danger"
+          style={buttonHeight}
+        >
           en
         </Button>
-        {/* <p>pl/en</p> */}
       </div>
     );
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    language: state.language.selectedLanguage
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setLanguage: language => dispatch(setLanguage(language))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LanguageSelection);

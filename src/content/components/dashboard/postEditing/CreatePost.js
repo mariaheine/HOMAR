@@ -18,9 +18,8 @@ class CreatePost extends Component {
     const { auth } = this.props;
     if(!auth.uid) return <Redirect to="/" />
     
-    console.log(auth)
+    // console.log(auth)
 
-    // console.log(this.props.location.state)
     return <PostForm handleSubmit={this._createPost} />;
   }
 }

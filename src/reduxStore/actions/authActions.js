@@ -39,10 +39,6 @@ export const editUser = userData => {
 
     var user = firebase.auth().currentUser;
 
-    console.log(user);
-    console.log(userData);
-
-
     user
       .updateProfile({
         displayName: userData.nick,

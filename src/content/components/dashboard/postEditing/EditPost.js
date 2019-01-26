@@ -19,7 +19,7 @@ class EditPost extends Component {
   };
 
   _editPost = stagedPost => {
-    console.log(this.props.postData.id);
+    // console.log(this.props.postData.id);
     const postId = this.props.match.params.postId;
     const language = this.state.editingLanguage;
 

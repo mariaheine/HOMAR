@@ -14,6 +14,8 @@ export const createPost = post => {
     // This gives us access to our firestore DB
     const firestore = getFirestore();
 
+    var user = getFirebase().auth().currentUser;
+
     firestore
       .collection("blogPosts")
       .add({
@@ -30,8 +32,7 @@ export const createPost = post => {
           summary: "",
           content: ""
         },
-        author: "Marie",
-        authorId: 5,
+        authorId: user.uid, 
         createdAt: moment().format("MMM Do YYYY")
       })
       .then(() => {
