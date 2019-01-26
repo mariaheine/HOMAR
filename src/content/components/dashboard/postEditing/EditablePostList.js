@@ -4,7 +4,7 @@ import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Link } from "react-router-dom";
 
-import "./../../../styles/components/dashboard/editablePostList.css";
+import "./../../../../styles/components/dashboard/editablePostList.css";
 
 class EditablePostList extends Component {
   render() {

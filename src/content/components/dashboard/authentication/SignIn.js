@@ -11,7 +11,7 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 
-import { signIn } from "./../../../reduxStore/actions/authActions";
+import { signIn } from "../../../../reduxStore/actions/authActions";
 
 class SignIn extends Component {
   constructor(props) {

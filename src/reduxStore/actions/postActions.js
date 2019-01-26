@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const createPost = post => {
   /*
     thunk.withExtraArgument({...}) at index.js
@@ -30,7 +32,7 @@ export const createPost = post => {
         },
         author: "Marie",
         authorId: 5,
-        createdAt: new Date()
+        createdAt: moment().format("MMM Do YYYY")
       })
       .then(() => {
         /* Then continue and dispatch an action */

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Button } from 'reactstrap';
 
-import EditablePostList from "./EditablePostList";
+import EditablePostList from "./postEditing/EditablePostList";
 import { signOut } from "./../../../reduxStore/actions/authActions";
 
 import "./../../../styles/components/dashboard/homaremenon.css";
@@ -17,6 +17,13 @@ class Homaremenon extends Component {
             to={{
               pathname: "/create",
               state: { hello: true }
+            }}
+          >
+          <Button color="primary"> ̿̿ ̿̿ ̿'̿'\̵͇̿̿\з= ( ▀ ͜͞ʖ▀) =ε/̵͇̿̿/’̿’̿ ̿ ̿̿ ̿̿ ̿̿</Button>
+          </Link>
+          <Link 
+            to={{
+              pathname: "/editUser"
             }}
           >
           <Button color="primary"> ̿̿ ̿̿ ̿'̿'\̵͇̿̿\з= ( ▀ ͜͞ʖ▀) =ε/̵͇̿̿/’̿’̿ ̿ ̿̿ ̿̿ ̿̿</Button>

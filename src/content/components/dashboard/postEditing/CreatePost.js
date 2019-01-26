@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
 
-import { createPost } from "./../../../reduxStore/actions/postActions";
+import { createPost } from "./../../../../reduxStore/actions/postActions";
 
-import "./../../../styles/components/blog/blogContainer.css";
+import "./../../../../styles/components/blog/blogContainer.css";
 
 import PostForm from "./PostForm";
 
@@ -17,6 +17,8 @@ class CreatePost extends Component {
   render() {
     const { auth } = this.props;
     if(!auth.uid) return <Redirect to="/" />
+    
+    console.log(auth)
 
     // console.log(this.props.location.state)
     return <PostForm handleSubmit={this._createPost} />;

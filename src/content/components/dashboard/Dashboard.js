@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import Homaremenon from "./Homaremenon";
-import SignIn from "./SignIn";
+import SignIn from "./authentication/SignIn";
 
 import "./../../../styles/components/dashboard/homaremenon.css";
 

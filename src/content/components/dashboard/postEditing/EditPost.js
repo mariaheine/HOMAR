@@ -4,11 +4,11 @@ import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Redirect } from "react-router-dom";
 
-import "./../../../styles/components/blog/blogContainer.css";
-import "./../../../styles/components/dashboard/postEditor.css";
+import "./../../../../styles/components/blog/blogContainer.css";
+import "./../../../../styles/components/dashboard/postEditor.css";
 
-import { editPost } from "./../../../reduxStore/actions/postActions";
-import { requestDisplayablePostByLanguage } from "./../../../reduxStore/actions/helperActions";
+import { editPost } from "./../../../../reduxStore/actions/postActions";
+import { requestDisplayablePostByLanguage } from "./../../../../reduxStore/actions/helperActions";
 
 import PostForm from "./PostForm";
 
