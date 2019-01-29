@@ -22,6 +22,7 @@ class BlogPostSummary extends Component {
     var outerHeaderContainer = {
       display: "flex",
       flexDirection: "row",
+      alignItems: "flex-start",
       background: "#58585852",
       padding: "0.2rem 0.5rem 0 0.2rem"
     };
@@ -33,8 +34,8 @@ class BlogPostSummary extends Component {
     };
 
     var avatarImage = {
+      width: "64px",
       height: "64px",
-      width: "auto",
       border: "2px solid black",
       borderRadius: "2px",
       margin: "0.5rem 0 0.5rem 0.5rem"
@@ -62,7 +63,7 @@ class BlogPostSummary extends Component {
         <div className="abstractContent">
           <Editor
             readOnly="true"
-            editorState={this.props.postContent}
+            editorState={this.props.postSummary}
             placeholder="EDITOR HERE"
           />
         </div>
@@ -85,7 +86,7 @@ const mapStateToProps = (state, ownProps) => {
   // console.log(state);
 
   return {
-    postContent: result.content,
+    postSummary: result.summary,
     postTitle: result.title,
     user
   };

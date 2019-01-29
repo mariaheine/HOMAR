@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import {
   Button,
   Popover,
@@ -49,6 +50,7 @@ class SignIn extends Component {
   };
 
   render() {
+    
     const { authError } = this.props;
 
     if (this.props.authError !== null) {
@@ -72,7 +74,7 @@ class SignIn extends Component {
               onChange={this.onChange}
             />
           </FormGroup>
-          <Button id="submit1">Submit</Button>
+          <Button id="submit1">Signin</Button>
           <Popover
             placement="right"
             isOpen={this.state.popoverOpen}
@@ -86,6 +88,9 @@ class SignIn extends Component {
             </PopoverBody>
           </Popover>
         </Form>
+        <div>
+          or <Button href="/signup/">Signup</Button> !
+        </div>        
       </div>
     );
   }

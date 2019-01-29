@@ -15,6 +15,8 @@ export const createPost = post => {
     const firestore = getFirestore();
 
     var user = getFirebase().auth().currentUser;
+    // var user = getFirebase().auth.UserProfile();
+    console.log(user.uid);
 
     firestore
       .collection("blogPosts")
@@ -32,7 +34,7 @@ export const createPost = post => {
           summary: "",
           content: ""
         },
-        authorId: user.displayName, 
+        authorId: user.uid, 
         createdAt: moment().format("MMM Do YYYY")
       })
       .then(() => {

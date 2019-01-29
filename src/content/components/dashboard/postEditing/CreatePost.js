@@ -10,15 +10,13 @@ import PostForm from "./PostForm";
 
 class CreatePost extends Component {
   _createPost = stagedPost => {
-    // console.log(stagedPost);
     this.props.createPost(stagedPost);
+    this.props.history.push('/homaremenon');
   };
 
   render() {
     const { auth } = this.props;
     if(!auth.uid) return <Redirect to="/" />
-    
-    // console.log(auth)
 
     return <PostForm handleSubmit={this._createPost} />;
   }

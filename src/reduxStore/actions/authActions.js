@@ -33,6 +33,33 @@ export const signOut = () => {
   };
 };
 
+export const signUp = newUser => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firebase = getFirebase();
+    const firestore = getFirestore();
+
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(newUser.email, newUser.password)
+      .then(response => {
+        // console.log(response);
+        return firestore
+          .collection("users")
+          .doc(response.user.uid)
+          .set({
+            nick: newUser.nick,
+            avatarURL: newUser.avatarURL
+          });
+      })
+      .then(() => {
+        dispatch({ type: "SIGNUP_SUCCESS" });
+      })
+      .catch(err => {
+        dispatch({ type: "SIGNUP_ERROR", err });
+      });
+  };
+};
+
 export const editUser = userData => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();

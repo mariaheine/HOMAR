@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { editUser } from "../../../../reduxStore/actions/authActions";
@@ -32,6 +33,10 @@ class EditUser extends Component {
   };
 
   render() {
+
+    const { auth } = this.props;
+    if(!auth.uid) return <Redirect to="/" />
+
     return (
       <div className="container">
         <div className="userAuth">
@@ -63,6 +68,12 @@ class EditUser extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    auth: state.firebase.auth
+  };
+};
+
 const mapDispatchToProps = dispatch => {
   return {
     editUser: userData => dispatch(editUser(userData))
@@ -70,6 +81,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(EditUser);

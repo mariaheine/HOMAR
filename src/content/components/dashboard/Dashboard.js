@@ -8,8 +8,7 @@ import "./../../../styles/components/dashboard.css";
 
 class Dashboard extends Component {
   render() {
-    const { auth } = this.props;
-    // console.log(auth);
+    const { auth } = this.props;    
 
     const content = auth.uid ? <Homaremenon /> : <SignIn />
 
@@ -22,6 +21,7 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state)
   return {
     auth: state.firebase.auth
   };

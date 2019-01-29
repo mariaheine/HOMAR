@@ -1,13 +1,29 @@
 import React, { Component } from "react";
-import {
-  Collapse,
-  Nav,
-  NavItem,
-  NavLink,
-  Button
-} from "reactstrap";
+import { Collapse, Nav, NavItem, NavLink, Button } from "reactstrap";
 
-var navHashtags = Array('NAVIGATE', 'EXTRAPOLATE', 'MANIPULATE', 'DISORIENTATE');
+var navHashtags = Array(
+  "NAVIGATE",
+  "EXTRAPOLATE",
+  "MANIPULATE",
+  "DISORIENTATE",
+  'FRUSTRATE',
+  'DISSIMULATE',
+  'STIMULATE',
+  'SIMULATE',
+  'ASSIMILATE',
+  'ALIENATE',
+  'HIBERNATE',
+  'MEDITATE',
+  'LACERATE',
+  'INCUBATE',
+  'REGULATE',
+  'TERMINATE',
+  'ACCELERATE',
+  'ANTICIPATE',
+  'INFATUATE',
+  'INTOXICATE',
+  'TESSELATE'
+);
 
 export default class Menu extends Component {
   constructor(props) {
@@ -42,7 +58,8 @@ export default class Menu extends Component {
       paddingRight: "1vw"
     };
 
-    var navHashtag = navHashtags[Math.floor(Math.random()*navHashtags.length)];
+    var navHashtag =
+      navHashtags[Math.floor(Math.random() * navHashtags.length)];
 
     return (
       <div style={littleInline}>

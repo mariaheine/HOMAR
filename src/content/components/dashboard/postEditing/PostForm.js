@@ -97,6 +97,7 @@ class PostForm extends Component {
   };
 
   render() {
+
     return (
       <div className="outerContainer columnContainer">
         <div className="post">
