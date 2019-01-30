@@ -48,7 +48,8 @@ export const signUp = newUser => {
           .doc(response.user.uid)
           .set({
             nick: newUser.nick,
-            avatarURL: newUser.avatarURL
+            avatarURL: newUser.avatarURL,
+            registeredAt: new Date()
           });
       })
       .then(() => {

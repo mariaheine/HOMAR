@@ -94,6 +94,11 @@ export default class Menu extends Component {
                 <h1 className="menuButton">🏧 outro cuteness</h1>
               </NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink href="/homaremenon" onClick={this.toggleNavbar}>
+                <h1 className="menuButton">🏩 homaremenon</h1>
+              </NavLink>
+            </NavItem>
           </Nav>
         </Collapse>
       </div>

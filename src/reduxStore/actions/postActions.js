@@ -35,7 +35,7 @@ export const createPost = post => {
           content: ""
         },
         authorId: user.uid, 
-        createdAt: moment().format("MMM Do YYYY")
+        createdAt: new Date()
       })
       .then(() => {
         /* Then continue and dispatch an action */

@@ -90,6 +90,7 @@ class SignUp extends Component {
               name="nick"
               placeholder="nick"
               onChange={this.onChange}
+              required
             />
           </FormGroup>
           <FormGroup>
