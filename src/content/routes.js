@@ -9,11 +9,13 @@ import OutroCuteness from "./components/shop/OutroCuteness";
 import OutroProduct from "./components/shop/OutroProduct";
 import TheBlog from './components/blog/TheBlog';
 import BlogPost from './components/blog/BlogPost';
+
 import Dashboard from './components/dashboard/Dashboard';
-import SignUp from './components/dashboard/authentication/SignUp';
 import EditPost from './components/dashboard/postEditing/EditPost';
 import CreatePost from './components/dashboard/postEditing/CreatePost';
+import SignUp from './components/dashboard/authentication/SignUp';
 import EditUser from './components/dashboard/authentication/EditUser';
+import AdminPanel from './components/dashboard/authentication/AdminPanel';
 
 const BaseRouter = () => {
   return (
@@ -34,6 +36,7 @@ const BaseRouter = () => {
         <Route path="/homaremenon/edit/:postId" component={EditPost} />
         <Route path="/create" component={CreatePost} />
         <Route path="/editUser" component={EditUser} />
+        <Route path="/adminPanel" component={AdminPanel} />
 
         <Route component={Asd} />
       </Switch>

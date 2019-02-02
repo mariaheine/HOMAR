@@ -67,6 +67,8 @@ export const editUser = userData => {
 
     var user = firebase.auth().currentUser;
 
+    console.log(userData);
+
     user
       .updateProfile({
         displayName: userData.nick,
@@ -77,6 +79,27 @@ export const editUser = userData => {
       })
       .catch(err => {
         dispatch({ type: "USEREDIT_ERROR", err });
+      });
+  };
+};
+
+export const grantSUDO = email => {
+  return (dispatch, getState, { getFirebase }) => {
+    const firebase = getFirebase();
+
+    console.log(email);
+
+    const grantSudoClaims = firebase
+      .functions()
+      .httpsCallable("grantSudoClaims");
+
+    grantSudoClaims({ email: email })
+      .then(result => {
+        console.log(result);
+        dispatch({ type: "USER_GRANT_ADMIN_SUCCESS" });
+      })
+      .catch(err => {
+        dispatch({ type: "USER_GRANT_ADMIN_ERROR", err });
       });
   };
 };

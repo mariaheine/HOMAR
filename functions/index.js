@@ -68,9 +68,8 @@ exports.addModPermissions = functions.https.onCall((data, context) => {
     });
 });
 
-exports.addSudoPermissions = functions.https.onCall((data) => {
+exports.grantSudoClaims = functions.https.onCall((data) => {
     // get user and add custom claims
-  
     // We are returning this because it's gonna return a promise
     return admin
       .auth()

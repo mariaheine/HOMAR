@@ -12,7 +12,7 @@ class Notifications extends Component {
 
     return (
       <div>
-        <h3>Blog Activity</h3>
+        <h2>just some 📬</h2>
         <ul className="notifications">
           {notifications &&
             notifications.map(item => {

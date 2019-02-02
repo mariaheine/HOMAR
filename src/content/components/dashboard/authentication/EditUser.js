@@ -1,12 +1,23 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
+import { compose } from "redux";
+import { firestoreConnect, getFirebase  } from "react-redux-firebase";
+
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-import { editUser } from "../../../../reduxStore/actions/authActions";
+import {
+  editUser,
+  grantSUDO
+} from "../../../../reduxStore/actions/authActions";
 import "./../../../../styles/components/dashboard.css";
 
-import AddAdmin from './components/AddAdmin'
-
+var avatarImage = {
+  width: "8vw",
+  height: "8vh",
+  border: "2px solid black",
+  borderRadius: "2px",
+  margin: "0.5rem 0 0.5rem 0.5rem"
+};
 class EditUser extends Component {
   constructor(props) {
     super(props);
@@ -19,8 +30,9 @@ class EditUser extends Component {
     };
   }
 
-  handleSubmit = e => {
+  handleUserUpdate = e => {
     e.preventDefault();
+    console.log(e);
     this.props.editUser(this.state.userData);
   };
 
@@ -35,16 +47,30 @@ class EditUser extends Component {
   };
 
   render() {
-    const { auth } = this.props;
+    const { auth, profile } = this.props;
     if (!auth.uid) return <Redirect to="/" />;
+
+    console.log(auth);
 
     return (
       <div className="container">
         <div className="rowContainer">
+          <div className="flex col">
+            <div>
+              <p>User nick: {profile.nick}</p>
+              <p>Current avatar: </p>
+              <img style={avatarImage} src={profile.avatarURL} />
+            </div>
+            <div>
+              <Button href="/adminPanel" id="submit1" color="danger">
+                Enter admin panel
+              </Button>
+            </div>
+          </div>
           <div className="userAuth">
-            <Form onSubmit={this.handleSubmit}>
+            <Form onSubmit={this.handleUserUpdate}>
               <FormGroup>
-                <Label for="nickInput">new display Nick 🌄</Label>
+                <Label for="nickInput">New display Nick 🌄</Label>
                 <Input
                   type="text"
                   name="nick"
@@ -53,7 +79,7 @@ class EditUser extends Component {
                 />
               </FormGroup>
               <FormGroup>
-                <Label for="urlInput">new avatar URL 👽</Label>
+                <Label for="urlInput">New avatar URL 👽</Label>
                 <Input
                   type="url"
                   name="url"
@@ -62,10 +88,11 @@ class EditUser extends Component {
                   onChange={this.onChange}
                 />
               </FormGroup>
-              <Button id="submit1" color="primary">Update profile!</Button>
+              <Button id="submit1" color="primary">
+                Update profile!
+              </Button>
             </Form>
           </div>
-          <AddAdmin />
         </div>
       </div>
     );
@@ -73,8 +100,17 @@ class EditUser extends Component {
 }
 
 const mapStateToProps = state => {
+  // var userId = state.firebase.auth.uid;
+
+  // getFirebase();
+
+  // console.log(getFirebase().auth())
+
+  // console.log(state.firebase.profile)
+
   return {
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    profile: state.firebase.profile
   };
 };
 
@@ -84,7 +120,10 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+export default compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  firestoreConnect([{ collection: "users" }])
 )(EditUser);

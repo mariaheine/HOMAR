@@ -29,8 +29,8 @@ class EditablePostList extends Component {
       ));
 
     return (
-      <div className="container">
-        <h2> 🍇🍍🍉Lista pooostówww 📝💬 </h2>
+      <div className="">
+        <h2> blog posts 📝💬 yummy 🍰😋 </h2>
         <div className="item">{listedPosts}</div>
       </div>
     );

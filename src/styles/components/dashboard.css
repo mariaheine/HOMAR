@@ -1,6 +1,6 @@
 /* DASHBOARD LAYOUT */
 
-div .container {
+div.container {
   display: flex;
   background: #272727bc;
   flex-direction: column;
@@ -22,6 +22,17 @@ div.rowContainer {
   height: 100%
 }
 
+/* AN ATTMEPT AT UNIFIED FLEX SYSTEM :d */
+
+div.flex {
+  display: flex;
+  flex-grow: 0;
+}
+
+div.col {  
+  flex-direction: column;
+}
+
 div.leftPanel {
   background: #00000056;
   flex-grow: 1;
@@ -29,7 +40,7 @@ div.leftPanel {
 }
 
 div.rightPanel {
-  background: #646464bc;
+  background: #00000056;
   flex-grow: 1;
 }
 
