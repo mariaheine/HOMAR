@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-import { grantSUDO } from "../../../../reduxStore/actions/authActions";
+import { grantMOD } from "../../../../reduxStore/actions/authActions";
 import "./../../../../styles/components/dashboard.css";
+import { getFirebase } from "react-redux-firebase";
 
 class AdminPanel extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class AdminPanel extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.grantSUDO(this.state.email);
+    this.props.grantMOD(this.state.email);
   };
 
   onChange = e => {
@@ -25,13 +26,17 @@ class AdminPanel extends Component {
   };
 
   render() {
+    const { auth, isSudo } = this.props;
+
+    if (!auth.uid || !isSudo) return <Redirect to="/" />;
+
     return (
       <div className="container">
         <div className="rowContainer" />
         <div className="userAuth">
           <Form onSubmit={this.handleSubmit}>
             <FormGroup>
-              <Label for="emailInput">Add new sudouser</Label>
+              <Label for="emailInput">Add new moderator</Label>
               <Input
                 type="email"
                 name="email"
@@ -50,18 +55,31 @@ class AdminPanel extends Component {
 }
 
 const mapStateToProps = state => {
+  const firebase = getFirebase();
+
+  var isSudo = firebase
+    .auth()
+    .currentUser.getIdTokenResult()
+    .then(result => {
+      return result.claims.isSudo;
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
   return {
-    auth: state.firebase.auth
+    auth: state.firebase.auth,
+    isSudo
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    grantSUDO: email => dispatch(grantSUDO(email))
+    grantMOD: email => dispatch(grantMOD(email))
   };
 };
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(AdminPanel);

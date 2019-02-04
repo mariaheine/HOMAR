@@ -83,19 +83,37 @@ export const editUser = userData => {
   };
 };
 
-export const grantSUDO = email => {
+// DISABLED
+
+// export const grantSUDO = email => {
+//   return (dispatch, getState, { getFirebase }) => {
+//     const firebase = getFirebase();
+//     console.log(email);
+//     const grantSudoClaims = firebase
+//       .functions()
+//       .httpsCallable("grantSudoClaims");
+//     grantSudoClaims({ email: email })
+//       .then(result => {
+//         console.log(result);
+//         dispatch({ type: "USER_GRANT_ADMIN_SUCCESS" });
+//       })
+//       .catch(err => {
+//         dispatch({ type: "USER_GRANT_ADMIN_ERROR", err });
+//       });
+//   };
+// };
+
+export const grantMOD = email => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();
 
-    console.log(email);
-
     const grantSudoClaims = firebase
       .functions()
-      .httpsCallable("grantSudoClaims");
+      .httpsCallable("grantModClaims");
 
     grantSudoClaims({ email: email })
       .then(result => {
-        console.log(result);
+        // console.log(result);
         dispatch({ type: "USER_GRANT_ADMIN_SUCCESS" });
       })
       .catch(err => {
@@ -103,3 +121,4 @@ export const grantSUDO = email => {
       });
   };
 };
+

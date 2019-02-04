@@ -5,16 +5,12 @@ import { compose } from "redux";
 import { Editor } from "draft-js"; // Draft-js displaying using readonly Editor
 import { Media } from "reactstrap";
 import moment from "moment";
-import _ from "lodash";
 
 import { getUserById } from "./../../../reduxStore/actions/authActions";
 import { requestDisplayablePostByLanguage } from "./../../../reduxStore/actions/helperActions";
 import "./../../../styles/components/blog.css";
 import {
-  getFirebase,
-  getFirestore,
   firestoreConnect,
-  firebaseConnect,
   getVal
 } from "react-redux-firebase";
 
@@ -101,6 +97,7 @@ const mapStateToProps = (state, ownProps) => {
 
   var avatarURL = author ? author.avatarURL : null;
 
+
   // console.log(nick);
 
   // It seems I get access to blogPosts thanks to the parent of this component
@@ -137,13 +134,10 @@ export default compose(
 //     //   ownProps.post,
 //     //   state.language.selectedLanguage
 //     // );
-
 //     console.log(state);
-
 //     return {
 //       // user: getVal(firestore, `data/users/${ownProps.post.authorId}`)
 //     };
 //   })
 // );
-
 // export default enhance(BlogPostSummary);

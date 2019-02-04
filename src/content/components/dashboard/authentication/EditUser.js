@@ -2,14 +2,17 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { firestoreConnect, getFirebase  } from "react-redux-firebase";
+import {
+  firestoreConnect,
+  getFirebase,
+  firebaseConnect
+} from "react-redux-firebase";
 
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import {
-  editUser,
-  grantSUDO
+  editUser
 } from "../../../../reduxStore/actions/authActions";
-import "./../../../../styles/components/dashboard.css";
+import "../../../../styles/components/dashboard.css";
 
 var avatarImage = {
   width: "8vw",
@@ -47,10 +50,17 @@ class EditUser extends Component {
   };
 
   render() {
-    const { auth, profile } = this.props;
+    const { auth, profile, isSudo } = this.props;
+
+    // console.log(this.props)
+    
     if (!auth.uid) return <Redirect to="/" />;
 
-    console.log(auth);
+    var AdminPanelButton = isSudo ? (
+      <Button href="/adminPanel" id="submit1" color="danger">
+        Enter admin panel
+      </Button>
+    ) : null;
 
     return (
       <div className="container">
@@ -62,9 +72,11 @@ class EditUser extends Component {
               <img style={avatarImage} src={profile.avatarURL} />
             </div>
             <div>
-              <Button href="/adminPanel" id="submit1" color="danger">
+              {/* <Button href="/adminPanel" id="submit1" color="danger">
                 Enter admin panel
               </Button>
+               */}
+              {AdminPanelButton}
             </div>
           </div>
           <div className="userAuth">
@@ -100,17 +112,25 @@ class EditUser extends Component {
 }
 
 const mapStateToProps = state => {
-  // var userId = state.firebase.auth.uid;
 
-  // getFirebase();
+  // console.log(state);
 
-  // console.log(getFirebase().auth())
+  const firebase = getFirebase();
 
-  // console.log(state.firebase.profile)
+  var isSudo = firebase
+    .auth()
+    .currentUser.getIdTokenResult()
+    .then(result => {
+      return result.claims.isSudo;
+    })
+    .catch(err => {
+      console.log(err)
+    });;
 
   return {
     auth: state.firebase.auth,
-    profile: state.firebase.profile
+    profile: state.firebase.profile,
+    isSudo
   };
 };
 
@@ -125,5 +145,17 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps
   ),
+  // ODDLY THIS WAS KINDOF WORKING, INVESTIGATE
+  // firebaseConnect((props, { firebase: { auth } }) => {
+
+  //   const isSudo = auth()
+  //     .currentUser.getIdTokenResult()
+  //     .then(result => {
+  //       console.log(result.claims.isSudo);
+  //       return result.claims.isSudo;
+  //     });
+
+  //   console.log(isSudo);
+  // }),
   firestoreConnect([{ collection: "users" }])
 )(EditUser);

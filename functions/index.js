@@ -46,7 +46,7 @@ exports.userJoined = functions.auth.user().onCreate(user => {
 
 // GIVING USER MODERATOR PERMISSIONS
 
-exports.addModPermissions = functions.https.onCall((data, context) => {
+exports.grantModClaims = functions.https.onCall((data, context) => {
   // get user and add custom claims
 
   // We are returning this because it's gonna return a promise
@@ -54,7 +54,7 @@ exports.addModPermissions = functions.https.onCall((data, context) => {
     .auth()
     .getUserByEmail(data.email)
     .then(user => {
-      return admin.auth().setCustomUserClaims(user.uid, {
+      return admin.auth().setCustomUserClaims(user.uid, {        
         isMod: true
       });
     })
@@ -68,23 +68,27 @@ exports.addModPermissions = functions.https.onCall((data, context) => {
     });
 });
 
-exports.grantSudoClaims = functions.https.onCall((data) => {
-    // get user and add custom claims
-    // We are returning this because it's gonna return a promise
-    return admin
-      .auth()
-      .getUserByEmail(data.email)
-      .then(user => {
-        return admin.auth().setCustomUserClaims(user.uid, {
-          isSudo: true
-        });
-      })
-      .then(() => {
-        return {
-          message: `Badum tss! ${data.email} has become a sudo!`
-        };
-      })
-      .catch(err => {
-        return err;
-      });
-  });
+// Disabled because there is only need for one sudo
+// ALL THE POWER TO ME
+// xd
+
+// exports.grantSudoClaims = functions.https.onCall((data) => {
+//     // We are returning this because it's gonna return a promise
+//     return admin
+//       .auth()
+//       .getUserByEmail(data.email)
+//       .then(user => {
+//         return admin.auth().setCustomUserClaims(user.uid, {
+//           isMod: true,
+//           isSudo: true
+//         });
+//       })
+//       .then(() => {
+//         return {
+//           message: `Badum tss! ${data.email} has become a sudo!`
+//         };
+//       })
+//       .catch(err => {
+//         return err;
+//       });
+//   });
