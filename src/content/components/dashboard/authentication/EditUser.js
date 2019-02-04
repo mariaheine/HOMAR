@@ -35,7 +35,6 @@ class EditUser extends Component {
 
   handleUserUpdate = e => {
     e.preventDefault();
-    console.log(e);
     this.props.editUser(this.state.userData);
   };
 
@@ -52,7 +51,7 @@ class EditUser extends Component {
   render() {
     const { auth, profile, isSudo } = this.props;
 
-    // console.log(this.props)
+    // console.log(profile)
     
     if (!auth.uid) return <Redirect to="/" />;
 
@@ -72,10 +71,6 @@ class EditUser extends Component {
               <img style={avatarImage} src={profile.avatarURL} />
             </div>
             <div>
-              {/* <Button href="/adminPanel" id="submit1" color="danger">
-                Enter admin panel
-              </Button>
-               */}
               {AdminPanelButton}
             </div>
           </div>
@@ -113,9 +108,9 @@ class EditUser extends Component {
 
 const mapStateToProps = state => {
 
-  // console.log(state);
-
   const firebase = getFirebase();
+
+  // console.log(firebase.auth().currentUser)
 
   var isSudo = firebase
     .auth()
@@ -146,8 +141,8 @@ export default compose(
     mapDispatchToProps
   ),
   // ODDLY THIS WAS KINDOF WORKING, INVESTIGATE
-  // firebaseConnect((props, { firebase: { auth } }) => {
 
+  // firebaseConnect((props, { firebase: { auth } }) => {
   //   const isSudo = auth()
   //     .currentUser.getIdTokenResult()
   //     .then(result => {

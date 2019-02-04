@@ -44,6 +44,16 @@ exports.userJoined = functions.auth.user().onCreate(user => {
     });
 });
 
+exports.userEdited = functions.auth.user().onUpdate(user => {
+  
+  // return admin
+  // .firestore()
+  // .collection('users')
+  // .doc(user.uid)
+  // .update()
+  console.log("user updated")
+})
+
 // GIVING USER MODERATOR PERMISSIONS
 
 exports.grantModClaims = functions.https.onCall((data, context) => {

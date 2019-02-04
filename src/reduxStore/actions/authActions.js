@@ -62,22 +62,29 @@ export const signUp = newUser => {
 };
 
 export const editUser = userData => {
-  return (dispatch, getState, { getFirebase }) => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firebase = getFirebase();
+    const firestore = getFirestore();
 
-    var user = firebase.auth().currentUser;
+    var userId = firebase.auth().currentUser.uid;
 
-    console.log(userData);
+    let data = {};
+    if (userData.nick) {
+      data.nick = userData.nick;
+    }
+    if (userData.url) {
+      data.avatarURL = userData.url;
+    }
 
-    user
-      .updateProfile({
-        displayName: userData.nick,
-        photoURL: userData.url
-      })
+    firestore
+      .collection("users")
+      .doc(userId)
+      .update(data)
       .then(() => {
         dispatch({ type: "USEREDIT_SUCCESS" });
       })
       .catch(err => {
+        console.log(err);
         dispatch({ type: "USEREDIT_ERROR", err });
       });
   };
@@ -121,4 +128,3 @@ export const grantMOD = email => {
       });
   };
 };
-
