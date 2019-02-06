@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
-import { grantMOD } from "../../../../reduxStore/actions/authActions";
+import {
+  checkUserClaims,
+  grantMOD
+} from "../../../../reduxStore/actions/authActions";
 import "./../../../../styles/components/dashboard.css";
 import { getFirebase } from "react-redux-firebase";
 
@@ -26,9 +29,19 @@ class AdminPanel extends Component {
   };
 
   render() {
-    const { auth, isSudo } = this.props;
+    const { auth, userState } = this.props;
 
-    if (!auth.uid || !isSudo) return <Redirect to="/" />;
+    // console.log(userState.claims);
+
+    if (!auth.uid) return <Redirect to="/" />;
+
+    if (!userState.claims) {
+      return <p>Loading...</p>;
+    } else {
+      if (!userState.claims.isSudo) {
+        return <Redirect to="/" />;
+      }
+    }
 
     return (
       <div className="container">
@@ -52,30 +65,23 @@ class AdminPanel extends Component {
       </div>
     );
   }
+
+  componentDidMount() {
+    this.props.checkUserClaims();
+  }
 }
 
 const mapStateToProps = state => {
-  const firebase = getFirebase();
-
-  var isSudo = firebase
-    .auth()
-    .currentUser.getIdTokenResult()
-    .then(result => {
-      return result.claims.isSudo;
-    })
-    .catch(err => {
-      console.log(err);
-    });
-
   return {
     auth: state.firebase.auth,
-    isSudo
+    userState: state.auth.user
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    grantMOD: email => dispatch(grantMOD(email))
+    grantMOD: email => dispatch(grantMOD(email)),
+    checkUserClaims: () => dispatch(checkUserClaims())
   };
 };
 

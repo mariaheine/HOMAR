@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { Button } from "reactstrap";
 
-import EditablePostList from "./postEditing/EditablePostList";
-import Notifications from "./panels/Notifications";
-import { signOut } from "./../../../reduxStore/actions/authActions";
+import EditablePostList from "../postEditing/EditablePostList";
+import Notifications from "../components/Notifications";
+import { signOut } from "../../../../reduxStore/actions/authActions";
 
-import "./../../../styles/components/dashboard.css";
+import "./../../../../styles/components/dashboard.css";
 
 class Homaremenon extends Component {
   render() {

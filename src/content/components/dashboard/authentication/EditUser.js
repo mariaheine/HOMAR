@@ -2,15 +2,22 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import {
-  firestoreConnect,
-  getFirebase,
-  firebaseConnect
-} from "react-redux-firebase";
+import { firestoreConnect } from "react-redux-firebase";
 
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import {
-  editUser
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Card,
+  CardImg,
+  CardBody,
+  CardText
+} from "reactstrap";
+import {
+  editUser,
+  checkUserClaims
 } from "../../../../reduxStore/actions/authActions";
 import "../../../../styles/components/dashboard.css";
 
@@ -21,6 +28,23 @@ var avatarImage = {
   borderRadius: "2px",
   margin: "0.5rem 0 0.5rem 0.5rem"
 };
+
+var cardText = { padding: "0" };
+
+var userNick = {
+  color: "white",
+  padding: "0",
+  margin: "0"
+};
+
+var cardImage = {
+  maxWidth: "20rem"
+};
+
+var cardBackground = {
+  background: "#0c5852"
+};
+
 class EditUser extends Component {
   constructor(props) {
     super(props);
@@ -49,30 +73,40 @@ class EditUser extends Component {
   };
 
   render() {
-    const { auth, profile, isSudo } = this.props;
+    const { auth, profile, userState } = this.props;
 
-    // console.log(profile)
-    
     if (!auth.uid) return <Redirect to="/" />;
 
-    var AdminPanelButton = isSudo ? (
-      <Button href="/adminPanel" id="submit1" color="danger">
-        Enter admin panel
-      </Button>
-    ) : null;
+    console.log(this.props);
+
+    if (userState.claims) {
+      var AdminPanelButton = userState.claims.isSudo ? (
+        <Button href="/adminPanel" id="submit1" color="danger">
+          Enter admin panel
+        </Button>
+      ) : null;
+    }
 
     return (
       <div className="container">
         <div className="rowContainer">
-          <div className="flex col">
-            <div>
-              <p>User nick: {profile.nick}</p>
-              <p>Current avatar: </p>
-              <img style={avatarImage} src={profile.avatarURL} />
-            </div>
-            <div>
-              {AdminPanelButton}
-            </div>
+          <div className="flex flexCol">
+            <Card>
+              <CardImg style={cardImage} width="30%" src={profile.avatarURL} />
+              <CardBody style={cardBackground}>
+                <CardText style={cardText}>
+                  <h3 style={userNick}>#{profile.nick}</h3>
+                </CardText>
+                {AdminPanelButton}
+                <Button
+                  id="submit1"
+                  color="info"
+                  onClick={this.props.history.goBack}
+                >
+                  Go back
+                </Button>
+              </CardBody>
+            </Card>
           </div>
           <div className="userAuth">
             <Form onSubmit={this.handleUserUpdate}>
@@ -104,34 +138,42 @@ class EditUser extends Component {
       </div>
     );
   }
+
+  componentDidMount() {
+    const { userState } = this.props;
+
+    if (!userState.claims) {
+      this.props.checkUserClaims();
+    }
+
+    // WORKS, BUT HOW TO ENCAPSULATE THAT?
+    // REPEATING THIS SOLUTION IN EVERY PROJECT IS CUMBERSOME
+    // const firebase = getFirebase();
+
+    // const user = firebase.auth().currentUser;
+
+    // if (user) {
+    //   var asd = user.getIdTokenResult().then(result => {
+    //     // console.log(result);
+    //     this.setState({ claims: { isMod: result.claims.isMod } });
+    //     return result.claims.isMod;
+    //   });
+    // }
+  }
 }
 
 const mapStateToProps = state => {
-
-  const firebase = getFirebase();
-
-  // console.log(firebase.auth().currentUser)
-
-  var isSudo = firebase
-    .auth()
-    .currentUser.getIdTokenResult()
-    .then(result => {
-      return result.claims.isSudo;
-    })
-    .catch(err => {
-      console.log(err)
-    });;
-
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,
-    isSudo
+    userState: state.auth.user
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    editUser: userData => dispatch(editUser(userData))
+    editUser: userData => dispatch(editUser(userData)),
+    checkUserClaims: () => dispatch(checkUserClaims())
   };
 };
 

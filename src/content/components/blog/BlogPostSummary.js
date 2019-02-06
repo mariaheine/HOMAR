@@ -97,9 +97,6 @@ const mapStateToProps = (state, ownProps) => {
 
   var avatarURL = author ? author.avatarURL : null;
 
-
-  // console.log(nick);
-
   // It seems I get access to blogPosts thanks to the parent of this component
   // console.log(state.firestore.data);
 

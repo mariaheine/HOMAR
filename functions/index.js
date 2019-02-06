@@ -44,18 +44,17 @@ exports.userJoined = functions.auth.user().onCreate(user => {
     });
 });
 
-exports.userEdited = functions.auth.user().onUpdate(user => {
-  
-  // return admin
-  // .firestore()
-  // .collection('users')
-  // .doc(user.uid)
-  // .update()
-  console.log("user updated")
-})
+// exports.userEdited = functions.auth.user().onUpdate(user => {
+
+//   // return admin
+//   // .firestore()
+//   // .collection('users')
+//   // .doc(user.uid)
+//   // .update()
+//   console.log("user updated")
+// })
 
 // GIVING USER MODERATOR PERMISSIONS
-
 exports.grantModClaims = functions.https.onCall((data, context) => {
   // get user and add custom claims
 
@@ -64,7 +63,7 @@ exports.grantModClaims = functions.https.onCall((data, context) => {
     .auth()
     .getUserByEmail(data.email)
     .then(user => {
-      return admin.auth().setCustomUserClaims(user.uid, {        
+      return admin.auth().setCustomUserClaims(user.uid, {
         isMod: true
       });
     })
@@ -102,3 +101,4 @@ exports.grantModClaims = functions.https.onCall((data, context) => {
 //         return err;
 //       });
 //   });
+

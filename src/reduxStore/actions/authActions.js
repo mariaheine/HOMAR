@@ -1,3 +1,12 @@
+import {
+  CLEAR_USER_STATE,
+  CHECK_CLAIMS,
+  CHECK_CLAIMS_SUCCESS,
+  CHECK_CLAIMS_ERROR
+} from "../types";
+
+import { initState } from "../reducers/authReducer";
+
 export const signIn = credentials => {
   /* Again to remind myself, because of thunk we can hold a 
      dispatch process and return a function (right below) instead
@@ -19,6 +28,12 @@ export const signIn = credentials => {
       });
   };
 };
+
+// const clearUserState = () => {
+//   return {
+//     type:
+//   }
+// }
 
 export const signOut = () => {
   return (dispatch, getState, { getFirebase }) => {
@@ -87,6 +102,48 @@ export const editUser = userData => {
         console.log(err);
         dispatch({ type: "USEREDIT_ERROR", err });
       });
+  };
+};
+
+export const checkUserClaims = () => {
+  return (dispatch, getState, { getFirebase }) => {
+    dispatch({ type: CHECK_CLAIMS });
+
+    const firebase = getFirebase();
+
+    // var userClaims = {
+    //   claims: {
+    //     isMod: null,
+    //     isSudo: null
+    //   }
+    // };
+
+    var userClaims = {
+      claims: {
+        isMod: null,
+        isSudo: null
+      }
+    };
+
+    firebase
+      .auth()
+      .currentUser.getIdTokenResult()
+      .then(result => {
+        if (result.claims.isMod === true) {
+          // console.log(result);
+          userClaims.claims.isMod = true;
+        }
+        if (result.claims.isSudo === true) {
+          // console.log("is sudo");
+          userClaims.claims.isSudo = true;
+        }
+        dispatch({ type: CHECK_CLAIMS_SUCCESS, payload: userClaims });
+      })
+      .catch(err => {
+        dispatch({ type: CHECK_CLAIMS_ERROR, err });
+      });
+
+    console.log(userClaims);
   };
 };
 

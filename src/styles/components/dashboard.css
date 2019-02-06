@@ -7,6 +7,8 @@ div.container {
   align-items: center;
   justify-content: center;
   color: white;
+  width: 90%;
+  margin: 0 5%;
 }
 
 div.topPanel {
@@ -29,8 +31,9 @@ div.flex {
   flex-grow: 0;
 }
 
-div.col {  
+div.flexCol {  
   flex-direction: column;
+  flex-basis: 1;
 }
 
 div.leftPanel {
