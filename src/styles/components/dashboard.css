@@ -12,8 +12,8 @@ div.container {
 }
 
 div.topPanel {
-  padding: 0.9rem;
-  padding-top: 0rem;
+  padding: 1rem;
+  padding-bottom: 0.5rem;
 }
 
 div.rowContainer {
@@ -21,7 +21,8 @@ div.rowContainer {
   flex-direction: row;
   justify-content: center;
   width: 100%;
-  height: 100%
+  height: 100%;
+  padding: 1rem;
 }
 
 /* AN ATTMEPT AT UNIFIED FLEX SYSTEM :d */
@@ -68,13 +69,11 @@ ul.notifications {
   color: black;
 }
 
+/* REACTSTRAP CARDS */
 
-/* USER AUTHENTICATION */
-
-div .userAuth {
-  margin: 1rem;
+div.card {
 }
 
-div .userAuth label {
-  color: white;
+div.card-body {  
+  background: #2c3638;
 }

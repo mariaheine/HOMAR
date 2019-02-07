@@ -8,11 +8,18 @@ import {
   Form,
   FormGroup,
   Label,
-  Input
+  Input,
+  Card,
+  CardBody,
+  CardText
 } from "reactstrap";
 import { connect } from "react-redux";
 
 import { signIn } from "../../../../reduxStore/actions/authActions";
+
+var wideButton = {
+  width: "100%"
+};
 
 class SignIn extends Component {
   constructor(props) {
@@ -50,47 +57,57 @@ class SignIn extends Component {
   };
 
   render() {
-    
-    const { authError } = this.props;
+    const { auth, authError } = this.props;
 
-    if (this.props.authError !== null) {
+    if (auth.uid) {
+      return <Redirect to="/homaremenon" />;
     }
 
     // console.log(authError);
     return (
-      <div>
-        <Form onSubmit={this.handleSubmit}>
-          <FormGroup>
-            <Label for="emailInput">Email</Label>
-            <Input type="email" name="email" onChange={this.onChange} />
-          </FormGroup>
-          <FormGroup>
-            <Label for="passwordInput">Password</Label>
-            <Input
-              type="password"
-              name="password"
-              id="passwordInput"
-              placeholder="password placeholder"
-              onChange={this.onChange}
-            />
-          </FormGroup>
-          <Button id="submit1">Signin</Button>
-          <Popover
-            placement="right"
-            isOpen={this.state.popoverOpen}
-            target="passwordInput"
-            toggle={this.togglePopover}
-            onClick={this.togglePopover}
-          >
-            <PopoverHeader>LOGIN FAILED</PopoverHeader>
-            <PopoverBody>
-              {`${this.props.authError}`}
-            </PopoverBody>
-          </Popover>
-        </Form>
-        <div>
-          or <Button href="/signup/">Signup</Button> !
-        </div>        
+      <div className="container">
+        <Card>
+          <CardBody>
+            <Form onSubmit={this.handleSubmit}>
+              <FormGroup>
+                <Label for="emailInput">Email</Label>
+                <Input
+                  type="email"
+                  name="email"
+                  onChange={this.onChange}
+                  placeholder="ml"
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="passwordInput">Password</Label>
+                <Input
+                  type="password"
+                  name="password"
+                  id="passwordInput"
+                  placeholder="psswrd"
+                  onChange={this.onChange}
+                />
+              </FormGroup>
+              <Button style={wideButton} color="warning" id="submit1">
+                Signin
+              </Button>
+              <Popover
+                placement="right"
+                isOpen={this.state.popoverOpen}
+                target="passwordInput"
+                toggle={this.togglePopover}
+                onClick={this.togglePopover}
+              >
+                <PopoverHeader>LOGIN FAILED</PopoverHeader>
+                <PopoverBody>{`${authError}`}</PopoverBody>
+              </Popover>
+            </Form>
+            <br />
+            <Button style={wideButton} href="/signup/" color="danger">
+              Signup
+            </Button>
+          </CardBody>
+        </Card>
       </div>
     );
   }
@@ -110,6 +127,7 @@ const mapStateToProps = state => {
   // console.log(state);
 
   return {
+    auth: state.firebase.auth,
     authError: state.auth.authError
   };
 };

@@ -13,7 +13,7 @@ import {
   Card,
   CardImg,
   CardBody,
-  CardText
+  CardTitle
 } from "reactstrap";
 import {
   editUser,
@@ -21,28 +21,8 @@ import {
 } from "../../../../reduxStore/actions/authActions";
 import "../../../../styles/components/dashboard.css";
 
-var avatarImage = {
-  width: "8vw",
-  height: "8vh",
-  border: "2px solid black",
-  borderRadius: "2px",
-  margin: "0.5rem 0 0.5rem 0.5rem"
-};
-
-var cardText = { padding: "0" };
-
-var userNick = {
-  color: "white",
-  padding: "0",
-  margin: "0"
-};
-
 var cardImage = {
   maxWidth: "20rem"
-};
-
-var cardBackground = {
-  background: "#0c5852"
 };
 
 class EditUser extends Component {
@@ -93,10 +73,10 @@ class EditUser extends Component {
           <div className="flex flexCol">
             <Card>
               <CardImg style={cardImage} width="30%" src={profile.avatarURL} />
-              <CardBody style={cardBackground}>
-                <CardText style={cardText}>
-                  <h3 style={userNick}>#{profile.nick}</h3>
-                </CardText>
+              <CardBody>
+                <CardTitle>
+                 {`#${profile.nick}`}
+                </CardTitle>
                 {AdminPanelButton}
                 <Button
                   id="submit1"

@@ -1,65 +1,63 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getFirebase } from "react-redux-firebase";
+import { Redirect } from "react-router-dom";
 
 import Homaremenon from "./user/Homaremenon";
 import UserPanel from "./user/UserPanel";
 import SignIn from "./authentication/SignIn";
+import { checkUserClaims } from "../../../reduxStore/actions/authActions";
 
 import "./../../../styles/components/dashboard.css";
 
 class Dashboard extends Component {
+  componentDidMount() {
+    const { auth, userState } = this.props;
+    
+    console.log(userState);
+
+    if (auth.uid && !userState.claims) {
+      console.log("gothere");
+
+      this.props.checkUserClaims();
+    }
+  }
+
   render() {
-    const { auth, isMod } = this.props;
+    const { auth, userState } = this.props;
 
-    console.log(auth, isMod);
+    console.log(auth, userState);
 
-    var content;
-
-    if (auth.uid && isMod) {
-      content = <Homaremenon />;
-    } else if (auth.uid) {
-      content = <UserPanel />;
-    } else {
-      content = <SignIn />;
+    if (!auth.uid) {
+      return <Redirect to="/signin" />
     }
 
-    return <div className="container">{content}</div>;
+    if (!userState.claims) {
+      return <p>Loading...</p>;
+    } else {
+      if (userState.claims.isMod) {
+        return <Homaremenon />;
+      } else {
+        return <UserPanel />;
+      }
+    }
   }
 }
 
 const mapStateToProps = state => {
   // console.log(state)
-
-  // INSTEAD OF REPEATING IT, MAKE A REDUX ACTION INSTEAD
-  const firebase = getFirebase();
-  var user = firebase.auth().currentUser;
-
-  var isMod;
-
-  if (user) {
-    user
-      .getIdTokenResult()
-      .then(result => {
-        console.log(result.claims.isMod)
-
-        if (result.claims.isMod == true) {
-          isMod = true;
-        } else {
-          isMod = false;
-        }
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  } else {
-    isMod = false;
-  }
-
   return {
     auth: state.firebase.auth,
-    isMod
+    userState: state.auth.user
   };
 };
 
-export default connect(mapStateToProps)(Dashboard);
+const mapDispatchToProps = dispatch => {
+  return {
+    checkUserClaims: () => dispatch(checkUserClaims())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Dashboard);

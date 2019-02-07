@@ -1,69 +1,68 @@
 import {
-  CLEAR_USER_STATE,
+  LOGIN_ERROR,
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
+  SIGNUP_ERROR,
+  SIGNUP_SUCCESS,
   CHECK_CLAIMS,
   CHECK_CLAIMS_SUCCESS,
-  CHECK_CLAIMS_ERROR
+  CHECK_CLAIMS_ERROR,
+  USEREDIT_SUCCESS,
+  USEREDIT_ERROR,
+  USER_GRANT_ADMIN_SUCCESS,
+  USER_GRANT_ADMIN_ERROR
 } from "../types";
 
 export const initState = {
   isFetching: "",
   authError: null,
-  user: {
-    // claims: {
-    //   isMod: null,
-    //   isSudo: null
-    // }
-  }
+  user: {}
 };
 
 const authReducer = (state = initState, action) => {
   switch (action.type) {
-    case "LOGIN_ERROR":
+    case LOGIN_ERROR:
       // console.log("Login error");
       return { ...state, authError: action.err };
-    case "LOGIN_SUCCESS":
+    case LOGIN_SUCCESS:
       // console.log("login cool");
       return { ...state, authError: null };
-    case "LOGOUT_SUCCESS":
+    case LOGOUT_SUCCESS:
       return { ...state, user: initState.user };
 
-    case "SIGNUP_ERROR":
-      // console.log("signup error!");
+    case SIGNUP_ERROR:
       return {
         ...state,
         authError: action.err.message
       };
-    case "SIGNUP_SUCCESS":
+    case SIGNUP_SUCCESS:
       return {
         ...state,
         authError: null
       };
 
     case CHECK_CLAIMS:
-      console.log(action.payload);
-      return Object.assign({}, state, { isFetching: true });
+      return Object.assign({}, state, {
+        isFetching: true
+      });
     case CHECK_CLAIMS_SUCCESS:
-      console.log(action.payload);
       return Object.assign({}, state, {
         isFetching: false,
-        // user: { claims: action.payload }        
-        user: action.payload 
+        user: action.payload
       });
     case CHECK_CLAIMS_ERROR:
-      console.log(action.err);
-      return {
-        ...state,
+      return Object.assign({}, state, {
         authError: action.err
-      };
+      });
 
-    case "USEREDIT_SUCCESS":
+    case USEREDIT_SUCCESS:
       return { ...state, authError: null };
-    case "USEREDIT_ERROR":
+    case USEREDIT_ERROR:
       return { ...state, authError: action.err };
 
-    case "USER_GRANT_ADMIN_SUCCESS":
+    case USER_GRANT_ADMIN_SUCCESS:
       return state;
-    case "USER_GRANT_ADMIN_ERROR":
+    case USER_GRANT_ADMIN_ERROR:
       return { ...state, authError: action.err };
     default:
       return state;

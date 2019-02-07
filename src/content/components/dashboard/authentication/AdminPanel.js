@@ -7,7 +7,6 @@ import {
   grantMOD
 } from "../../../../reduxStore/actions/authActions";
 import "./../../../../styles/components/dashboard.css";
-import { getFirebase } from "react-redux-firebase";
 
 class AdminPanel extends Component {
   constructor(props) {
@@ -39,7 +38,7 @@ class AdminPanel extends Component {
       return <p>Loading...</p>;
     } else {
       if (!userState.claims.isSudo) {
-        return <Redirect to="/" />;
+        return <Redirect to="/signin" />;
       }
     }
 

@@ -99,7 +99,7 @@ export const editUser = userData => {
         dispatch({ type: "USEREDIT_SUCCESS" });
       })
       .catch(err => {
-        console.log(err);
+        // console.log(err);
         dispatch({ type: "USEREDIT_ERROR", err });
       });
   };

@@ -46,10 +46,6 @@ class Homaremenon extends Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   // console.log(state);
-// };
-
 const mapDispatchToProps = dispatch => {
   return {
     signOut: () => dispatch(signOut())

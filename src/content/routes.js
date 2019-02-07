@@ -13,6 +13,7 @@ import BlogPost from './components/blog/BlogPost';
 import Dashboard from './components/dashboard/Dashboard';
 import EditPost from './components/dashboard/postEditing/EditPost';
 import CreatePost from './components/dashboard/postEditing/CreatePost';
+import SignIn from './components/dashboard/authentication/SignIn';
 import SignUp from './components/dashboard/authentication/SignUp';
 import EditUser from './components/dashboard/authentication/EditUser';
 import AdminPanel from './components/dashboard/authentication/AdminPanel';
@@ -31,6 +32,7 @@ const BaseRouter = () => {
         <Route exact path="/blog/" component={TheBlog} />
         <Route path="/blog/:postId" component={BlogPost} />
 
+        <Route path="/signin" component={SignIn} />
         <Route path="/signup" component={SignUp} />
         <Route exact path="/homaremenon/" component={Dashboard} />        
         <Route path="/homaremenon/edit/:postId" component={EditPost} />
