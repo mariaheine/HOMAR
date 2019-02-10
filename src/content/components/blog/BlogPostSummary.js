@@ -8,6 +8,14 @@ import moment from "moment";
 import { requestDisplayablePostByLanguage } from "./../../../reduxStore/actions/helperActions";
 import "./../../../styles/components/blog.css";
 import { firestoreConnect, getVal } from "react-redux-firebase";
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  TwitterShareButton,
+  TumblrShareButton,
+  WhatsappShareButton
+} from "react-share";
+import { HookMapInterceptor } from "tapable";
 
 var outerHeaderContainer = {
   display: "flex",
@@ -50,9 +58,19 @@ class BlogPostSummary extends Component {
     var Footer;
     if (displayPost.hasContent) {
       Footer = (
-        <Button href={`/blog/${this.props.post.id}`} color="danger">
-          Read more
-        </Button>
+        <div>
+          <Button href={`/blog/${this.props.post.id}`} color="danger">
+            Read more
+          </Button>
+          <FacebookShareButton
+            url={`homar.xyz/blog/${this.props.post.id}`}
+            quote={"heyyy"}
+            className="Demo__some-network__share-button">
+            <FacebookIcon
+              size={32}
+              round />
+          </FacebookShareButton>
+        </div>
       );
     }
 
@@ -82,9 +100,7 @@ class BlogPostSummary extends Component {
             placeholder="EDITOR HERE"
           />
         </div>
-        <div className="abstractFooter">
-          {Footer}
-        </div>
+        <div className="abstractFooter">{Footer}</div>
       </div>
     );
   }

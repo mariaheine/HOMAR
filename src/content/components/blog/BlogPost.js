@@ -103,18 +103,19 @@ const mapStateToProps = (state, ownProps) => {
 
   // console.log(state);
 
-
   var displayPost = requestDisplayablePostByLanguage(
     post,
     state.language.selectedLanguage
   );
-  
-  // console.log(post);
+
+  var whatToDisplay = displayPost.hasContent
+    ? displayPost.content
+    : displayPost.summary;
 
   return {
     displayPost: {
       title: displayPost.title,
-      content: displayPost.content,
+      content: whatToDisplay,
       createdAt
     },
     author: {
