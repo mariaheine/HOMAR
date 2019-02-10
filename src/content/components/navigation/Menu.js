@@ -54,7 +54,7 @@ export default class Menu extends Component {
 
   render() {
     var littleInline = {
-      margin: "2%",
+      margin: "1.2rem",
       // width: "35%",
       marginLeft: "0.2rem",
       boxShadow: "0vw 1vh 5px black",
@@ -72,7 +72,7 @@ export default class Menu extends Component {
       navHashtags[Math.floor(Math.random() * navHashtags.length)];
 
     return (
-      <div style={littleInline}>
+      <div className="navbarComponent">
         <ButtonDropdown
           isOpen={!this.state.collapsed}
           toggle={this.toggleNavbar}

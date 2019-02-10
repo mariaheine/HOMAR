@@ -14,27 +14,6 @@ class LanguageSelection extends Component {
   };
 
   render() {
-    var littleInline = {
-      // margin: "1.2rem",
-      margin: "2%",
-      marginRight: "0.2rem",
-      boxShadow: "0vw 1vh 5px black",
-      height: "38px",
-      transform: "scale(1)"
-    };
-
-    var littleOverride = {
-      // paddingLeft: "2vw",
-      // paddingRight: "2vw"
-      //   height: "4vh"
-    };
-
-    var buttonHeight = {
-      // height: "25px",
-      // width: "25px"
-    };
-
-    // console.log(this.props.language);
 
     var plOutlined;
     var enOutlined;
@@ -49,9 +28,9 @@ class LanguageSelection extends Component {
     }
 
     return (
-      <div style={littleInline}>
+      <div className="navbarComponent">
         <Link to="/">
-          <Button outline color="secondary" style={littleOverride}>
+          <Button outline color="secondary">
             HOMAR
           </Button>
         </Link>
@@ -60,7 +39,6 @@ class LanguageSelection extends Component {
           name="pl"
           onClick={this.onClick}
           color="warning"
-          style={buttonHeight}
         >
           pl
         </Button>
@@ -69,7 +47,6 @@ class LanguageSelection extends Component {
           name="en"
           onClick={this.onClick}
           color="danger"
-          style={buttonHeight}
         >
           en
         </Button>
