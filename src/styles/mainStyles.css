@@ -56,11 +56,41 @@ div.content {
   box-shadow: 0vw 1vh 5px black;
 }
 
+div.dropdown-menu {
+  min-width: 11vw;
+}
+
+div.dropdown-menu.show {
+  padding: 0;
+  background-color: #0000008e;
+  width: 11vww;
+}
+
+div.dropdown-menu.show a {
+  padding: 0;
+  text-decoration: none;
+}
+
+div.dropdown-menu.show button {
+  padding: 0;
+  background-color: #00000004;
+  outline: none;
+}
+
+div.dropdown-menu.show button :hover {
+  /* background-color: #ce811c; */
+  /* background-color: #1c63ce; */
+  background-color: #ce1ca7;
+
+
+}
+
 .navbar {
   /* margin: 5px 10px 5px 10px; */
   /* margin: 2vh 4vw 2vh 4vw; */
   margin: 2vh 5%;
   width: 90%;
+  height: 10%;
   background-color: #272727;
   animation: infinite;
   animation-name: shadow;

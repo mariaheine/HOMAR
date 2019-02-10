@@ -1,5 +1,14 @@
 import React, { Component } from "react";
-import { Collapse, Nav, NavItem, Button } from "reactstrap";
+import {
+  Collapse,
+  Nav,
+  NavItem,
+  Button,
+  ButtonDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from "reactstrap";
 
 import { Link } from "react-router-dom";
 
@@ -8,21 +17,21 @@ var navHashtags = Array(
   "EXTRAPOLATE",
   "MANIPULATE",
   "DISORIENTATE",
-  'DISSIMULATE',
-  'STIMULATE',
-  'SIMULATE',
-  'ASSIMILATE',
-  'ALIENATE',
-  'MEDITATE',
-  'LACERATE',
-  'INCUBATE',
-  'REGULATE',
-  'TERMINATE',
-  'ACCELERATE',
-  'ANTICIPATE',
-  'INFATUATE',
-  'INTOXICATE',
-  'TESSELATE'
+  "DISSIMULATE",
+  "STIMULATE",
+  "SIMULATE",
+  "ASSIMILATE",
+  "ALIENATE",
+  "MEDITATE",
+  "LACERATE",
+  "INCUBATE",
+  "REGULATE",
+  "TERMINATE",
+  "ACCELERATE",
+  "ANTICIPATE",
+  "INFATUATE",
+  "INTOXICATE",
+  "TESSELATE"
 );
 
 export default class Menu extends Component {
@@ -63,44 +72,41 @@ export default class Menu extends Component {
 
     return (
       <div style={littleInline}>
-        <Button
-          style={littleOverride}
-          onClick={this.toggleNavbar}
-          outline
-          color="secondary"
+        <ButtonDropdown
+          isOpen={!this.state.collapsed}
+          toggle={this.toggleNavbar}
         >
-          {navHashtag}
-        </Button>
-        {/* </NavbarToggler> */}
-        <Collapse isOpen={!this.state.collapsed} navbar>
-          <Nav navbar>
-            <NavItem>
-              <Link to="/blog/" onClick={this.toggleNavbar}>
+          <DropdownToggle outline color="secondary" style={littleOverride}>
+            {navHashtag}
+          </DropdownToggle>
+          <DropdownMenu>
+            <Link to="/blog/" onClick={this.toggleNavbar}>
+              <DropdownItem>
                 <h1 className="menuButton">👾 blog</h1>
-              </Link>
-            </NavItem>
-            <NavItem>
-              <Link to="/entity/" onClick={this.toggleNavbar}>
+              </DropdownItem>
+            </Link>
+            <Link to="/entity/" onClick={this.toggleNavbar}>
+              <DropdownItem>
                 <h1 className="menuButton">🔮 die Entität</h1>
-              </Link>
-            </NavItem>
-            <NavItem>
-              <Link to="/manifesto/" onClick={this.toggleNavbar}>
+              </DropdownItem>
+            </Link>
+            <Link to="/manifesto/" onClick={this.toggleNavbar}>
+              <DropdownItem>
                 <h1 className="menuButton">✨ manifesto</h1>
-              </Link>
-            </NavItem>
-            <NavItem>
-              <Link to="/outrocuteness" onClick={this.toggleNavbar}>
+              </DropdownItem>
+            </Link>
+            <Link to="/outrocuteness" onClick={this.toggleNavbar}>
+              <DropdownItem>
                 <h1 className="menuButton">🏧 outro cuteness</h1>
-              </Link>
-            </NavItem>
-            <NavItem>
-              <Link to="/homaremenon" onClick={this.toggleNavbar}>
+              </DropdownItem>
+            </Link>
+            <Link to="/homaremenon" onClick={this.toggleNavbar}>
+              <DropdownItem>
                 <h1 className="menuButton">🏩 homaremenon</h1>
-              </Link>
-            </NavItem>
-          </Nav>
-        </Collapse>
+              </DropdownItem>
+            </Link>
+          </DropdownMenu>
+        </ButtonDropdown>
       </div>
     );
   }
