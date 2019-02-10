@@ -1,18 +1,18 @@
 import React, { Component } from "react";
-import { Collapse, Nav, NavItem, NavLink, Button } from "reactstrap";
+import { Collapse, Nav, NavItem, Button } from "reactstrap";
+
+import { Link } from "react-router-dom";
 
 var navHashtags = Array(
   "NAVIGATE",
   "EXTRAPOLATE",
   "MANIPULATE",
   "DISORIENTATE",
-  'FRUSTRATE',
   'DISSIMULATE',
   'STIMULATE',
   'SIMULATE',
   'ASSIMILATE',
   'ALIENATE',
-  'HIBERNATE',
   'MEDITATE',
   'LACERATE',
   'INCUBATE',
@@ -75,29 +75,29 @@ export default class Menu extends Component {
         <Collapse isOpen={!this.state.collapsed} navbar>
           <Nav navbar>
             <NavItem>
-              <NavLink href="/blog/" onClick={this.toggleNavbar}>
+              <Link to="/blog/" onClick={this.toggleNavbar}>
                 <h1 className="menuButton">👾 blog</h1>
-              </NavLink>
+              </Link>
             </NavItem>
             <NavItem>
-              <NavLink href="/entity/" onClick={this.toggleNavbar}>
+              <Link to="/entity/" onClick={this.toggleNavbar}>
                 <h1 className="menuButton">🔮 die Entität</h1>
-              </NavLink>
+              </Link>
             </NavItem>
             <NavItem>
-              <NavLink href="/manifesto/" onClick={this.toggleNavbar}>
+              <Link to="/manifesto/" onClick={this.toggleNavbar}>
                 <h1 className="menuButton">✨ manifesto</h1>
-              </NavLink>
+              </Link>
             </NavItem>
             <NavItem>
-              <NavLink href="/outrocuteness" onClick={this.toggleNavbar}>
+              <Link to="/outrocuteness" onClick={this.toggleNavbar}>
                 <h1 className="menuButton">🏧 outro cuteness</h1>
-              </NavLink>
+              </Link>
             </NavItem>
             <NavItem>
-              <NavLink href="/homaremenon" onClick={this.toggleNavbar}>
+              <Link to="/homaremenon" onClick={this.toggleNavbar}>
                 <h1 className="menuButton">🏩 homaremenon</h1>
-              </NavLink>
+              </Link>
             </NavItem>
           </Nav>
         </Collapse>

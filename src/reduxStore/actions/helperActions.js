@@ -1,6 +1,10 @@
 import { EditorState, ContentState, convertFromRaw } from "draft-js";
 
 const covertDataFromRaw = data => {
+  if(!data) {
+    console.log("Empty data string")
+    return {EditorData: EditorState.createEmpty()}
+  }
   let DataFromRaw = convertFromRaw(JSON.parse(data));
   let EditorData = EditorState.createWithContent(DataFromRaw);
 
@@ -39,12 +43,12 @@ export const requestDisplayablePostByLanguage = (post, language) => {
       case "en":
         // Check here if data isnt empty, itf is - fallback to polish version
         // Also could add a notification that its not available in english
-        if (post.english.title) {
+        if (post.english.title && post.english.summary) {
           dataSource = post.english;
         } else {
           let altTitle = post.polish.title;
           let altSummary = "Not translated yet, sorry 😿";
-          return {            
+          return {
             title: covertDataFromRaw(altTitle).EditorData,
             summary: displayableContentFromString(altSummary),
             content: EditorState.createEmpty(),
@@ -59,7 +63,6 @@ export const requestDisplayablePostByLanguage = (post, language) => {
     postContent = covertDataFromRaw(dataSource.content).EditorData;
 
     hasContent = postContent.getCurrentContent().hasText();
-    
   } else {
     postTitle = EditorState.createEmpty();
     postSummary = EditorState.createEmpty();
@@ -71,5 +74,36 @@ export const requestDisplayablePostByLanguage = (post, language) => {
     summary: postSummary,
     content: postContent,
     hasContent
+  };
+};
+
+export const requestEditablePostByLanguage = (post, language) => {
+  let postTitle;
+  let postContent;
+  let postSummary;
+
+  if (post) {
+    var dataSource;
+    switch (language) {
+      case "pl":
+        dataSource = post.polish;
+        break;
+      case "en":
+        dataSource = post.english;
+        break;
+    }
+
+    postTitle = covertDataFromRaw(dataSource.title).EditorData;
+    postSummary = covertDataFromRaw(dataSource.summary).EditorData;
+    postContent = covertDataFromRaw(dataSource.content).EditorData;
+  } else {
+    postTitle = EditorState.createEmpty();
+    postSummary = EditorState.createEmpty();
+    postContent = EditorState.createEmpty();
+  }
+  return {
+    title: postTitle,
+    summary: postSummary,
+    content: postContent
   };
 };

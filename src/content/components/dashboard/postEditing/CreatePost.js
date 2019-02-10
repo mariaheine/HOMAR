@@ -9,16 +9,26 @@ import "./../../../../styles/components/blog/blogContainer.css";
 import PostForm from "./PostForm";
 
 class CreatePost extends Component {
-  _createPost = stagedPost => {
+  state = {
+    hasUnsavedChanges: false
+  };
+
+  handleSubmit = stagedPost => {
     this.props.createPost(stagedPost);
     this.props.history.push('/homaremenon');
+  };
+
+  handleEdit = () => {
+    if (this.state.hasUnsavedChanges === false) {
+      this.setState({ hasUnsavedChanges: true });
+    }
   };
 
   render() {
     const { auth } = this.props;
     if(!auth.uid) return <Redirect to="/" />
 
-    return <PostForm handleSubmit={this._createPost} />;
+    return <PostForm handleEdit={this.handleEdit} handleSubmit={this.handleSubmit} />;
   }
 }
 

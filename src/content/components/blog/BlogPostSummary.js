@@ -8,21 +8,14 @@ import moment from "moment";
 import { requestDisplayablePostByLanguage } from "./../../../reduxStore/actions/helperActions";
 import "./../../../styles/components/blog.css";
 import { firestoreConnect, getVal } from "react-redux-firebase";
-import {
-  FacebookShareButton,
-  FacebookIcon,
-  TwitterShareButton,
-  TumblrShareButton,
-  WhatsappShareButton
-} from "react-share";
-import { HookMapInterceptor } from "tapable";
+import ShareButtons from "./components/ShareButtons";
 
 var outerHeaderContainer = {
   display: "flex",
   flexDirection: "row",
   alignItems: "flex-start",
   background: "#58585852",
-  padding: "0.2rem 0.5rem 0 0.2rem"
+  padding: "0.2rem"
 };
 
 var innerHeaderContainer = {
@@ -39,6 +32,10 @@ var avatarImage = {
   margin: "0.5rem 0 0.5rem 0.5rem"
 };
 
+var rightFooter = {
+  marginLeft: "auto"
+};
+
 class BlogPostSummary extends Component {
   constructor(props) {
     super(props);
@@ -51,25 +48,17 @@ class BlogPostSummary extends Component {
   render() {
     const { author, displayPost } = this.props;
 
-    console.log(displayPost);
+    // console.log(displayPost);
 
     let date = moment(this.props.post.createdAt.toDate()).format("MMM Do YY");
 
-    var Footer;
+    var ReadMore;
     if (displayPost.hasContent) {
-      Footer = (
+      ReadMore = (
         <div>
-          <Button href={`/blog/${this.props.post.id}`} color="danger">
-            Read more
-          </Button>
-          <FacebookShareButton
-            url={`homar.xyz/blog/${this.props.post.id}`}
-            quote={"heyyy"}
-            className="Demo__some-network__share-button">
-            <FacebookIcon
-              size={32}
-              round />
-          </FacebookShareButton>
+          <Link to={`/blog/${this.props.post.id}`}>
+            <Button color="danger">Read more</Button>
+          </Link>
         </div>
       );
     }
@@ -96,11 +85,19 @@ class BlogPostSummary extends Component {
         <div className="abstractContent">
           <Editor
             readOnly="true"
-            editorState={displayPost.summary}
+            editorState={displayPost.displayedContent}
             placeholder="EDITOR HERE"
           />
         </div>
-        <div className="abstractFooter">{Footer}</div>
+        <div className="abstractFooter">
+          <div>{ReadMore}</div>
+          <div style={rightFooter}>
+            <ShareButtons
+              displayPost={displayPost}
+              postId={this.props.post.id}
+            />
+          </div>
+        </div>
       </div>
     );
   }
@@ -126,7 +123,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     displayPost: {
       title: result.title,
-      summary: result.summary,
+      displayedContent: result.summary,
       hasContent: result.hasContent
     },
     author: {

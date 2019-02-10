@@ -12,7 +12,7 @@ import {
   editPost,
   deletePost
 } from "./../../../../reduxStore/actions/postActions";
-import { requestDisplayablePostByLanguage } from "./../../../../reduxStore/actions/helperActions";
+import { requestDisplayablePostByLanguage, requestEditablePostByLanguage } from "./../../../../reduxStore/actions/helperActions";
 
 import PostForm from "./PostForm";
 
@@ -72,7 +72,6 @@ class EditPost extends Component {
     if (postData) {
       switch (this.state.editingLanguage) {
         case "pl":
-          console.log("asd");
           FormDisplayer = (
             <PostForm
               handleSubmit={this.editPost}
@@ -83,7 +82,6 @@ class EditPost extends Component {
           );
           break;
         case "en":
-          console.log("bleh");
           FormDisplayer = (
             <PostForm
               handleSubmit={this.editPost}
@@ -139,8 +137,8 @@ const mapStateToProps = (state, ownProps) => {
   const post = posts ? posts[id] : null;
   // console.log(post)
 
-  var displayablePostPL = requestDisplayablePostByLanguage(post, "pl");
-  var displayablePostEN = requestDisplayablePostByLanguage(post, "en");
+  var displayablePostPL = requestEditablePostByLanguage(post, "pl");
+  var displayablePostEN = requestEditablePostByLanguage(post, "en");
 
   // console.log(displayablePostPL);
   // console.log(displayablePostEN);

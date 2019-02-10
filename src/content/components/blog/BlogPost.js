@@ -4,6 +4,8 @@ import { firestoreConnect, getVal } from "react-redux-firebase";
 import { compose } from "redux";
 import { Editor } from "draft-js";
 import moment from "moment";
+import ShareButtons from "./components/ShareButtons";
+import { Button } from "reactstrap";
 
 import { requestDisplayablePostByLanguage } from "./../../../reduxStore/actions/helperActions";
 
@@ -14,7 +16,7 @@ var outerHeaderContainer = {
   flexDirection: "row",
   alignItems: "flex-start",
   background: "#58585852",
-  padding: "0.2rem 0.5rem 0 0.2rem"
+  padding: "0.2rem"
 };
 
 var innerHeaderContainer = {
@@ -31,6 +33,10 @@ var avatarImage = {
   margin: "0.5rem 0 0.5rem 0.5rem"
 };
 
+var moveRight = {
+  marginLeft: "auto"
+};
+
 const BlogPost = props => {
   const { displayPost, author } = props;
 
@@ -44,18 +50,6 @@ const BlogPost = props => {
   }
 
   return (
-    // <div className="blogItem">
-    //   <Editor
-    //     readOnly="true"
-    //     editorState={displayPost.title}
-    //     placeholder="Whoops, a post should like totally display here 💔👽💦"
-    //   />
-    //   <Editor
-    //     readOnly="true"
-    //     editorState={displayPost.content}
-    //     placeholder="Whoops, a post should like totally display here 💔👽💦"
-    //   />
-    // </div>
     <div className="outerContainer">
       <div className="blogContainer">
         <div className="postAbstract">
@@ -73,13 +67,29 @@ const BlogPost = props => {
                 author.nick
               }`}</span>
             </div>
+            <div style={moveRight}>
+              <Button id="submit1" color="info" onClick={props.history.goBack}>
+                Go back
+              </Button>
+            </div>
           </div>
           <div className="abstractContent">
             <Editor
               readOnly="true"
-              editorState={displayPost.content}
+              editorState={displayPost.displayedContent}
               placeholder="EDITOR HERE"
             />
+          </div>
+          <div className="abstractFooter">
+            <Button id="submit1" color="info" onClick={props.history.goBack}>
+              Go back
+            </Button>
+            <div style={moveRight}>
+              <ShareButtons
+                displayPost={displayPost}
+                postId={props.match.params.postId}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -115,7 +125,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     displayPost: {
       title: displayPost.title,
-      content: whatToDisplay,
+      displayedContent: whatToDisplay,
       createdAt
     },
     author: {

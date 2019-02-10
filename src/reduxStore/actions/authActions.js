@@ -169,7 +169,8 @@ export const checkUserClaims = () => {
 
 export const grantMOD = email => {
   return (dispatch, getState, { getFirebase }) => {
-    const firebase = getFirebase();
+
+    const firebase = getFirebase();    
 
     const grantSudoClaims = firebase
       .functions()

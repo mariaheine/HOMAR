@@ -30,8 +30,6 @@ class AdminPanel extends Component {
   render() {
     const { auth, userState } = this.props;
 
-    // console.log(userState.claims);
-
     if (!auth.uid) return <Redirect to="/" />;
 
     if (!userState.claims) {
