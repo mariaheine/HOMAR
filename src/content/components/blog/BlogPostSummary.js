@@ -21,7 +21,7 @@ var outerHeaderContainer = {
 var innerHeaderContainer = {
   display: "flex",
   flexDirection: "column",
-  paddingLeft: "1rem"
+  margin: "0.5rem 0 0.5rem 0.5rem"
 };
 
 var avatarImage = {

@@ -22,7 +22,7 @@ var outerHeaderContainer = {
 var innerHeaderContainer = {
   display: "flex",
   flexDirection: "column",
-  paddingLeft: "1rem"
+  margin: "0.5rem 0 0.5rem 0.5rem"
 };
 
 var avatarImage = {
@@ -35,6 +35,12 @@ var avatarImage = {
 
 var moveRight = {
   marginLeft: "auto"
+};
+
+var UpperGoBack = {
+  marginLeft: "auto",
+  marginTop: "0.5rem",
+  marginRight: "0.5rem"
 };
 
 const BlogPost = props => {
@@ -67,7 +73,7 @@ const BlogPost = props => {
                 author.nick
               }`}</span>
             </div>
-            <div style={moveRight}>
+            <div style={UpperGoBack}>
               <Button id="submit1" color="info" onClick={props.history.goBack}>
                 Go back
               </Button>

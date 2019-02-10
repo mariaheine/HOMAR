@@ -77,7 +77,7 @@ div.abstractHeader .abstractDetails {
 
 div.abstractContent {
   padding: 0.2rem;
-  padding-top: 1rem;
+  padding-top: 1.5rem;
   padding-bottom: 1rem;
 }
 
@@ -97,7 +97,8 @@ div.abstractFooter {
   display: flex;    
   flex-direction: row;
   justify-content: flex-start;
-  padding: 0.5rem;  
+  padding: 0.2rem;
+  /* padding: 0.5rem;   */
   align-items: center
 }
 

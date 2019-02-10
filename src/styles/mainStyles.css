@@ -3,8 +3,9 @@ body {
   height: 100%;
   max-width: 100%;
   overflow-x: hidden;
-  background: black;
+  background: rgb(26, 25, 25);
   overflow-y: scroll; /*to keep the scrollbar always visible*/
+  line-height: 1;
 }
 
 button * {
@@ -89,6 +90,7 @@ div.dropdown-menu.show button :hover {
   /* margin: 5px 10px 5px 10px; */
   /* margin: 2vh 4vw 2vh 4vw; */
   margin: 2vh 5%;
+  margin-bottom: 0;
   width: 90%;
   height: 10%;
   background-color: #272727;
@@ -103,20 +105,6 @@ div.dropdown-menu.show button :hover {
   /* border: solid;	
 	border-width: 0.07em;
 	border-color: white; */
-}
-
-
-.navbar {
-  align-items: normal;
-}
-
-.mainNavbar > nav:nth-child(1) > div:nth-child(2) > button:nth-child(1):focus {
-  outline: none;
-}
-
-.navbar-nav {
-  background-color: rgba(0, 0, 0, 0);
-  /* padding: 0.3rem; */
 }
 
 div.flexRow {

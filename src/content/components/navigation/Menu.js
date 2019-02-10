@@ -4,6 +4,7 @@ import {
   Nav,
   NavItem,
   Button,
+  NavLink,
   ButtonDropdown,
   DropdownToggle,
   DropdownMenu,
@@ -80,11 +81,11 @@ export default class Menu extends Component {
             {navHashtag}
           </DropdownToggle>
           <DropdownMenu>
-            <Link to="/blog/" onClick={this.toggleNavbar}>
+            <NavLink href="/blog/" onClick={this.toggleNavbar}>
               <DropdownItem>
                 <h1 className="menuButton">👾 blog</h1>
               </DropdownItem>
-            </Link>
+            </NavLink>
             <Link to="/entity/" onClick={this.toggleNavbar}>
               <DropdownItem>
                 <h1 className="menuButton">🔮 die Entität</h1>
