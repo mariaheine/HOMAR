@@ -13,10 +13,10 @@ class Dashboard extends Component {
   componentDidMount() {
     const { auth, userState } = this.props;
     
-    console.log(userState);
+    // console.log(userState);
 
     if (auth.uid && !userState.claims) {
-      console.log("gothere");
+      // console.log("gothere");
 
       this.props.checkUserClaims();
     }
@@ -25,7 +25,7 @@ class Dashboard extends Component {
   render() {
     const { auth, userState } = this.props;
 
-    console.log(auth, userState);
+    // console.log(auth, userState);
 
     if (!auth.uid) {
       return <Redirect to="/signin" />
@@ -44,7 +44,7 @@ class Dashboard extends Component {
 }
 
 const mapStateToProps = state => {
-  // console.log(state)
+
   return {
     auth: state.firebase.auth,
     userState: state.auth.user

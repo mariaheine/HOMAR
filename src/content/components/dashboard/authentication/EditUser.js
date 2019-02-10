@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { firestoreConnect } from "react-redux-firebase";
+import { firestoreConnect, getFirestore } from "react-redux-firebase";
 
 import {
   Button,
@@ -125,24 +125,11 @@ class EditUser extends Component {
     if (!userState.claims) {
       this.props.checkUserClaims();
     }
-
-    // WORKS, BUT HOW TO ENCAPSULATE THAT?
-    // REPEATING THIS SOLUTION IN EVERY PROJECT IS CUMBERSOME
-    // const firebase = getFirebase();
-
-    // const user = firebase.auth().currentUser;
-
-    // if (user) {
-    //   var asd = user.getIdTokenResult().then(result => {
-    //     // console.log(result);
-    //     this.setState({ claims: { isMod: result.claims.isMod } });
-    //     return result.claims.isMod;
-    //   });
-    // }
   }
 }
 
 const mapStateToProps = state => {
+
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,

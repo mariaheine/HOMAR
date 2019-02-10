@@ -10,8 +10,7 @@ import {
   Label,
   Input,
   Card,
-  CardBody,
-  CardText
+  CardBody
 } from "reactstrap";
 import { connect } from "react-redux";
 

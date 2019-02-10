@@ -3,6 +3,9 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Link } from "react-router-dom";
+import { Editor } from "draft-js"; 
+
+import { requestDisplayableContent } from "./../../../../reduxStore/actions/helperActions";
 
 import "./../../../../styles/components/dashboard/editablePostList.css";
 
@@ -23,7 +26,13 @@ class EditablePostList extends Component {
               state: { postId: post.postId }
             }}
           >
-            <button className="postTitle" key={post.id}>{post.polish.title}</button>
+            <button className="postTitle" key={post.id}>
+              <Editor
+                readOnly="true"
+                editorState={requestDisplayableContent(post.polish.title).content}
+                placeholder="EDITOR HERE"
+              />
+            </button>
           </Link>
         </div>
       ));
@@ -38,6 +47,10 @@ class EditablePostList extends Component {
 }
 
 const mapStateToProps = state => {
+  // var result = requestDisplayablePostByLanguage(
+  //   ownProps.post,
+  //   state.language.selectedLanguage
+  // );
   // console.log(state);
   return {
     posts: state.firestore.ordered.blogPosts

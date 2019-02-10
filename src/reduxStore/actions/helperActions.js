@@ -11,13 +11,23 @@ const covertDataFromRaw = data => {
   };
 };
 
+export const requestDisplayableContent = rawContent => {
+  if (rawContent) {
+    console.log(rawContent);
+    return {
+      content: covertDataFromRaw(rawContent).EditorData
+    };
+  } else {
+    console.log("erm");
+    let altContent = "Null content data 😿";
+    EditorState.createWithContent(ContentState.createFromText(altContent));
+  }
+};
+
 export const requestDisplayablePostByLanguage = (post, language) => {
   let postTitle;
   let postContent;
   let postSummary;
-  let hasContent;
-
-  // console.log("went through, lang: " + language)
 
   if (post) {
     var dataSource;
@@ -36,8 +46,12 @@ export const requestDisplayablePostByLanguage = (post, language) => {
           let altContent = "Not translated yet, sorry 😿";
           return {
             title: covertDataFromRaw(altTitle).EditorData,
-            summary: EditorState.createWithContent(ContentState.createFromText(altSummary)),
-            content: EditorState.createWithContent(ContentState.createFromText(altContent)),
+            summary: EditorState.createWithContent(
+              ContentState.createFromText(altSummary)
+            ),
+            content: EditorState.createWithContent(
+              ContentState.createFromText(altContent)
+            ),
             hasContent: false
           };
         }

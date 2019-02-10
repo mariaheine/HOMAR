@@ -2,9 +2,7 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 admin.initializeApp(functions.config().firebase);
 
-exports.helloWorld = functions.https.onRequest((request, response) => {
-  response.send("Hello from Firebase!");
-});
+/* NOTIFICATIONS */
 
 const createNotification = notification => {
   return admin
@@ -14,20 +12,27 @@ const createNotification = notification => {
     .then(doc => console.log("notification added", doc));
 };
 
-exports.blogPostCreated = functions.firestore
+exports.postCreatedNotification = functions.firestore
   .document("blogPosts/{postId}")
   .onCreate(blogPost => {
     const post = blogPost.data();
 
-    const notification = {
-      content: "Added a new post",
-      time: post.createdAt
-    };
-
-    return createNotification(notification);
+    return admin
+      .firestore()
+      .collection("users")
+      .doc(post.authorId)
+      .get()
+      .then(user => {
+        const userData = user.data();
+        const notification = {
+          content: `${userData.nick} added new post`,
+          time: post.createdAt
+        };
+        createNotification(notification);
+      });
   });
 
-exports.userJoined = functions.auth.user().onCreate(user => {
+exports.userJoinedNotification = functions.auth.user().onCreate(user => {
   return admin
     .firestore()
     .collection("users")
@@ -44,20 +49,11 @@ exports.userJoined = functions.auth.user().onCreate(user => {
     });
 });
 
-// exports.userEdited = functions.auth.user().onUpdate(user => {
+/* END */
 
-//   // return admin
-//   // .firestore()
-//   // .collection('users')
-//   // .doc(user.uid)
-//   // .update()
-//   console.log("user updated")
-// })
+/* GRANTING USER PRIVLIDGES */
 
-// GIVING USER MODERATOR PERMISSIONS
 exports.grantModClaims = functions.https.onCall((data, context) => {
-  // get user and add custom claims
-
   // We are returning this because it's gonna return a promise
   return admin
     .auth()
@@ -101,4 +97,3 @@ exports.grantModClaims = functions.https.onCall((data, context) => {
 //         return err;
 //       });
 //   });
-
