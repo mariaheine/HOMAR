@@ -3,16 +3,33 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { Editor } from "draft-js"; // Draft-js displaying using readonly Editor
-// import { Media } from "reactstrap";
+import { Button } from "reactstrap";
 import moment from "moment";
-
-import { getUserById } from "./../../../reduxStore/actions/authActions";
 import { requestDisplayablePostByLanguage } from "./../../../reduxStore/actions/helperActions";
 import "./../../../styles/components/blog.css";
-import {
-  firestoreConnect,
-  getVal
-} from "react-redux-firebase";
+import { firestoreConnect, getVal } from "react-redux-firebase";
+
+var outerHeaderContainer = {
+  display: "flex",
+  flexDirection: "row",
+  alignItems: "flex-start",
+  background: "#58585852",
+  padding: "0.2rem 0.5rem 0 0.2rem"
+};
+
+var innerHeaderContainer = {
+  display: "flex",
+  flexDirection: "column",
+  paddingLeft: "1rem"
+};
+
+var avatarImage = {
+  width: "64px",
+  height: "64px",
+  border: "2px solid black",
+  borderRadius: "2px",
+  margin: "0.5rem 0 0.5rem 0.5rem"
+};
 
 class BlogPostSummary extends Component {
   constructor(props) {
@@ -26,31 +43,18 @@ class BlogPostSummary extends Component {
   render() {
     const { author, displayPost } = this.props;
 
-    // console.log(author);
+    console.log(displayPost);
 
     let date = moment(this.props.post.createdAt.toDate()).format("MMM Do YY");
 
-    var outerHeaderContainer = {
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "flex-start",
-      background: "#58585852",
-      padding: "0.2rem 0.5rem 0 0.2rem"
-    };
-
-    var innerHeaderContainer = {
-      display: "flex",
-      flexDirection: "column",
-      paddingLeft: "1rem"
-    };
-
-    var avatarImage = {
-      width: "64px",
-      height: "64px",
-      border: "2px solid black",
-      borderRadius: "2px",
-      margin: "0.5rem 0 0.5rem 0.5rem"
-    };
+    var Footer;
+    if (displayPost.hasContent) {
+      Footer = (
+        <Button href={`/blog/${this.props.post.id}`} color="danger">
+          Read more
+        </Button>
+      );
+    }
 
     return (
       <div className="postAbstract">
@@ -78,6 +82,9 @@ class BlogPostSummary extends Component {
             placeholder="EDITOR HERE"
           />
         </div>
+        <div className="abstractFooter">
+          {Footer}
+        </div>
       </div>
     );
   }
@@ -103,7 +110,8 @@ const mapStateToProps = (state, ownProps) => {
   return {
     displayPost: {
       title: result.title,
-      summary: result.summary
+      summary: result.summary,
+      hasContent: result.hasContent
     },
     author: {
       nick: nick,

@@ -36,13 +36,13 @@ class EditPost extends Component {
 
   changeEditedLanguage = e => {
     e.persist();
-    
+
     /* ADD PRE-CHANGE CHECK IF THERE IS UNSAVED DATA */
 
     /* SAME FOR GO BACK AND DELETE POST BUTTONS */
 
     /* USE state: hasUnsavedChanges */
-    
+
     let targetLanguage;
     switch (e.target.id) {
       case "btnPL":
@@ -56,13 +56,15 @@ class EditPost extends Component {
   };
 
   handleEdit = () => {
-    this.setState({ hasUnsavedChanges: true });
+    if (this.state.hasUnsavedChanges === false) {
+      this.setState({ hasUnsavedChanges: true });
+    }
   };
 
   render() {
     const { postData, postPL, postEN, auth } = this.props;
 
-    console.log(this.state.hasUnsavedChanges)
+    console.log(this.state.hasUnsavedChanges);
 
     if (!auth.uid) return <Redirect to="/" />;
 
@@ -73,7 +75,7 @@ class EditPost extends Component {
           console.log("asd");
           FormDisplayer = (
             <PostForm
-              handleSubmit={this._editPost}
+              handleSubmit={this.editPost}
               handleEdit={this.handleEdit}
               key={`form${postPL.title}`}
               data={postPL}
@@ -84,7 +86,7 @@ class EditPost extends Component {
           console.log("bleh");
           FormDisplayer = (
             <PostForm
-              handleSubmit={this._editPost}
+              handleSubmit={this.editPost}
               handleEdit={this.handleEdit}
               key={`form${postEN.title}`}
               data={postEN}

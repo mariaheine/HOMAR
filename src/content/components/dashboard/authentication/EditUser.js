@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { firestoreConnect, getFirestore } from "react-redux-firebase";
+import { firestoreConnect } from "react-redux-firebase";
 
 import {
   Button,

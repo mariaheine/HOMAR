@@ -1,22 +1,14 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
-import { connect } from "react-redux";
-import { Editor, EditorState, convertToRaw, convertFromRaw } from "draft-js";
+import { Editor, EditorState, convertToRaw } from "draft-js";
 
 import "./../../../../styles/components/blog/blogContainer.css";
 import "./../../../../styles/components/blog.css";
-
-import { createPost } from "../../../../reduxStore/actions/postActions";
 
 class PostForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      mode: {
-        isEmpty: true,
-        editEnabled: true
-      },
       editor: {
         titleEditor: EditorState.createEmpty(),
         summaryEditor: EditorState.createEmpty(),
@@ -114,7 +106,6 @@ class PostForm extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.data !== this.props.data) {
-
       this.loadPostDataIntoState();
     }
   }

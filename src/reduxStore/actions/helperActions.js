@@ -1,7 +1,5 @@
 import { EditorState, ContentState, convertFromRaw } from "draft-js";
 
-// export const postDisplayFilers = {};
-
 const covertDataFromRaw = data => {
   let DataFromRaw = convertFromRaw(JSON.parse(data));
   let EditorData = EditorState.createWithContent(DataFromRaw);
@@ -11,14 +9,16 @@ const covertDataFromRaw = data => {
   };
 };
 
+const displayableContentFromString = text => {
+  return EditorState.createWithContent(ContentState.createFromText(text));
+};
+
 export const requestDisplayableContent = rawContent => {
   if (rawContent) {
-    console.log(rawContent);
     return {
       content: covertDataFromRaw(rawContent).EditorData
     };
   } else {
-    console.log("erm");
     let altContent = "Null content data 😿";
     EditorState.createWithContent(ContentState.createFromText(altContent));
   }
@@ -28,6 +28,7 @@ export const requestDisplayablePostByLanguage = (post, language) => {
   let postTitle;
   let postContent;
   let postSummary;
+  let hasContent;
 
   if (post) {
     var dataSource;
@@ -43,15 +44,10 @@ export const requestDisplayablePostByLanguage = (post, language) => {
         } else {
           let altTitle = post.polish.title;
           let altSummary = "Not translated yet, sorry 😿";
-          let altContent = "Not translated yet, sorry 😿";
-          return {
+          return {            
             title: covertDataFromRaw(altTitle).EditorData,
-            summary: EditorState.createWithContent(
-              ContentState.createFromText(altSummary)
-            ),
-            content: EditorState.createWithContent(
-              ContentState.createFromText(altContent)
-            ),
+            summary: displayableContentFromString(altSummary),
+            content: EditorState.createEmpty(),
             hasContent: false
           };
         }
@@ -62,10 +58,8 @@ export const requestDisplayablePostByLanguage = (post, language) => {
     postSummary = covertDataFromRaw(dataSource.summary).EditorData;
     postContent = covertDataFromRaw(dataSource.content).EditorData;
 
-    // let DataToDisplay = dataSource.content;
-    // let DataFromRaw = convertFromRaw(JSON.parse(DataToDisplay));
-    // postContent = EditorState.createWithContent(DataFromRaw);
-    // console.log(postContent);
+    hasContent = postContent.getCurrentContent().hasText();
+    
   } else {
     postTitle = EditorState.createEmpty();
     postSummary = EditorState.createEmpty();
@@ -76,6 +70,6 @@ export const requestDisplayablePostByLanguage = (post, language) => {
     title: postTitle,
     summary: postSummary,
     content: postContent,
-    hasContent: true
+    hasContent
   };
 };
