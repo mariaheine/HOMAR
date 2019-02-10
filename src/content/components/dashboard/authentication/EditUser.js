@@ -57,7 +57,7 @@ class EditUser extends Component {
 
     if (!auth.uid) return <Redirect to="/" />;
 
-    console.log(this.props);
+    // console.log(this.props);
 
     if (userState.claims) {
       var AdminPanelButton = userState.claims.isSudo ? (

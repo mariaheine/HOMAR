@@ -121,7 +121,7 @@ class SignUp extends Component {
             onClick={this.togglePopover}
           >
             <PopoverHeader>SIGNUP FAILED</PopoverHeader>
-            <PopoverBody>{`${this.props.authError}`}</PopoverBody>
+            <PopoverBody>{`${authError}`}</PopoverBody>
           </Popover>
         </Form>
       </div>

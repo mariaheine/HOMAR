@@ -1,4 +1,13 @@
-import moment from 'moment';
+import moment from "moment";
+
+import {
+  CREATE_POST_SUCCESS,
+  CREATE_POST_ERROR,
+  EDIT_POST_SUCCESS,
+  EDIT_POST_ERROR,
+  DELETE_POST_SUCCESS,
+  DELETE_POST_ERROR
+} from "../types";
 
 export const createPost = post => {
   /*
@@ -11,19 +20,13 @@ export const createPost = post => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     /* Pause dispatch, make async call to the database */
 
-    // This gives us access to our firestore DB
     const firestore = getFirestore();
 
     var user = getFirebase().auth().currentUser;
-    // var user = getFirebase().auth.UserProfile();
-    console.log(user.uid);
 
     firestore
       .collection("blogPosts")
       .add({
-        // title: post.title,
-        // content: post.rawContent,
-        // summary: post.rawSummary,
         polish: {
           title: post.title,
           summary: post.summary,
@@ -34,19 +37,18 @@ export const createPost = post => {
           summary: "",
           content: ""
         },
-        authorId: user.uid, 
+        authorId: user.uid,
         createdAt: new Date()
       })
       .then(() => {
-        /* Then continue and dispatch an action */
         dispatch({
-          type: "CREATE_POST",
+          type: CREATE_POST_SUCCESS,
           post: post
         });
       })
       .catch(err => {
         dispatch({
-          type: "CREATE_POST_ERROR",
+          type: CREATE_POST_ERROR,
           err
         });
       });
@@ -57,15 +59,17 @@ export const editPost = (postId, editedPost, language) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
 
-    console.log("were here!");
-
     var payload = {};
     if (language === "en") {
       payload.english = editedPost;
     } else if (language === "pl") {
       payload.polish = editedPost;
     } else {
-      console.log("Firestore posts db incorrect language selection.");
+      let err = "Firestore posts db incorrect language selection.";
+      dispatch({
+        type: EDIT_POST_ERROR,
+        err
+      });
       return;
     }
 
@@ -88,13 +92,17 @@ export const editPost = (postId, editedPost, language) => {
           { merge: true }
         )
         .then(() => {
-          console.log("Succesfull post update!");
+          dispatch({
+            type: EDIT_POST_SUCCESS
+          });
         })
         .catch(err => {
-          console.log("Error updating data: " + err);
+          dispatch({
+            type: EDIT_POST_ERROR,
+            err
+          });
         });
-    } else if(language === "pl")
-    {
+    } else if (language === "pl") {
       firestore
         .collection("blogPosts")
         .doc(postId)
@@ -105,11 +113,38 @@ export const editPost = (postId, editedPost, language) => {
           { merge: true }
         )
         .then(() => {
-          console.log("Succesfull post update!");
+          dispatch({
+            type: EDIT_POST_SUCCESS
+          });
         })
         .catch(err => {
-          console.log("Error updating data: " + err);
+          dispatch({
+            type: EDIT_POST_ERROR,
+            err
+          });
         });
     }
+  };
+};
+
+export const deletePost = postId => {
+  return (dispatch, getState, { getFirebase, getFirestore }) => {
+    const firestore = getFirestore();
+    
+    firestore
+      .collection("blogPosts")
+      .doc(postId)
+      .delete()
+      .then(() => {
+        dispatch({
+          type: DELETE_POST_SUCCESS
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: DELETE_POST_ERROR,
+          err
+        });
+      });
   };
 };

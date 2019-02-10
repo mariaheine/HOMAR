@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { Editor } from "draft-js"; // Draft-js displaying using readonly Editor
-import { Media } from "reactstrap";
+// import { Media } from "reactstrap";
 import moment from "moment";
 
 import { getUserById } from "./../../../reduxStore/actions/authActions";

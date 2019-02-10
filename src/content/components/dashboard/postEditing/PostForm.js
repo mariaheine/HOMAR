@@ -12,27 +12,15 @@ class PostForm extends Component {
   constructor(props) {
     super(props);
 
-    const { data } = this.props;
-
-    // console.log("here");
-    let title;
-    let summary;
-    let content;
-    if (data) {
-      title = data.title;
-      summary = data.summary;
-      content = data.content;
-    }
-
     this.state = {
       mode: {
         isEmpty: true,
         editEnabled: true
       },
       editor: {
-        titleEditor: title || EditorState.createEmpty(),
-        summaryEditor: summary || EditorState.createEmpty(),
-        contentEditor: content || EditorState.createEmpty()
+        titleEditor: EditorState.createEmpty(),
+        summaryEditor: EditorState.createEmpty(),
+        contentEditor: EditorState.createEmpty()
       },
       staged: {
         title: "",
@@ -43,6 +31,8 @@ class PostForm extends Component {
   }
 
   handleTitleChange = e => {
+    this.props.handleEdit();
+
     this.setState(prevState => ({
       editor: {
         ...prevState.editor,
@@ -52,6 +42,8 @@ class PostForm extends Component {
   };
 
   handleSummaryChange = e => {
+    this.props.handleEdit();
+
     this.setState(prevState => ({
       editor: {
         ...prevState.editor,
@@ -61,12 +53,32 @@ class PostForm extends Component {
   };
 
   handleContentChange = e => {
+    this.props.handleEdit();
+
     this.setState(prevState => ({
       editor: {
         ...prevState.editor,
         contentEditor: e
       }
     }));
+  };
+
+  loadPostDataIntoState = () => {
+    const { data } = this.props;
+
+    if (data) {
+      const title = data.title;
+      const summary = data.summary;
+      const content = data.content;
+
+      this.setState({
+        editor: {
+          titleEditor: title || EditorState.createEmpty(),
+          summaryEditor: summary || EditorState.createEmpty(),
+          contentEditor: content || EditorState.createEmpty()
+        }
+      });
+    }
   };
 
   handleSubmit = e => {
@@ -96,8 +108,18 @@ class PostForm extends Component {
     );
   };
 
-  render() {
+  componentDidMount() {
+    this.loadPostDataIntoState();
+  }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.data !== this.props.data) {
+
+      this.loadPostDataIntoState();
+    }
+  }
+
+  render() {
     return (
       <div className="outerContainer columnContainer">
         <div className="post">
@@ -147,29 +169,6 @@ class PostForm extends Component {
       </div>
     );
   }
-
-  // WHAT WAS THAT EVEN?
-
-  // componentWillReceiveProps() {
-  //   const { data } = this.props;
-
-  //   // console.log(data);
-
-  //   if (data) {
-  //     this.setState(prevState => ({
-  //       editor: {
-  //         ...prevState.editor,
-  //         contentEditor: data.content
-  //       }
-  //     }));
-  //     this.setState(prevState => ({
-  //       editor: {
-  //         ...prevState.editor,
-  //         summaryEditor: data.summary
-  //       }
-  //     }));
-  //   }
-  // }
 }
 
 export default PostForm;
