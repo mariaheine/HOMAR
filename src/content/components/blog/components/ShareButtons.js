@@ -27,7 +27,7 @@ const ShareButtons = props => {
     <div style={shareButtons}>
       <TwitterShareButton
         url={`homar.xyz/blog/${postId}`}
-        title={displayPost.title.getCurrentContent().getPlainText()}
+        title={quote}
       >
         <TwitterIcon size={32} round />
       </TwitterShareButton>

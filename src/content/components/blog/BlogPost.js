@@ -37,12 +37,6 @@ var moveRight = {
   marginLeft: "auto"
 };
 
-var UpperGoBack = {
-  marginLeft: "auto",
-  marginTop: "0.5rem",
-  marginRight: "0.5rem"
-};
-
 const BlogPost = props => {
   const { displayPost, author } = props;
 
@@ -72,11 +66,6 @@ const BlogPost = props => {
               <span className="abstractDetails">{`${date} by ${
                 author.nick
               }`}</span>
-            </div>
-            <div style={UpperGoBack}>
-              <Button id="submit1" color="info" onClick={props.history.goBack}>
-                Go back
-              </Button>
             </div>
           </div>
           <div className="abstractContent">
