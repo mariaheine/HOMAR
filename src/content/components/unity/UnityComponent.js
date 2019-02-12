@@ -1,76 +1,62 @@
 import React, { Component } from "react";
 import Unity, { UnityContent } from "react-unity-webgl";
 import "./../../../styles/styles.css";
+import { Progress } from "reactstrap";
 
-import UnityLocker from "./UnityLocker";
+// import UnityLocker from "./UnityLocker";
 
 /* REWORK THE WHOLE APPROACH */
 // The main Unity Component should be strapped to the bare minimum
 // Unity should handle fetching of main scenes on its owwn
 
+var webglContainer = {
+  width: "100%",
+  position: "relative",
+  paddingBottom: "56.25%"
+};
+
+var webglContent = {
+  position: "absolute",
+  top: "0",
+  bottom: "0",
+  left: "0",
+  right: "0",
+  zIndex: "1"
+};
+
+var loaderContent = {
+  position: "absolute",
+  width: "50%",
+  top: "50%",
+  left: "25%",
+  zIndex: "2"
+};
+
 class UnityComponent extends Component {
   constructor(props) {
     super(props);
 
-    this.onProgress = this.onProgress.bind(this);
-
     this.state = {
-      loadStatus: false,
-      loaderText: "0%"
+      isLoaded: false,
+      loaderPercentage: 0
     };
 
     this.unityContent = new UnityContent(
       "/UnityBuild/DefaultBuild.json",
       "/UnityBuild/UnityLoader.js"
-    )
-  }
-
-  onProgress(progression) {
-    this.setState({ loaderText: `${parseInt(progression * 100)}%` });
-    if (progression === 1) {
-      this.setState({ loadStatus: true });
-    }
-  }
-
-  _openMenu() {
-    console.log("[test] JS exec from Unity");
-  }
-
-  _unityLoaded() {
-    this.setState({ loadStatus: true });
-    console.log("yay");
-  }
-
-  render() {
-
-    console.log(this.unityContent)
-    let loader;
-    if (this.state.loadStatus === false) {
-      loader = (
-        <h1 id="loader">
-          {this.state.loaderText}
-        </h1>
-      );
-    } else loader = null;
-
-    return (
-      <div>
-        <div className="webgl-content">
-          <Unity
-            // src="UnityBuild/DefaultWebGL.json"
-            // loader="UnityBuild/UnityLoader.js"
-            unityContent={this.unityContent}
-            // onProgress={this.onProgress}
-          />
-        </div>
-
-        {/* <div className="webgl-loader">
-          {loader}
-        </div> */}
-
-        {/* <UnityLocker loadStatus={this.state.loadStatus} /> */}
-      </div>
     );
+
+    this.unityContent.on("progress", progression => {
+      this.setState({
+        loaderPercentage: parseFloat(progression * 100).toFixed(0)
+      });
+    });
+
+    this.unityContent.on("loaded", () => {
+      this.setState({
+        isLoaded: true
+      });
+    });
   }
 
   lockChangeAlert = () => {
@@ -79,21 +65,52 @@ class UnityComponent extends Component {
       document.pointerLockElement === null ||
       document.mozPointerLockElement === null
     ) {
-      this.unityContent.send(
-        "ScreenLocker",
-        "WorldPause"
-      )
-    } else {
-      // DO NUTHIN
+      this.unityContent.send("ScreenLocker", "WorldPause");
     }
-  }
+  };
 
   componentDidMount() {
     if ("onpointerlockchange" in document) {
-      document.addEventListener("pointerlockchange", this.lockChangeAlert, false);
+      document.addEventListener(
+        "pointerlockchange",
+        this.lockChangeAlert,
+        false
+      );
     } else if ("onmozpointerlockchange" in document) {
-      document.addEventListener("mozpointerlockchange", this.lockChangeAlert, false);
+      document.addEventListener(
+        "mozpointerlockchange",
+        this.lockChangeAlert,
+        false
+      );
     }
+  }
+
+  render() {
+    let Loader = !this.state.isLoaded ? (
+      <div style={loaderContent}>
+        <Progress
+          animated
+          color="danger"
+          value={
+            this.state.loaderPercentage > 10 ? this.state.loaderPercentage : 10
+          }
+        >{`${this.state.loaderPercentage}%💨`}</Progress>
+      </div>
+    ) : null;
+
+    return (
+      <div className="container">
+        <div style={webglContainer}>
+          <div style={webglContent}>
+            <Unity
+              unityContent={this.unityContent}
+              onProgress={this.onProgress}
+            />
+          </div>
+          {Loader}
+        </div>
+      </div>
+    );
   }
 }
 
