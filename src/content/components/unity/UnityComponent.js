@@ -4,12 +4,14 @@ import "./../../../styles/styles.css";
 
 import UnityLocker from "./UnityLocker";
 
+/* REWORK THE WHOLE APPROACH */
+// The main Unity Component should be strapped to the bare minimum
+// Unity should handle fetching of main scenes on its owwn
+
 class UnityComponent extends Component {
   constructor(props) {
     super(props);
-    // DEPREACTED
-    // RegisterExternalListener("OpenMenu", this._openMenu.bind(this));
-    // RegisterExternalListener("UnityLoaded", this._unityLoaded.bind(this));
+
     this.onProgress = this.onProgress.bind(this);
 
     this.state = {
@@ -18,8 +20,8 @@ class UnityComponent extends Component {
     };
 
     this.unityContent = new UnityContent(
-      "UnityBuild/DefaultWebGL.json",
-      "UnityBuild/UnityLoader.js"
+      "/UnityBuild/DefaultBuild.json",
+      "/UnityBuild/UnityLoader.js"
     )
   }
 
@@ -40,6 +42,8 @@ class UnityComponent extends Component {
   }
 
   render() {
+
+    console.log(this.unityContent)
     let loader;
     if (this.state.loadStatus === false) {
       loader = (
@@ -56,7 +60,7 @@ class UnityComponent extends Component {
             // src="UnityBuild/DefaultWebGL.json"
             // loader="UnityBuild/UnityLoader.js"
             unityContent={this.unityContent}
-            onProgress={this.onProgress}
+            // onProgress={this.onProgress}
           />
         </div>
 

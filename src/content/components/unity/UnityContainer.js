@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 
-// import Unity, { RegisterExternalListener, UnityEvent } from "react-unity-webgl";
-
 import UnityComponent from "./UnityComponent";
 import UnityGallery from "./UnityGallery";
 import "./../../../styles/styles.css";
