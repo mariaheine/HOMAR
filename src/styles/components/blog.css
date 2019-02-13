@@ -46,6 +46,13 @@ div.postAbstract {
   max-width: 700px;
 }
 
+@media screen and (min-width: 1000px) {
+  div.postAbstract {
+    margin: 1.5rem;
+    min-width: 700px;
+  }
+}
+
 /* abstract header */
 
 div.postAbstract a {

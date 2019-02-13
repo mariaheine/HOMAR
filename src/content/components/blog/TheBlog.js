@@ -4,8 +4,6 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 
-import "./../../../styles/components/blog/blogContainer.css";
-
 class TheBlog extends Component {
   render() {
     // This cool "trick" grabs just the articles off the props
@@ -18,7 +16,7 @@ class TheBlog extends Component {
       atm we are displaying only the list of posts here
     */
     return (
-      <div className="outerContainer">
+      <div className="container">
         <div className="blogContainer">{listedPosts}</div>
       </div>
     );
@@ -26,7 +24,6 @@ class TheBlog extends Component {
 }
 
 const mapStateToProps = state => {
-  // console.log(state);
   return {
     posts: state.firestore.ordered.blogPosts
   };

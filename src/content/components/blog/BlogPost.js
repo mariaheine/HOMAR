@@ -39,8 +39,8 @@ var moveRight = {
 
 const BlogPost = props => {
   const { displayPost, author } = props;
-
-  // console.log(displayPost);
+  
+  document.body.scrollTop = 0;
 
   var date;
   if (displayPost.createdAt) {
@@ -50,8 +50,7 @@ const BlogPost = props => {
   }
 
   return (
-    <div className="outerContainer">
-      <div className="blogContainer">
+      <div className="container">
         <div className="postAbstract">
           <div className="abstractHeader" style={outerHeaderContainer}>
             <img style={avatarImage} src={author.avatarURL} />
@@ -88,7 +87,6 @@ const BlogPost = props => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

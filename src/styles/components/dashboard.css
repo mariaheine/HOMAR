@@ -2,12 +2,15 @@
 
 div.container {
   display: flex;
-  background: #272727bc;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  width: 95%;
+  max-width: 1062px;
+  margin-top: 1rem;
+  padding: 0;
+  background: #272727bc;
   color: white;
-  width: 90%;
 }
 
 div.topPanel {
@@ -66,13 +69,4 @@ h3 {
 ul.notifications {
   background: orange;
   color: black;
-}
-
-/* REACTSTRAP CARDS */
-
-div.card {
-}
-
-div.card-body {  
-  background: #2c3638;
 }

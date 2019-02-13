@@ -7,16 +7,10 @@ import "./../../../styles/styles.css";
 class UnityContainer extends Component {
   constructor(props) {
     super(props);
-    // RegisterExternalListener("UnityLoaded", this._unityLoaded.bind(this));
 
     this.state = {
-      loadStatus: false
+      // I many need a stateful component here later
     };
-  }
-
-  _unityLoaded() {
-    this.setState({ loadStatus: true });
-    // console.log("yay");
   }
 
   render() {
@@ -36,13 +30,9 @@ class UnityContainer extends Component {
       <div>
         <div className="main-container">
           {content}
-          {/* <UnityComponent height="100%" width="100%" loadStatus={this.state.loadStatus} /> */}
           <div className="header">
             <h1>HOMAR Research Unit</h1>
           </div>
-          {/* <div className="fullscreen">
-            <h1>fullscreen</h1>
-          </div> */}
         </div>
       </div>
     );

@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 
 import { createPost } from "./../../../../reduxStore/actions/postActions";
 
-import "./../../../../styles/components/blog/blogContainer.css";
+// import "./../../../../styles/components/blog/blogContainer.css";
 
 import PostForm from "./PostForm";
 

@@ -3,7 +3,7 @@ body {
   height: 100%;
   max-width: 100%;
   overflow-x: hidden;
-  background: rgb(26, 25, 25);
+  background: rgb(32, 31, 31);
   overflow-y: scroll; /*to keep the scrollbar always visible*/
   line-height: 1;
 }
@@ -22,16 +22,9 @@ div.content {
   background-color: #27272767;
 }
 
+/* SHADOWS */
+
 @keyframes shadow {
-  /* 0%, */
-  /* 100% { */
-  /* box-shadow: 10px 10px 5px red; */
-  /* box-shadow: 10px 10px 5px rgb(255, 59, 173); */
-  /* } */
-  /* 50% { */
-  /* box-shadow: 11px 11px 10px orange; */
-  /* box-shadow: 11px 11px 10px rgb(255, 59, 59); */
-  /* } */
   0%,
   50%,
   100% {
@@ -58,12 +51,10 @@ div.content {
 /* NAVBAR CSS */
 
 .navbar {
-  /* margin: 5px 10px 5px 10px; */
-  /* margin: 2vh 4vw 2vh 4vw; */
-  margin: 2vh 5%;
-  margin-bottom: 0;
-  height: 10vh;
-  width: 90%;
+  margin: auto;
+  margin-top: 1rem;
+  width: 95%;
+  max-width: 1062px;
   background-color: #272727;
   animation: infinite;
   animation-name: shadow;
@@ -72,8 +63,18 @@ div.content {
 }
 
 .navbarComponent {
-  margin: 1.8vw;
+  margin: 0.7rem;
+  /* margin-top: 0.7rem; */
+  margin-bottom: 0.9rem;
   box-shadow: 0vw 1vh 5px black;
+}
+
+@media screen and (min-width: 1000px) {
+  .navbarComponent {
+    margin: 1.5rem;
+    margin-bottom: 1.8rem;
+    box-shadow: 0vw 1vh 5px black;
+  }
 }
 
 div.dropdown-menu {
@@ -82,8 +83,9 @@ div.dropdown-menu {
 
 div.dropdown-menu.show {
   padding: 0;
-  background-color: #0000008e;
-  width: 11vww;
+  background-color: #000000a8;
+  width: 11vw;
+  min-width: 130px;
 }
 
 div.dropdown-menu.show a {
@@ -166,12 +168,6 @@ h1.menuButton {
   margin: 0.5rem 2% 0.5rem 2%;
   /* text-shadow: 1px 1px 2px palevioletred, 0 0 25px white, 0 0 5px HOTPINK; */
 }
-
-/* li.nav-item:nth-child(4) > a:nth-child(1) > h1:nth-child(1) {
-  animation: infinite;
-  animation-name: warning;
-  animation-duration: 4s;
-} */
 
 @keyframes homarjumpy {
   0%,

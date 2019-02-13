@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Editor, EditorState, convertToRaw } from "draft-js";
 
-import "./../../../../styles/components/blog/blogContainer.css";
+// import "./../../../../styles/components/blog/blogContainer.css";
 import "./../../../../styles/components/blog.css";
 
 class PostForm extends Component {
