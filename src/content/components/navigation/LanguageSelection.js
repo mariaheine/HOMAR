@@ -6,7 +6,6 @@ import { Button } from "reactstrap";
 import { setLanguage } from "./../../../reduxStore/actions/langActions";
 
 class LanguageSelection extends Component {
-
   onClick = e => {
     // console.log(e.target.name);
     e.preventDefault();
@@ -14,7 +13,6 @@ class LanguageSelection extends Component {
   };
 
   render() {
-
     var plOutlined;
     var enOutlined;
     switch (this.props.language) {
@@ -25,6 +23,7 @@ class LanguageSelection extends Component {
       case "en":
         plOutlined = true;
         enOutlined = false;
+        break;
     }
 
     return (

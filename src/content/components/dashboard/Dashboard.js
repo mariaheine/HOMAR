@@ -4,7 +4,6 @@ import { Redirect } from "react-router-dom";
 
 import Homaremenon from "./user/Homaremenon";
 import UserPanel from "./user/UserPanel";
-import SignIn from "./authentication/SignIn";
 import { checkUserClaims } from "../../../reduxStore/actions/authActions";
 
 import "./../../../styles/components/dashboard.css";

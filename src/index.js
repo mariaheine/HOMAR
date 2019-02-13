@@ -16,7 +16,6 @@ import {
 
 // this place here is where we connect redux to the firebase
 import firebaseConfig from "./content/config/firebaseConfig";
-import { readSync } from "fs";
 
 /* 
  We could have many diffrent store enhancers/middleware here

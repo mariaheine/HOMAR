@@ -33,7 +33,7 @@ export default class OutroProduct extends Component {
       <div className="flex-container outro">
         <div className="flex-item outro">
           {header}
-          <img className="flex-item outro" src={imageSrc} />
+          <img alt="outro product" className="flex-item outro" src={imageSrc} />
         </div>
         <div id="outroDescription" className="flex-item outro">
           {paragraphs}

@@ -1,5 +1,3 @@
-import moment from "moment";
-
 import {
   CREATE_POST_SUCCESS,
   CREATE_POST_ERROR,

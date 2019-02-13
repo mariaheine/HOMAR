@@ -67,7 +67,7 @@ class BlogPostSummary extends Component {
       <div className="postAbstract">
         <Link to={`/blog/${this.props.post.id}`}>
           <div className="abstractHeader" style={outerHeaderContainer}>
-            <img style={avatarImage} src={author.avatarURL} />
+            <img alt="avateur" style={avatarImage} src={author.avatarURL} />
             <div className="" style={innerHeaderContainer}>
               <div className="abstractTitle">
                 <Editor

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import UnityComponent from "./UnityComponent";
 import UnityGallery from "./UnityGallery";
-import "./../../../styles/styles.css";
+// import "./../../../styles/styles.css";
 
 class UnityContainer extends Component {
   constructor(props) {
@@ -28,10 +28,10 @@ class UnityContainer extends Component {
 
     return (
       <div>
-        <div className="main-container">
+        <div className="container">
           {content}
           <div className="header">
-            <h1>HOMAR Research Unit</h1>
+            {/* <h1>HOMAR Research Unit</h1> */}
           </div>
         </div>
       </div>

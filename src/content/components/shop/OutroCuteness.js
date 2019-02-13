@@ -3,9 +3,6 @@ import { NavLink } from "reactstrap";
 
 import outroproducts from "./../../../articles/products/outrocuteness.json";
 
-var tmpImg =
-  "https://s3.eu-central-1.amazonaws.com/homar/outrocuteness/mem1.jpg";
-
 export default class OutroCuteness extends Component {
   render() {
 

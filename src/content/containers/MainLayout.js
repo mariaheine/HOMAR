@@ -1,11 +1,5 @@
 import React, { Component } from "react";
-import {
-  TabContent,
-  TabPane,
-  Row,
-  Col,
-  Navbar
-} from "reactstrap";
+import { TabContent, TabPane, Row, Col, Navbar } from "reactstrap";
 import Menu from "../components/navigation/Menu";
 import LanguageSelection from "../components/navigation/LanguageSelection";
 
@@ -42,6 +36,7 @@ export class MainLayout extends Component {
           <LanguageSelection />
           <Menu />
           <img
+            alt="jumpy hooomar"
             id="jumpyHomar"
             onClick={this.triggerHomar}
             src={Homar}
