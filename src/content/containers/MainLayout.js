@@ -4,14 +4,12 @@ import {
   TabPane,
   Row,
   Col,
-  Navbar,
-  NavbarBrand,
-  Button
+  Navbar
 } from "reactstrap";
 import Menu from "../components/navigation/Menu";
 import LanguageSelection from "../components/navigation/LanguageSelection";
 
-// import "bootstrap/dist/css/bootstrap.css";
+import "bootstrap/dist/css/bootstrap.css";
 import "./../../styles/mainStyles.css";
 
 import Homar from "./../../styles/assets/homar-ruch.gif";
@@ -41,19 +39,6 @@ export class MainLayout extends Component {
     return (
       <div className="mainNavbar">
         <Navbar>
-          {/* <div>
-          <div><LanguageSelection /></div>
-          <div><Menu /></div>
-          </div> */}
-          {/* <NavbarBrand href="/">
-            <div className="flexRow">
-              <h1 className="title logo">HOMAR</h1>
-              <p className="title logo">pl</p>              
-              <p className="title logo">/</p>
-              <p className="title logo">en</p>
-            </div>
-          </NavbarBrand> */}
-
           <LanguageSelection />
           <Menu />
           <img

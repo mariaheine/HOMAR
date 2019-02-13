@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router-dom";
 
 import Home from "./components/home/Home";
 import Shop from "./components/shop/Shop";
-import AppMobile from "./AppMobile";
+import Manifesto from "./components/manifesto/Manifesto";
 import UnityContainer from "./components/unity/UnityContainer";
 import OutroCuteness from "./components/shop/OutroCuteness";
 import OutroProduct from "./components/shop/OutroProduct";
@@ -23,7 +23,7 @@ const BaseRouter = () => {
     <div>
       <Switch>
         <Route exact path="/" component={Home} />
-        <Route path="/manifesto" component={AppMobile} />
+        <Route path="/manifesto" component={Manifesto} />
         <Route path="/shop" component={Shop} />
         <Route exact path="/outrocuteness/" component={OutroCuteness} />
         <Route path="/outrocuteness/:productId" component={OutroProduct} />

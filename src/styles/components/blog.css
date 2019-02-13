@@ -61,7 +61,7 @@ div.postAbstract a {
 
 div.abstractHeader {
   animation: infinite;
-  animation-name: shadow;
+  animation-name: shadowDark;
   animation-duration: 8s;
 }
 

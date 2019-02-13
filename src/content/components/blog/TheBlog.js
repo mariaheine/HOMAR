@@ -17,7 +17,7 @@ class TheBlog extends Component {
     */
     return (
       <div className="container">
-        <div className="blogContainer">{listedPosts}</div>
+        <div className="">{listedPosts}</div>
       </div>
     );
   }

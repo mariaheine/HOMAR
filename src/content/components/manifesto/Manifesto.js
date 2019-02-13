@@ -7,18 +7,16 @@ import {
   Collapse,
   Navbar,
   NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
   NavLink
 } from "reactstrap";
 
-import "bootstrap/dist/css/bootstrap.css";
-// import "./../styles/mobileStyles.css";
+import "./../../../styles/components/manifesto.css";
 
-import manifest from "../articles/manifest.json";
+import manifest from "./manifest.json";
 
-class AppMobile extends Component {
+class Manifesto extends Component {
   constructor(props) {
     super(props);
 
@@ -82,7 +80,7 @@ class AppMobile extends Component {
             switchPage={this.toggleParagraph}
           />
         </div>
-        <div className="content">
+        <div className="manifest content">
           {x.paragraphs
             .find(x => x.language === this.state.language)
             .content.map((z, j) => (
@@ -97,29 +95,26 @@ class AppMobile extends Component {
     var paragraphTabs = paragraphContent.map((x, i) => (
       <TabPane key={i} tabId={`${i + 1}`}>
         <Row>
-          <Col >{x}</Col>
+          <Col>{x}</Col>
         </Row>
       </TabPane>
     ));
 
     return (
-      <div>
-        <Navbar color="faded" light>
+      <div className="manifesto container">
+        <Navbar color="faded" light className="manifesto">
           <NavbarToggler onClick={this.toggleNavbar} className="manifestHeader">
-            <h1 className="title">
+            <h1 className="manifesto title">
               Manifest: Xeno-seksualność nadchodzi z przyszłości
             </h1>
           </NavbarToggler>
           <Collapse isOpen={!this.state.collapsed} navbar>
-            <Nav navbar>{paragraphLinks}</Nav>
+            <Nav navbar>
+              <div className="paragraphLinks">{paragraphLinks}</div>
+            </Nav>
           </Collapse>
         </Navbar>
         <TabContent activeTab={this.state.activeParagraph}>
-          <TabPane tabId="0">
-            <Row>
-              <Col>{Paragraph0}</Col>
-            </Row>
-          </TabPane>
           {paragraphTabs}
         </TabContent>
       </div>
@@ -186,10 +181,10 @@ class PageRoller extends React.Component {
   }
 }
 
-const Paragraph0 = (
-  <div className="content">
-    <h1 className="content vert-centered"> o.0 </h1>
-  </div>
-);
+// const Paragraph0 = (
+//   <div className="content">
+//     <h1 className="content vert-centered"> o.0 </h1>
+//   </div>
+// );
 
-export default AppMobile;
+export default Manifesto;

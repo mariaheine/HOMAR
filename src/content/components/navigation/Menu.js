@@ -1,9 +1,5 @@
 import React, { Component } from "react";
 import {
-  Collapse,
-  Nav,
-  NavItem,
-  Button,
   NavLink,
   ButtonDropdown,
   DropdownToggle,
