@@ -5,14 +5,11 @@ import { compose } from "redux";
 import { Redirect } from "react-router-dom";
 import { Button } from "reactstrap";
 
-// import "./../../../../styles/components/blog/blogContainer.css";
-import "./../../../../styles/components/dashboard/postEditor.css";
-
 import {
   editPost,
   deletePost
 } from "./../../../../reduxStore/actions/postActions";
-import { requestDisplayablePostByLanguage, requestEditablePostByLanguage } from "./../../../../reduxStore/actions/helperActions";
+import {  requestEditablePostByLanguage } from "./../../../../reduxStore/actions/helperActions";
 
 import PostForm from "./PostForm";
 

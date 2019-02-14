@@ -1,9 +1,5 @@
-.main-container {
+/* .main-container {
   position: absolute;
-  /* top: 15%;
-  bottom: 15%;
-  left: 12%;
-  right: 12%; */
   height: 80vh;
   width: 90%;
   margin: 0.5vh 4%;
@@ -17,7 +13,6 @@
   bottom: 0;
   left: 0;
   right: 0;
-  /* background-color: #0074d9; */
 }
 .webgl-content {
   z-index: 1;
@@ -76,7 +71,6 @@ h1 {
   text-align: left;
 }
 
-/* this will assign style only to p inside element styled with .menu */
 .menu,
 .fullscreen h1 {
   text-align: center;
@@ -84,7 +78,6 @@ h1 {
 
 .menu:hover,
 .fullscreen:hover {
-  /* background-color: white;   */
   border: 1px;
   border-style: dashed;
   border-color: white;
@@ -93,4 +86,4 @@ h1 {
 .menu:hover h1,
 .fullscreen:hover h1 {
   text-decoration: none;
-}
+} */

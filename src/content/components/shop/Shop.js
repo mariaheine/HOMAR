@@ -1,10 +1,8 @@
 import React, { Component } from "react";
-import {
-    NavLink
-  } from "reactstrap";
+import { Link } from "react-router-dom";
 
 
-import "./../../../styles/shopStyles.css";
+// import "./../../../styles/shopStyles.css";
 
 /* ONLY ONE LINE IN THE SHOP CURRENTLT */
 // COMPONENT NOT USED THUS
@@ -13,7 +11,7 @@ export default class Shop extends Component {
   render() {
     return (
       <div>
-        <NavLink href="#/outrocuteness">Outro Cuteness</NavLink>
+        <Link to="/outrocuteness">Outro Cuteness</Link>
       </div>
     );
   }

@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { compose } from "redux";
 import {
   TabContent,
   TabPane,
@@ -20,38 +22,42 @@ class Manifesto extends Component {
   constructor(props) {
     super(props);
 
-    this.toggleNavbar = this.toggleNavbar.bind(this);
-    this.toggleParagraph = this.toggleParagraph.bind(this);
-
     this.state = {
       collapsed: false,
-      activeParagraph: "0",
-      language: "pl"
+      activeParagraph: "0"
     };
   }
 
-  toggleNavbar() {
+  toggleNavbar = () => {
     this.setState({
       collapsed: !this.state.collapsed
     });
-  }
+  };
 
-  toggleParagraph(paragraph) {
+  toggleParagraph = paragraph => {
     if (this.state.activeParagraph !== paragraph) {
       this.setState({
         activeParagraph: paragraph
       });
     }
-  }
+  };
 
   render() {
-    // console.log(manifest.articleParts[0].paragraphs.find(x => x.language == this.state.language));
+    const { language } = this.props;
+
+    switch (language) {
+      case "en":
+        var titleText = "Xeno-sexuality arrives from the future. Manifesto.";
+        break;
+      default:
+        var titleText = "Manifest: Xeno-seksualność nadchodzi z przyszłości";
+        break;
+    }
 
     // 1. Prepare paragraph links using id and title
     var paragraphLinks = manifest.articleParts.map(x => (
-      <NavItem key={x.id}>
+      <NavItem key={x.id} className="parahraphLink">
         <NavLink
-          id="tst"
           onClick={() => {
             this.toggleParagraph(x.id);
             this.toggleNavbar();
@@ -63,9 +69,9 @@ class Manifesto extends Component {
       </NavItem>
     ));
 
-    // map every article part to an array containing all its paragraphs and default tab view elements (main button, prev, next)
+    // 2. map every article part to an array containing all its paragraphs and default tab view elements (main button, prev, next)
     var paragraphContent = manifest.articleParts.map(x => (
-      <div className="content">
+      <div className="cont">
         <div className="tabHeader">
           <button
             onClick={() => {
@@ -80,11 +86,11 @@ class Manifesto extends Component {
             switchPage={this.toggleParagraph}
           />
         </div>
-        <div className="manifest content">
+        <div className="manifestContent">
           {x.paragraphs
-            .find(x => x.language === this.state.language)
+            .find(x => x.language === language)
             .content.map((z, j) => (
-              <p key={`p${j}`} className="content">
+              <p key={`p${j}`} className="paragraphContent">
                 {z}
               </p>
             ))}
@@ -104,9 +110,7 @@ class Manifesto extends Component {
       <div className="manifesto container">
         <Navbar color="faded" light className="manifesto">
           <NavbarToggler onClick={this.toggleNavbar} className="manifestHeader">
-            <h1 className="manifesto title">
-              Manifest: Xeno-seksualność nadchodzi z przyszłości
-            </h1>
+            <h1 className="manifesto title">{titleText}</h1>
           </NavbarToggler>
           <Collapse isOpen={!this.state.collapsed} navbar>
             <Nav navbar>
@@ -181,10 +185,10 @@ class PageRoller extends React.Component {
   }
 }
 
-// const Paragraph0 = (
-//   <div className="content">
-//     <h1 className="content vert-centered"> o.0 </h1>
-//   </div>
-// );
+const mapStateToProps = state => {
+  return {
+    language: state.language.selectedLanguage
+  };
+};
 
-export default Manifesto;
+export default compose(connect(mapStateToProps))(Manifesto);

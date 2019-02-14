@@ -1,11 +1,10 @@
-
-
-
 /* GENERAL */
-div .content {
-  max-width: 720px;
+div.content {
+  max-width: 1062px;
   margin-left: auto;
   margin-right: auto;
+  padding: 1rem;
+  padding-top: 1.5rem;
 }
 
 /* h1.productHeader {
@@ -15,8 +14,9 @@ div .content {
 
 div.productHeader {
   background: #272727bc;
-  width: 100%;
-  margin-top: 2vh;
+  animation: infinite;
+  animation-name: shadowDark;
+  animation-duration: 8s;
 }
 
 @keyframes flicker {
@@ -29,7 +29,7 @@ div.productHeader {
 }
 
 h1.productHeader {
-  padding: 5vh 5vw 5vh 5vw;
+  padding: 2vh 5vw 2vh 5vw;
 	position: relative;
   text-align: center;
   font: 3em Helvetica, Sans-Serif;
@@ -41,8 +41,8 @@ h1.productHeader {
 }
 
 .flex-container {
-  padding: 1rem;
-  margin: 0;
+  padding: 0;
+  margin: auto;
 
   list-style: none;
 
@@ -54,17 +54,14 @@ h1.productHeader {
   flex-wrap: wrap;
   flex-direction: row;
 
-  /* align-content: center; */
   justify-content: center;
 }
 
 .flex-item {
-  padding: 5px;
+  padding: 0rem;
   width: 200px;
   height: 150px;
   margin-top: 10px;
-
-  line-height: 150px;
   color: white;
   font-size: 1em;
   text-align: center;
@@ -97,7 +94,6 @@ ul.flex-container {
   margin: auto;
   flex-direction: row;
   flex-wrap: wrap;
-  /* justify-items: center; */
 }
 
 .flex-item.outro { 
@@ -112,6 +108,7 @@ img.flex-item.outro {
   max-height:95%;
   background: none;
   opacity: 0.9;
+  padding: 0;
 }
 
 div.flex-item.outro > p {
@@ -131,9 +128,9 @@ div.flex-item.outro > p {
   font-size : 1rem;
 }
 
-#outroDescription {
+/* #outroDescription {
   align-self: center;
-}
+} */
 
 
 

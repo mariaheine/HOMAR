@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import Unity, { UnityContent } from "react-unity-webgl";
-import "./../../../styles/styles.css";
 import { Progress } from "reactstrap";
 
 // import UnityLocker from "./UnityLocker";
@@ -12,15 +11,15 @@ import { Progress } from "reactstrap";
 var webglContainer = {
   width: "100%",
   position: "relative",
-  paddingBottom: "56.25%"
+  paddingBottom: "66%"
 };
 
 var webglContent = {
   position: "absolute",
-  top: "0",
-  bottom: "0",
-  left: "0",
-  right: "0",
+  top: "1rem",
+  bottom: "1rem",
+  left: "1rem",
+  right: "1rem",
   zIndex: "1"
 };
 

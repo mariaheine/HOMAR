@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { NavLink } from "reactstrap";
+import { Link } from "react-router-dom";
 
-import outroproducts from "./../../../articles/products/outrocuteness.json";
+import outroproducts from "./products/outrocuteness.json";
+import "./../../../styles/components/shopStyles.css";
 
 export default class OutroCuteness extends Component {
   render() {
@@ -10,8 +11,8 @@ export default class OutroCuteness extends Component {
       <CuteProduct id={x.id} imgSrc={x.memId} />
     ));
 
-    var listedProducts = finalprofucts.map(x => (
-      <li className="flex-item">{x}</li>
+    var listedProducts = finalprofucts.map((x, index) => (
+      <li key={index} className="flex-item">{x}</li>
     ));
 
     return (
@@ -30,11 +31,10 @@ const CuteProduct = props => {
   let imgSrc = `https://s3.eu-central-1.amazonaws.com/homar/outrocuteness/meme${props.imgSrc}.jpg`;
 
   return (
-    <NavLink href={`#/outrocuteness/${props.id}`}>
+    <Link to={`/outrocuteness/${props.id}`}>
       <div className="listedOutro">
-        {/* {props.id} */}
         <img className="listedOutro" alt="" src={imgSrc} />
       </div>
-    </NavLink>
+    </Link>
   );
 };

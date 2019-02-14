@@ -5,12 +5,9 @@ nav.manifesto {
 }
 
 div.manifesto.container {
-    padding: 1rem;
-    padding-bottom: 1.5rem;
-    box-shadow: 0vw 1vh 5px black;
-    /* animation: infinite;
-    animation-name: shadowCrawling;
-    animation-duration: 4s; */
+  padding: 1rem;
+  padding-bottom: 1.5rem;
+  box-shadow: 0vw 1vh 5px black;
 }
 
 div.manifesto.container h1,
@@ -32,9 +29,17 @@ p.paragraphLink {
   margin: 0;
 }
 
+p.paragraphContent {  
+  max-width: 700px;
+}
+
 div.paragraphLinks {
   padding: 1rem;
   padding-top: 0;
+}
+
+div.paragraphLinks li :hover {
+  background-color: #ce1ca7;
 }
 
 button.manifestHeader {
@@ -90,8 +95,18 @@ button.titleButton:hover {
   border-width: 0.1em;
 }
 
-div.manifest.content {
-  padding: 0.7rem;
+div.manifestContent {
+  padding: 0.5rem;
   padding-top: 0;
-  line-height: 1.5;
+  line-height: 1.1;
+}
+
+@media screen and (min-width: 1000px) {
+  div.manifestContent {
+    line-height: 1.3;
+  }
+}
+
+div.manifestContent p {
+  margin-bottom: 1.5rem;
 }

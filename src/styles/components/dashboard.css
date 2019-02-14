@@ -8,6 +8,7 @@ div.container {
   width: 95%;
   max-width: 1062px;
   margin-top: 1rem;
+  margin-bottom: 1rem;
   padding: 0;
   background: #272727bc;
   color: white;

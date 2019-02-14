@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import { NavLink } from "reactstrap";
+import { Link } from "react-router-dom";
+import { Button } from "reactstrap";
 
-import outroproducts from "./../../../articles/products/outrocuteness.json";
+import outroproducts from "./products/outrocuteness.json";
 
 export default class OutroProduct extends Component {
   render() {
@@ -12,18 +13,18 @@ export default class OutroProduct extends Component {
     // OLD:
     // var paragraphs = product.description.map(x => <p>{x}</p>);
     // NEW: Why is id "dangerous"?
-    var paragraphs = product.description.map(x => (
-      <p dangerouslySetInnerHTML={{ __html: `${x}` }} />
+    var paragraphs = product.description.map((x, index) => (
+      <p key={index} dangerouslySetInnerHTML={{ __html: `${x}` }} />
     ));
 
     // var header = product.header.map(x => <p className="flex-item outro">{x}</p>);
     var header = (
-      <NavLink href="#/outrocuteness">
+      <Link to="/outrocuteness">
         <p
           id="outroHeader"
           dangerouslySetInnerHTML={{ __html: `${product.header}` }}
         />
-      </NavLink>
+      </Link>
     );
 
     let memeId = product.memId;
@@ -37,12 +38,9 @@ export default class OutroProduct extends Component {
         </div>
         <div id="outroDescription" className="flex-item outro">
           {paragraphs}
-          <NavLink className="" href="#/outrocuteness">
-            Back to shop
-          </NavLink>
-          <NavLink className="" href="#/">
-            Buy
-          </NavLink>
+          <Button id="submit1" color="info" onClick={this.props.history.goBack}>
+            Go back
+          </Button>
         </div>
       </div>
     );

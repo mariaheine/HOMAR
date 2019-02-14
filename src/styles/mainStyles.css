@@ -151,38 +151,12 @@ div.flexRow p {
   font-size: 1rem;
 }
 
-/* NAVBAR MENU */
-div.menuButton {
-  color: white;
-  width: 35vw;
-  background-color: rgba(0, 0, 0, 0);
-}
-
-p.menuButton {
-  /* lol */
-  color: white;
-  margin-bottom: 0;
-  /* text-shadow: 1px 1px 2px palevioletred, 0 0 25px white, 0 0 5px HOTPINK; */
-}
-
-p.menuButton:hover {
-  /* lol */
-  color: aquamarine;
-  margin-bottom: 0.15em;
-}
-
-a.nav-link {
-  /* background-color: #004758; */
-}
-
 h1.logo {
-  /* margin: 1rem; */
   width: 35vw;
   font-size: 5rem;
   color: black;
   letter-spacing: 0.2rem;
   color: #ffffff;
-  /* text-shadow: 1px 1px 2px palevioletred, 0 0 25px white, 0 0 5px HOTPINK; */
 }
 
 @keyframes warning {
@@ -240,5 +214,3 @@ img.homar {
 img.homar:active {
   transform: scale(0.3, 1.3);
 }
-
-/* end of navbar*/
