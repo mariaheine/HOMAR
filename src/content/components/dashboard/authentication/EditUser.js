@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import { firestoreConnect } from "react-redux-firebase";
@@ -23,6 +23,10 @@ import "../../../../styles/components/dashboard.css";
 
 var cardImage = {
   maxWidth: "20rem"
+};
+
+var editUserForm= {
+  margin: "1rem"
 };
 
 class EditUser extends Component {
@@ -74,9 +78,7 @@ class EditUser extends Component {
             <Card>
               <CardImg style={cardImage} width="30%" src={profile.avatarURL} />
               <CardBody>
-                <CardTitle>
-                 {`#${profile.nick}`}
-                </CardTitle>
+                <CardTitle>{`#${profile.nick}`}</CardTitle>
                 {AdminPanelButton}
                 <Button
                   id="submit1"
@@ -88,7 +90,7 @@ class EditUser extends Component {
               </CardBody>
             </Card>
           </div>
-          <div className="userAuth">
+          <div style={editUserForm}>
             <Form onSubmit={this.handleUserUpdate}>
               <FormGroup>
                 <Label for="nickInput">New display Nick 🌄</Label>
@@ -112,6 +114,11 @@ class EditUser extends Component {
               <Button id="submit1" color="primary">
                 Update profile!
               </Button>
+              <Link to="/privacy">
+                <Button id="submit1" color="warning">
+                  Homar Privacy Policy
+                </Button>
+              </Link>
             </Form>
           </div>
         </div>
@@ -129,7 +136,6 @@ class EditUser extends Component {
 }
 
 const mapStateToProps = state => {
-
   return {
     auth: state.firebase.auth,
     profile: state.firebase.profile,

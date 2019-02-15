@@ -17,6 +17,7 @@ import SignIn from './components/dashboard/authentication/SignIn';
 import SignUp from './components/dashboard/authentication/SignUp';
 import EditUser from './components/dashboard/authentication/EditUser';
 import AdminPanel from './components/dashboard/authentication/AdminPanel';
+import PrivacyPolicy from "./components/legal/PrivacyPolicy";
 
 const BaseRouter = () => {
   return (
@@ -39,6 +40,7 @@ const BaseRouter = () => {
         <Route path="/create" component={CreatePost} />
         <Route path="/editUser" component={EditUser} />
         <Route path="/adminPanel" component={AdminPanel} />
+        <Route path="/privacy" component={PrivacyPolicy} />
 
         <Route component={Asd} />
       </Switch>

@@ -51,7 +51,6 @@ export default class Menu extends Component {
   render() {
     var littleInline = {
       margin: "1.2rem",
-      // width: "35%",
       marginLeft: "0.2rem",
       boxShadow: "0vw 1vh 5px black",
       alignSelf: "flex-end"

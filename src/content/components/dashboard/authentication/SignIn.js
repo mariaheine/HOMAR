@@ -74,7 +74,7 @@ class SignIn extends Component {
                   type="email"
                   name="email"
                   onChange={this.onChange}
-                  placeholder="ml"
+                  placeholder="email"
                 />
               </FormGroup>
               <FormGroup>
