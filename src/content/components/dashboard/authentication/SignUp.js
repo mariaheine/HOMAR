@@ -10,13 +10,17 @@ import {
   Label,
   Input,
   Card,
-  CardBody
+  CardBody,
+  CardHeader,
+  CardFooter,
+  Badge
 } from "reactstrap";
 import { connect } from "react-redux";
+import Recaptcha from "react-recaptcha";
 import { signUp } from "../../../../reduxStore/actions/authActions";
 
-var formContainer = {
-  padding: "1rem"
+const captchaDiv = {
+  marginTop: "1rem"
 };
 
 class SignUp extends Component {
@@ -25,6 +29,9 @@ class SignUp extends Component {
 
     this.state = {
       popoverOpen: false,
+      isVerified: false,
+      errorMessage:
+        "Generic error message, well, you shouldn't really see that.",
       newUser: {
         email: "",
         password: "",
@@ -37,7 +44,20 @@ class SignUp extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    this.props.signUp(this.state.newUser);
+
+    if (this.state.isVerified) {
+      this.props.signUp(this.state.newUser);
+    } else {
+      this.setState(
+        {
+          popoverOpen: true,
+          errorMessage: "Please verify that you are not a bot."
+        },
+        () => {
+          // console.log("asd");
+        }
+      );
+    }
   };
 
   onChange = e => {
@@ -56,22 +76,27 @@ class SignUp extends Component {
     });
   };
 
+  verifyCaptcha = res => {
+    if (res) {
+      this.setState({
+        isVerified: true
+      });
+    }
+  };
+
   render() {
-    const { auth, authError } = this.props;
+    const { auth } = this.props;
 
     if (auth.uid) return <Redirect to="/homaremenon" />;
 
-    if (this.props.authError !== null) {
-    }
-
-    // console.log(authError);
     return (
       <div className="container">
         <Card>
+          <CardHeader>MEMBER DETAILS</CardHeader>
           <CardBody>
             <Form onSubmit={this.handleSubmit}>
               <FormGroup>
-                <Label for="emailInput">⚠️ Email</Label>
+                <Label for="emailInput">Email</Label>
                 <Input
                   type="email"
                   name="email"
@@ -81,7 +106,7 @@ class SignUp extends Component {
                 />
               </FormGroup>
               <FormGroup>
-                <Label for="passwordInput">⚠️ Password</Label>
+                <Label for="passwordInput">Password</Label>
                 <Input
                   type="password"
                   name="password"
@@ -92,7 +117,10 @@ class SignUp extends Component {
                 />
               </FormGroup>
               <FormGroup>
-                <Label for="nickInput">🌄 display nick </Label>
+                <Label for="nickInput">
+                  <Badge color="warning">you can change it later</Badge>
+                  <span> 🌄 display nick</span>
+                </Label>
                 <Input
                   type="text"
                   name="nick"
@@ -103,7 +131,8 @@ class SignUp extends Component {
               </FormGroup>
               <FormGroup>
                 <Label for="urlInput">
-                👽 avatar URL
+                  <Badge color="warning">optional</Badge>
+                  <span> 👽 avatar URL</span>
                 </Label>
                 <Input
                   type="url"
@@ -112,28 +141,35 @@ class SignUp extends Component {
                   onChange={this.onChange}
                 />
               </FormGroup>
-              <FormGroup>
-                <Label for="urlInput">cookie, mmmm 😋</Label>
-                <Input
-                  type="password"
-                  name="cookie"
-                  placeholder="cookie"
-                  onChange={this.onChange}
+              <div style={captchaDiv}>
+                <Recaptcha
+                  sitekey="6LcNBZUUAAAAAMo-x7rjv-s7UqLaFCPbomWIJywY"
+                  verifyCallback={this.verifyCaptcha}
+                  render="explicit"
+                  theme="dark"
                 />
-              </FormGroup>
-              <Button id="submit1" color="warning">
-                Register!
-              </Button>
-              <Popover
-                placement="right"
-                isOpen={this.state.popoverOpen}
-                target="submit1"
-                toggle={this.togglePopover}
-                onClick={this.togglePopover}
-              >
-                <PopoverHeader>SIGNUP FAILED</PopoverHeader>
-                <PopoverBody>{`${authError}`}</PopoverBody>
-              </Popover>
+              </div>
+              <CardFooter>
+                <Button id="submitButton" color="warning">
+                  Register!
+                </Button>
+                <Button
+                  id="submit1"
+                  color="info"
+                  onClick={this.props.history.goBack}
+                >
+                  Go back
+                </Button>
+                <Popover
+                  placement="right"
+                  isOpen={this.state.popoverOpen}
+                  target="submitButton"
+                  onClick={this.togglePopover}
+                >
+                  <PopoverHeader>SIGNUP FAILED</PopoverHeader>
+                  <PopoverBody>{`${this.state.errorMessage}`}</PopoverBody>
+                </Popover>
+              </CardFooter>
             </Form>
           </CardBody>
         </Card>
@@ -143,10 +179,11 @@ class SignUp extends Component {
 
   componentDidUpdate(prevProps) {
     const { authError } = this.props;
+
     if (authError && authError !== prevProps.authError) {
-      // console.log("error: " + this.props.authError);
       this.setState({
-        popoverOpen: true
+        popoverOpen: true,
+        errorMessage: authError
       });
     }
   }

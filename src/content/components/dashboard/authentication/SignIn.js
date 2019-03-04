@@ -45,7 +45,7 @@ class SignIn extends Component {
     } else {
       this.setState({
         popoverOpen: true,
-        errorMessage: "Please verify that you are not a bot? Are you?"
+        errorMessage: "Please verify that you are not a bot."
       });
     }
   };
