@@ -13,6 +13,7 @@ import {
   CardBody
 } from "reactstrap";
 import { connect } from "react-redux";
+import Recaptcha from "react-recaptcha";
 
 import { signIn } from "../../../../reduxStore/actions/authActions";
 
@@ -26,6 +27,9 @@ class SignIn extends Component {
 
     this.state = {
       popoverOpen: false,
+      isVerified: false,
+      errorMessage:
+        "Generic error message, well, you shouldn't really see that.",
       credentials: {
         email: "",
         password: ""
@@ -35,8 +39,15 @@ class SignIn extends Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    // console.log(this.state);
-    this.props.signIn(this.state.credentials);
+
+    if (this.state.isVerified) {
+      this.props.signIn(this.state.credentials);
+    } else {
+      this.setState({
+        popoverOpen: true,
+        errorMessage: "Please verify that you are not a bot? Are you?"
+      });
+    }
   };
 
   onChange = e => {
@@ -55,14 +66,21 @@ class SignIn extends Component {
     });
   };
 
+  verifyCaptcha = res => {
+    if (res) {
+      this.setState({
+        isVerified: true
+      });
+    }
+  };
+
   render() {
-    const { auth, authError } = this.props;
+    const { auth } = this.props;
 
     if (auth.uid) {
       return <Redirect to="/homaremenon" />;
     }
 
-    // console.log(authError);
     return (
       <div className="container">
         <Card>
@@ -83,22 +101,28 @@ class SignIn extends Component {
                   type="password"
                   name="password"
                   id="passwordInput"
-                  placeholder="psswrd"
+                  placeholder="password"
                   onChange={this.onChange}
                 />
               </FormGroup>
-              <Button style={wideButton} color="warning" id="submit1">
+              <Recaptcha
+                sitekey="6LcNBZUUAAAAAMo-x7rjv-s7UqLaFCPbomWIJywY"
+                verifyCallback={this.verifyCaptcha}
+                render="explicit"
+                theme="dark"
+              />
+              <br />
+              <Button style={wideButton} color="warning" id="loginButton">
                 Signin
               </Button>
               <Popover
                 placement="right"
                 isOpen={this.state.popoverOpen}
-                target="passwordInput"
-                toggle={this.togglePopover}
+                target="loginButton"
                 onClick={this.togglePopover}
               >
                 <PopoverHeader>LOGIN FAILED</PopoverHeader>
-                <PopoverBody>{`${authError}`}</PopoverBody>
+                <PopoverBody>{`${this.state.errorMessage}`}</PopoverBody>
               </Popover>
             </Form>
             <br />
@@ -113,10 +137,11 @@ class SignIn extends Component {
 
   componentDidUpdate(prevProps) {
     const { authError } = this.props;
+
     if (authError && authError !== prevProps.authError) {
-      // console.log("error: " + this.props.authError);
       this.setState({
-        popoverOpen: true
+        popoverOpen: true,
+        errorMessage: authError
       });
     }
   }

@@ -68,7 +68,7 @@ const FourOhFour = props => {
           <CardText style={quoteText}>
             Not all those who wander are lost.
           </CardText>
-          <CardText style={quoteAuthor}>- J. Peterson</CardText>
+          <CardText style={quoteAuthor}>- J.L. Peterson</CardText>
           <Button
             style={{ width: "100%" }}
             color="warning"
