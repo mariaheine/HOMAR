@@ -2,7 +2,8 @@ import React, { Component } from "react";
 // import { Editor, EditorState, convertToRaw } from "draft-js";
 import Editor, { createEditorStateWithText } from "draft-js-plugins-editor";
 import createToolbarPlugin from "draft-js-static-toolbar-plugin";
-import createVideoPlugin from 'draft-js-video-plugin';
+import createVideoPlugin from "draft-js-video-plugin";
+import VideoAdd from "./VideoAdd";
 
 const staticToolbarPlugin = createToolbarPlugin();
 const videoPlugin = createVideoPlugin();
@@ -27,22 +28,27 @@ class EditableRichText extends Component {
   };
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
 
     return (
-      <div onClick={this.focus}>
-        <Editor
+      <div>
+        <div onClick={this.focus}>
+          <Editor
+            editorState={this.props.editorState}
+            onChange={this.props.onChange}
+            placeholder="asd"
+            plugins={plugins}
+            ref={element => {
+              this.editor = element;
+            }}
+          />
+        </div>
+        {/* <Toolbar className="asd" /> */}
+        <VideoAdd
           editorState={this.props.editorState}
           onChange={this.props.onChange}
-          placeholder="asd"
-          plugins={plugins}
-          ref={element => {
-            this.editor = element;
-          }}
+          modifier={videoPlugin.addVideo}
         />
-        <div>
-          <Toolbar className="asd" />
-        </div>
       </div>
     );
   }

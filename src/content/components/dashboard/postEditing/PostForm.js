@@ -159,7 +159,7 @@ class PostForm extends Component {
       "MMM Do YY"
     );
 
-    console.log(this.props);
+    // console.log(this.props);
     const formGroupStyle = {};
 
     const labelStyle = {
