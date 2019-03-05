@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Editor, EditorState, convertToRaw } from "draft-js";
-
 import { connect } from "react-redux";
 import { compose } from "redux";
 import moment from "moment";
@@ -21,6 +20,9 @@ import {
   requestPostDataByLanguage,
   requestEditablePostContents
 } from "./../../../../reduxStore/actions/helperActions";
+
+import { createEditorStateWithText } from "draft-js-plugins-editor";
+import EditableRichText from "../components/EditableRichText";
 import "./../../../../styles/components/blog.css";
 
 class PostForm extends Component {
@@ -31,7 +33,7 @@ class PostForm extends Component {
       editor: {
         titleEditor: EditorState.createEmpty(),
         summaryEditor: EditorState.createEmpty(),
-        contentEditor: EditorState.createEmpty(),
+        contentEditor: createEditorStateWithText("asd"),
         isPublished: false
       },
       staged: {
@@ -151,10 +153,11 @@ class PostForm extends Component {
   }
 
   render() {
-
     const { author } = this.props;
 
-    let date = moment(this.props.data.post.createdAt.toDate()).format("MMM Do YY");
+    let date = moment(this.props.data.post.createdAt.toDate()).format(
+      "MMM Do YY"
+    );
 
     console.log(this.props);
     const formGroupStyle = {};
@@ -238,11 +241,15 @@ class PostForm extends Component {
               <Label for="contentEditor" style={labelStyle}>
                 Content
               </Label>
-              <Editor
+              {/* <Editor
                 id="contentEditor"
                 onChange={e => {
                   this.handleContentChange(e);
                 }}
+                editorState={this.state.editor.contentEditor}
+              /> */}
+              <EditableRichText
+                onChange={this.handleContentChange}
                 editorState={this.state.editor.contentEditor}
               />
             </FormGroup>
