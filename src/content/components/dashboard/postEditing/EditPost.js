@@ -9,13 +9,13 @@ import {
   editPost,
   deletePost
 } from "./../../../../reduxStore/actions/postActions";
-import {  requestEditablePostByLanguage } from "./../../../../reduxStore/actions/helperActions";
+import { requestEditablePostByLanguage } from "./../../../../reduxStore/actions/helperActions";
 
 import PostForm from "./PostForm";
 
 class EditPost extends Component {
   state = {
-    editingLanguage: "en",
+    editingLanguage: "pl",
     translatedData: null,
     hasUnsavedChanges: false
   };
@@ -23,6 +23,8 @@ class EditPost extends Component {
   editPost = stagedPost => {
     const postId = this.props.match.params.postId;
     const language = this.state.editingLanguage;
+
+    console.log(stagedPost)
 
     this.props.editPost(postId, stagedPost, language);
   };
@@ -61,7 +63,7 @@ class EditPost extends Component {
   render() {
     const { postData, postPL, postEN, auth } = this.props;
 
-    console.log(this.state.hasUnsavedChanges);
+    // console.log(this.state.hasUnsavedChanges);
 
     if (!auth.uid) return <Redirect to="/" />;
 
@@ -74,7 +76,7 @@ class EditPost extends Component {
               handleSubmit={this.editPost}
               handleEdit={this.handleEdit}
               key={`form${postPL.title}`}
-              data={postPL}
+              data={{ language: "pl", post: postData }}
             />
           );
           break;

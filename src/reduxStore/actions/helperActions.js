@@ -2,7 +2,7 @@ import { EditorState, ContentState, convertFromRaw } from "draft-js";
 
 const covertDataFromRaw = data => {
   if (!data) {
-    console.log("Empty data string");
+    // console.log("Empty data string");
     return { EditorData: EditorState.createEmpty() };
   }
   let DataFromRaw = convertFromRaw(JSON.parse(data));
@@ -80,10 +80,50 @@ export const requestDisplayablePostByLanguage = (post, language) => {
   };
 };
 
+export const requestPostDataByLanguage = (post, language) => {
+  if (post) {
+    switch (language) {
+      case "pl":
+        return post.polish;
+      case "en":
+        return post.english;
+      default:
+        return null;
+    }
+  } else {
+    return null;
+  }
+};
+
+export const requestEditablePostContents = post => {
+  let postTitle;
+  let postContent;
+  let postSummary;
+
+  if (post) {
+    postTitle = covertDataFromRaw(post.title).EditorData;
+    postSummary = covertDataFromRaw(post.summary).EditorData;
+    postContent = covertDataFromRaw(post.content).EditorData;
+  } else {
+    postTitle = EditorState.createEmpty();
+    postSummary = EditorState.createEmpty();
+    postContent = EditorState.createEmpty();
+  }
+  return {
+    title: postTitle,
+    summary: postSummary,
+    content: postContent
+  };
+};
+
+// DROP THIS
 export const requestEditablePostByLanguage = (post, language) => {
   let postTitle;
   let postContent;
   let postSummary;
+
+  // console.log("asdasd");
+  // console.log(post);
 
   if (post) {
     var dataSource;

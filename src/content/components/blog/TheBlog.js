@@ -24,6 +24,7 @@ class TheBlog extends Component {
 }
 
 const mapStateToProps = state => {
+  console.log(state.firestore)
   return {
     posts: state.firestore.ordered.blogPosts
   };
@@ -31,5 +32,11 @@ const mapStateToProps = state => {
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([{ collection: "blogPosts", orderBy: ['createdAt', 'desc'] }])
+  firestoreConnect([
+    {
+      collection: "blogPosts",
+      where: ["isPublished", "==", true],
+      orderBy: ["createdAt", "desc"]
+    }
+  ])
 )(TheBlog);

@@ -7,8 +7,6 @@ import { Editor } from "draft-js";
 
 import { requestDisplayableContent } from "./../../../../reduxStore/actions/helperActions";
 
-// import "./../../../../styles/components/dashboard/editablePostList.css";
-
 class EditablePostList extends Component {
   render() {
     const { posts } = this.props;

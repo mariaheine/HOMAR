@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from "react-router-dom";
-
 import { createPost } from "./../../../../reduxStore/actions/postActions";
-
-// import "./../../../../styles/components/blog/blogContainer.css";
 
 import PostForm from "./PostForm";
 
@@ -15,7 +12,7 @@ class CreatePost extends Component {
 
   handleSubmit = stagedPost => {
     this.props.createPost(stagedPost);
-    this.props.history.push('/homaremenon');
+    this.props.history.push("/homaremenon");
   };
 
   handleEdit = () => {
@@ -26,9 +23,11 @@ class CreatePost extends Component {
 
   render() {
     const { auth } = this.props;
-    if(!auth.uid) return <Redirect to="/" />
+    if (!auth.uid) return <Redirect to="/" />;
 
-    return <PostForm handleEdit={this.handleEdit} handleSubmit={this.handleSubmit} />;
+    return (
+      <PostForm handleEdit={this.handleEdit} handleSubmit={this.handleSubmit} />
+    );
   }
 }
 

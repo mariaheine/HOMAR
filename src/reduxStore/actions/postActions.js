@@ -57,11 +57,13 @@ export const editPost = (postId, editedPost, language) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();
 
+    console.log(editedPost)
+
     var payload = {};
     if (language === "en") {
-      payload.english = editedPost;
+      payload.english = editedPost.postContents;
     } else if (language === "pl") {
-      payload.polish = editedPost;
+      payload.polish = editedPost.postContents;
     } else {
       let err = "Firestore posts db incorrect language selection.";
       dispatch({
@@ -70,6 +72,8 @@ export const editPost = (postId, editedPost, language) => {
       });
       return;
     }
+
+    var postData = editedPost.postData
 
     /*
 
@@ -106,6 +110,7 @@ export const editPost = (postId, editedPost, language) => {
         .doc(postId)
         .set(
           {
+            isPublished: postData.isPublished,
             polish: payload.polish
           },
           { merge: true }
