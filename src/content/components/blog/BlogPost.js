@@ -1,8 +1,9 @@
-import React from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import { firestoreConnect, getVal } from "react-redux-firebase";
 import { compose } from "redux";
-import { Editor } from "draft-js";
+import Editor, { createEditorStateWithText } from "draft-js-plugins-editor";
+import createVideoPlugin from "draft-js-video-plugin";
 import moment from "moment";
 import ShareButtons from "./components/ShareButtons";
 import { Button } from "reactstrap";
@@ -37,19 +38,47 @@ var moveRight = {
   marginLeft: "auto"
 };
 
-const BlogPost = props => {
-  const { displayPost, author } = props;
-  
-  document.body.scrollTop = 0;
+const videoPlugin = createVideoPlugin();
+const videoPlugin2 = createVideoPlugin();
+const plugins = [videoPlugin];
+const plugins2 = [videoPlugin2];
 
-  var date;
-  if (displayPost.createdAt) {
-    date = moment(displayPost.createdAt.toDate()).format("MMM Do YY");
-  } else {
-    date = "Some time ago";
+class BlogPost extends Component {
+  state = {
+    title: createEditorStateWithText("Title placeholder"),
+    content: createEditorStateWithText("Content placeholder")
+  };  
+
+  onChange = (editorState, target) => {
+    this.setState({
+      [target]: editorState
+    })
   }
 
-  return (
+  componentDidUpdate(prevProps) {
+    const { displayPost } = this.props;
+
+    if (displayPost && displayPost !== prevProps.displayPost) {
+      this.setState({
+        title: displayPost.title,
+        content: displayPost.displayedContent
+      });
+    }
+  }
+
+  render() {
+    const { displayPost, author } = this.props;
+
+    document.body.scrollTop = 0;
+
+    var date;
+    if (displayPost.createdAt) {
+      date = moment(displayPost.createdAt.toDate()).format("MMM Do YY");
+    } else {
+      date = "Some time ago";
+    }
+
+    return (
       <div className="container">
         <div className="postAbstract">
           <div className="abstractHeader" style={outerHeaderContainer}>
@@ -58,8 +87,9 @@ const BlogPost = props => {
               <div className="abstractTitle">
                 <Editor
                   readOnly="true"
-                  editorState={displayPost.title}
-                  placeholder="EDITOR HERE"
+                  editorState={this.state.title}
+                  onChange={editorState => {this.onChange(editorState, "title")}}
+                  plugins={plugins2}
                 />
               </div>
               <span className="abstractDetails">{`${date} by ${
@@ -70,25 +100,31 @@ const BlogPost = props => {
           <div className="abstractContent">
             <Editor
               readOnly="true"
-              editorState={displayPost.displayedContent}
-              placeholder="EDITOR HERE"
+              editorState={this.state.content}
+              onChange={editorState => {this.onChange(editorState, "content")}}
+              plugins={plugins}
             />
           </div>
           <div className="abstractFooter">
-            <Button id="submit1" color="info" onClick={props.history.goBack}>
+            <Button
+              id="submit1"
+              color="info"
+              onClick={this.props.history.goBack}
+            >
               Go back
             </Button>
             <div style={moveRight}>
               <ShareButtons
                 displayPost={displayPost}
-                postId={props.match.params.postId}
+                postId={this.props.match.params.postId}
               />
             </div>
           </div>
         </div>
       </div>
-  );
-};
+    );
+  }
+}
 
 const mapStateToProps = (state, ownProps) => {
   const postId = ownProps.match.params.postId;

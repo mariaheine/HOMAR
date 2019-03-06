@@ -71,3 +71,10 @@ ul.notifications {
   background: orange;
   color: black;
 }
+
+
+/* draft js */
+
+.editor :global(.public-DraftEditor-content) {
+  min-height: 140px;
+}

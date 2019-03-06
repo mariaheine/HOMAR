@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { Editor } from "draft-js"; // Draft-js displaying using readonly Editor
+import { Editor } from "draft-js-plugins-editor"; // Draft-js displaying using readonly Editor
 import { Button } from "reactstrap";
 import moment from "moment";
 import { requestDisplayablePostByLanguage } from "./../../../reduxStore/actions/helperActions";

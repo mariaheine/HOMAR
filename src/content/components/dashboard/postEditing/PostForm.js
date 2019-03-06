@@ -251,6 +251,7 @@ class PostForm extends Component {
               <EditableRichText
                 onChange={this.handleContentChange}
                 editorState={this.state.editor.contentEditor}
+                type="content/header"
               />
             </FormGroup>
             <FormGroup check>
