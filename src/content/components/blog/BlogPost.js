@@ -4,6 +4,7 @@ import { firestoreConnect, getVal } from "react-redux-firebase";
 import { compose } from "redux";
 import Editor, { createEditorStateWithText } from "draft-js-plugins-editor";
 import createVideoPlugin from "draft-js-video-plugin";
+import createLinkPlugin from "draft-js-anchor-plugin";
 import moment from "moment";
 import ShareButtons from "./components/ShareButtons";
 import { Button } from "reactstrap";
@@ -39,8 +40,9 @@ var moveRight = {
 };
 
 const videoPlugin = createVideoPlugin();
+const linkPlugin = createLinkPlugin();
 const videoPlugin2 = createVideoPlugin();
-const plugins = [videoPlugin];
+const plugins = [videoPlugin, linkPlugin];
 const plugins2 = [videoPlugin2];
 
 class BlogPost extends Component {
