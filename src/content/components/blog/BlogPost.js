@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { firestoreConnect, getVal } from "react-redux-firebase";
 import { compose } from "redux";
-import Editor, { createEditorStateWithText } from "draft-js-plugins-editor";
+import Editor, { createEditorStateWithText, composeDecorators } from "draft-js-plugins-editor";
 import createVideoPlugin from "draft-js-video-plugin";
 import createLinkPlugin from "draft-js-anchor-plugin";
+import createAlignmentPlugin from "draft-js-alignment-plugin";
 import moment from "moment";
 import ShareButtons from "./components/ShareButtons";
 import { Button } from "reactstrap";
@@ -39,10 +40,14 @@ var moveRight = {
   marginLeft: "auto"
 };
 
-const videoPlugin = createVideoPlugin();
+const alignmentPlugin = createAlignmentPlugin();
+const decorator = composeDecorators(
+  alignmentPlugin.decorator
+);
+const videoPlugin = createVideoPlugin({decorator});
 const linkPlugin = createLinkPlugin();
 const videoPlugin2 = createVideoPlugin();
-const plugins = [videoPlugin, linkPlugin];
+const plugins = [videoPlugin, linkPlugin, alignmentPlugin];
 const plugins2 = [videoPlugin2];
 
 class BlogPost extends Component {

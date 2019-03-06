@@ -1,15 +1,24 @@
 import React, { Component } from "react";
-import Editor, { createEditorStateWithText } from "draft-js-plugins-editor";
+import Editor, {
+  createEditorStateWithText,
+  composeDecorators
+} from "draft-js-plugins-editor";
 import createToolbarPlugin, { Separator } from "draft-js-static-toolbar-plugin";
 import createVideoPlugin from "draft-js-video-plugin";
 import createEmojiPlugin from "draft-js-emoji-plugin";
 import createLinkPlugin from "draft-js-anchor-plugin";
+import createAlignmentPlugin from "draft-js-alignment-plugin";
+
+import createFocusPlugin from "draft-js-focus-plugin";
 import "draft-js-static-toolbar-plugin/lib/plugin.css";
 import "draft-js-emoji-plugin/lib/plugin.css";
 import "draft-js/dist/Draft.css";
+// import 'draft-js-focus-plugin/lib/plugin.css';
+import focusedSyles from './styles/focusedStyles.css'
 import toolbarStyles from "./styles/toolbarStyles.css";
 import buttonStyles from "./styles/buttonStyles.css";
 import linkStyles from "./styles/buttonStyles.css";
+import "draft-js-alignment-plugin/lib/plugin.css";
 
 import {
   ItalicButton,
@@ -30,27 +39,41 @@ const staticToolbarPlugin = createToolbarPlugin();
 // const staticToolbarPlugin = createToolbarPlugin({
 //   theme: { buttonStyles, toolbarStyles }
 // });
-const videoPlugin = createVideoPlugin();
 const emojiPlugin = createEmojiPlugin();
 const linkPlugin = createLinkPlugin({
   theme: linkStyles
 });
+const focusPlugin = createFocusPlugin();
+const alignmentPlugin = createAlignmentPlugin();
+const { AlignmentTool } = alignmentPlugin;
+const decorator = composeDecorators(
+  alignmentPlugin.decorator,
+  focusPlugin.decorator
+);
+const videoPlugin = createVideoPlugin({ decorator });
 const { EmojiSelect, EmojiSuggestions } = emojiPlugin;
 const { Toolbar } = staticToolbarPlugin;
-const plugins = [staticToolbarPlugin, videoPlugin, emojiPlugin, linkPlugin];
-const text =
-  "The toolbar above the editor can be used for formatting text, as in conventional static editors  …";
+const plugins = [
+  staticToolbarPlugin,
+  videoPlugin,
+  emojiPlugin,
+  linkPlugin,
+  focusPlugin,
+  alignmentPlugin
+];
+// const text =
+//   "The toolbar above the editor can be used for formatting text, as in conventional static editors  …";
 
 class EditableRichText extends Component {
-  state = {
-    editorState: createEditorStateWithText(text)
-  };
+  // state = {
+  //   editorState: createEditorStateWithText(text)
+  // };
 
-  onChange = editorState => {
-    this.setState({
-      editorState
-    });
-  };
+  // onChange = editorState => {
+  //   this.setState({
+  //     editorState
+  //   });
+  // };
 
   focus = () => {
     this.editor.focus();
@@ -71,6 +94,7 @@ class EditableRichText extends Component {
             }}
           />
           <EmojiSuggestions />
+          <AlignmentTool />
         </div>
         <div>
           <Toolbar className="asd">

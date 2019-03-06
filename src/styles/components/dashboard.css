@@ -77,4 +77,5 @@ ul.notifications {
 
 .editor :global(.public-DraftEditor-content) {
   min-height: 140px;
+  padding: 10px;
 }

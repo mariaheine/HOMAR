@@ -1,0 +1,19 @@
+.draftJsFocusPlugin__unfocused__1Wvrs {
+    padding: 15px;
+    cursor: default;
+  }
+
+.draftJsFocusPlugin__unfocused__1Wvrs:hover {
+    cursor: default;
+    border-radius: 10px;
+    box-shadow: 0 0 0 3px rgb(255, 171, 14);
+    padding: 15px;
+  }
+  
+  .draftJsFocusPlugin__focused__3Mksn {
+    cursor: default;
+    border-radius: 10px;
+    box-shadow: 0 0 0 3px rgb(22, 127, 255);
+    padding: 15px;
+  }
+  
