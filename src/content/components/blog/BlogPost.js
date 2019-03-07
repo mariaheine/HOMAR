@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { firestoreConnect, getVal } from "react-redux-firebase";
 import { compose } from "redux";
-import Editor, { createEditorStateWithText, composeDecorators } from "draft-js-plugins-editor";
+import Editor, {
+  createEditorStateWithText,
+  composeDecorators
+} from "draft-js-plugins-editor";
 import createVideoPlugin from "draft-js-video-plugin";
 import createLinkPlugin from "draft-js-anchor-plugin";
 import createAlignmentPlugin from "draft-js-alignment-plugin";
@@ -12,6 +15,7 @@ import { Button } from "reactstrap";
 
 import { requestDisplayablePostByLanguage } from "./../../../reduxStore/actions/helperActions";
 
+import "./components/styles/anchorStyles.css";
 import "./../../../styles/components/blog.css";
 
 var outerHeaderContainer = {
@@ -41,10 +45,8 @@ var moveRight = {
 };
 
 const alignmentPlugin = createAlignmentPlugin();
-const decorator = composeDecorators(
-  alignmentPlugin.decorator
-);
-const videoPlugin = createVideoPlugin({decorator});
+const decorator = composeDecorators(alignmentPlugin.decorator);
+const videoPlugin = createVideoPlugin({ decorator });
 const linkPlugin = createLinkPlugin();
 const videoPlugin2 = createVideoPlugin();
 const plugins = [videoPlugin, linkPlugin, alignmentPlugin];
@@ -52,23 +54,27 @@ const plugins2 = [videoPlugin2];
 
 class BlogPost extends Component {
   state = {
-    title: createEditorStateWithText("Title placeholder"),
-    content: createEditorStateWithText("Content placeholder")
-  };  
+    post: {
+      title: createEditorStateWithText("Title placeholder"),
+      content: createEditorStateWithText("Content placeholder")
+    }
+  };
 
   onChange = (editorState, target) => {
-    this.setState({
-      [target]: editorState
-    })
-  }
+    this.setState(prevState => ({
+      post: { ...prevState.post, [target]: editorState }
+    }));
+  };
 
   componentDidUpdate(prevProps) {
     const { displayPost } = this.props;
 
     if (displayPost && displayPost !== prevProps.displayPost) {
       this.setState({
-        title: displayPost.title,
-        content: displayPost.displayedContent
+        post: {
+          title: displayPost.title,
+          content: displayPost.displayedContent
+        }
       });
     }
   }
@@ -94,8 +100,10 @@ class BlogPost extends Component {
               <div className="abstractTitle">
                 <Editor
                   readOnly="true"
-                  editorState={this.state.title}
-                  onChange={editorState => {this.onChange(editorState, "title")}}
+                  editorState={this.state.post.title}
+                  onChange={editorState => {
+                    this.onChange(editorState, "title");
+                  }}
                   plugins={plugins2}
                 />
               </div>
@@ -107,8 +115,10 @@ class BlogPost extends Component {
           <div className="abstractContent">
             <Editor
               readOnly="true"
-              editorState={this.state.content}
-              onChange={editorState => {this.onChange(editorState, "content")}}
+              editorState={this.state.post.content}
+              onChange={editorState => {
+                this.onChange(editorState, "content");
+              }}
               plugins={plugins}
             />
           </div>

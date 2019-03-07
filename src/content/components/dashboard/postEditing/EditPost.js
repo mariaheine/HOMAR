@@ -24,7 +24,7 @@ class EditPost extends Component {
     const postId = this.props.match.params.postId;
     const language = this.state.editingLanguage;
 
-    console.log(stagedPost)
+    console.log(stagedPost);
 
     this.props.editPost(postId, stagedPost, language);
   };
@@ -61,37 +61,46 @@ class EditPost extends Component {
   };
 
   render() {
-    const { postData, postPL, postEN, auth } = this.props;
+    const { post, postPL, postEN, auth } = this.props;
 
     // console.log(this.state.hasUnsavedChanges);
 
     if (!auth.uid) return <Redirect to="/" />;
 
-    var FormDisplayer;
-    if (postData) {
-      switch (this.state.editingLanguage) {
-        case "pl":
-          FormDisplayer = (
-            <PostForm
-              handleSubmit={this.editPost}
-              handleEdit={this.handleEdit}
-              key={`form${postPL.title}`}
-              data={{ language: "pl", post: postData }}
-            />
-          );
-          break;
-        case "en":
-          FormDisplayer = (
-            <PostForm
-              handleSubmit={this.editPost}
-              handleEdit={this.handleEdit}
-              key={`form${postEN.title}`}
-              data={postEN}
-            />
-          );
-          break;
-      }
-    }
+    // var FormDisplayer;
+    // if (post) {
+    //   switch (this.state.editingLanguage) {
+    //     case "pl":
+    //       FormDisplayer = (
+    //         <PostForm
+    //           handleSubmit={this.editPost}
+    //           handleEdit={this.handleEdit}
+    //           key={`form${postPL.title}`}
+    //           data={{ language: "pl", post }}
+    //         />
+    //       );
+    //       break;
+    //     case "en":
+    //       FormDisplayer = (
+    //         <PostForm
+    //           handleSubmit={this.editPost}
+    //           handleEdit={this.handleEdit}
+    //           key={`form${postEN.title}`}
+    //           data={postEN}
+    //         />
+    //       );
+    //       break;
+    //   }
+    // }
+
+    var FormDisplayer = post ? (
+      <PostForm
+        handleSubmit={this.editPost}
+        handleEdit={this.handleEdit}
+        key={`form${post.title}`}
+        data={{ language: this.state.editingLanguage, post }}
+      />
+    ) : null;
 
     return (
       <div className="container">
@@ -131,19 +140,16 @@ class EditPost extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  // [!] Refactor: This could be grabbed directly through firestoreConnect
   const id = ownProps.match.params.postId;
   const posts = state.firestore.data.blogPosts;
   const post = posts ? posts[id] : null;
-  // console.log(post)
 
   var displayablePostPL = requestEditablePostByLanguage(post, "pl");
   var displayablePostEN = requestEditablePostByLanguage(post, "en");
 
-  // console.log(displayablePostPL);
-  // console.log(displayablePostEN);
-
   return {
-    postData: post,
+    post,
     postPL: displayablePostPL,
     postEN: displayablePostEN,
     auth: state.firebase.auth
@@ -152,7 +158,6 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    // createPost: post => dispatch(createPost(post))
     editPost: (postId, editedPost, language) =>
       dispatch(editPost(postId, editedPost, language)),
     deletePost: postId => dispatch(deletePost(postId))

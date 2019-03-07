@@ -10,8 +10,8 @@ import {
 const initState = {
   postError: null,
   posts: [
-    { id: "1", content: "Init article ONE" },
-    { id: "2", content: "Init article TWO" }
+    { id: "1", content: "Artice one" },
+    { id: "2", content: "Article two" }
   ]
 };
 

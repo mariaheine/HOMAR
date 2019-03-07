@@ -22,18 +22,22 @@ import {
 } from "./../../../../reduxStore/actions/helperActions";
 
 import { createEditorStateWithText } from "draft-js-plugins-editor";
-import EditableRichText from "../components/EditableRichText";
+import EditableRichText from "../../common/blogPostComponents/editable/EditableRichText";
 import "./../../../../styles/components/blog.css";
+import BlogPostTitle from "../../common/blogPostComponents/BlogPostTitle";
 
 class PostForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      title: null,
+      content: null,
       editor: {
         titleEditor: EditorState.createEmpty(),
         summaryEditor: EditorState.createEmpty(),
         contentEditor: createEditorStateWithText("asd"),
+        title: createEditorStateWithText("asd"),
         isPublished: false
       },
       staged: {
@@ -82,6 +86,19 @@ class PostForm extends Component {
     }));
   };
 
+  /* REFACTOR ABOVE AROUND THIS */
+  onChange = (editorState, target) => {
+    this.setState(prevState => ({
+      editor: { ...prevState.editor, [target]: editorState }
+    }));
+  };
+
+  onUpdate = (editorState, target) => {
+    this.setState(prevState => ({
+      [target]: editorState
+    }));
+  };
+
   handleIsPublishedChange = () => {
     this.setState(prevState => ({
       editor: {
@@ -103,9 +120,11 @@ class PostForm extends Component {
 
       this.setState({
         editor: {
-          titleEditor: editablePost.title || EditorState.createEmpty(),
-          summaryEditor: editablePost.summary || EditorState.createEmpty(),
-          contentEditor: editablePost.content || EditorState.createEmpty(),
+          titleEditor: editablePost.title || createEditorStateWithText("asd"),
+          summaryEditor:
+            editablePost.summary || createEditorStateWithText("asd"),
+          contentEditor:
+            editablePost.content || createEditorStateWithText("asd"),
           isPublished
         }
       });
@@ -153,7 +172,7 @@ class PostForm extends Component {
   }
 
   render() {
-    const { author } = this.props;
+    const { data, author } = this.props;
 
     let date = moment(this.props.data.post.createdAt.toDate()).format(
       "MMM Do YY"
@@ -191,23 +210,24 @@ class PostForm extends Component {
       margin: "0.5rem 0 0.5rem 0.5rem"
     };
 
+    // console.log(data.post)
+    // if(data) {
+    //   console.log("data")
+    // } else {
+
+    //   console.log("fukk")
+    // }
+
     return (
       <div className="container">
-        <div className="post">
+        <div className="postAbstract">
           <h5>NEW POST</h5>
           <Form onSubmit={this.handleSubmit}>
             <FormGroup style={formGroupStyle}>
               <Label for="titleEditor" style={labelStyle}>
                 Title
               </Label>
-              {/* <Editor
-                id="titleEditor"
-                onChange={e => {
-                  this.handleTitleChange(e);
-                }}
-                editorState={this.state.editor.titleEditor}
-              /> */}
-              <div className="abstractHeader" style={outerHeaderContainer}>
+              {/* <div className="abstractHeader" style={outerHeaderContainer}>
                 <img alt="avateur" style={avatarImage} src={author.avatarURL} />
                 <div className="" style={innerHeaderContainer}>
                   <div className="abstractTitle">
@@ -223,7 +243,14 @@ class PostForm extends Component {
                     {`${date} by ${author.nick}`}
                   </span>
                 </div>
-              </div>
+              </div> */}
+              <BlogPostTitle
+                post={data.post}
+                isEditable={true}
+                onUpdate={editorState => {
+                  this.onUpdate(editorState, "title");
+                }}
+              />
             </FormGroup>
             <FormGroup style={formGroupStyle}>
               <Label for="summaryEditor" style={labelStyle}>
@@ -241,18 +268,19 @@ class PostForm extends Component {
               <Label for="contentEditor" style={labelStyle}>
                 Content
               </Label>
-              {/* <Editor
-                id="contentEditor"
-                onChange={e => {
-                  this.handleContentChange(e);
-                }}
-                editorState={this.state.editor.contentEditor}
-              /> */}
-              <EditableRichText
-                onChange={this.handleContentChange}
-                editorState={this.state.editor.contentEditor}
-                type="content/header"
-              />
+              <div className="abstractContent">
+                {/* <EditableRichText
+                  name="content"
+                  // onChange={this.handleContentChange}
+                  onChange={editorState => {
+                    this.onUpdate(editorState, "content");
+                  }}
+                  initState={data.post}
+                  isEditable={false}
+                  // editorState={this.state.editor.contentEditor}
+                  // type="content/header"
+                /> */}
+              </div>
             </FormGroup>
             <FormGroup check>
               <legend>Is published?</legend>
@@ -275,31 +303,26 @@ class PostForm extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  var authorId = ownProps.data.post.authorId;
+// const mapStateToProps = (state, ownProps) => {
+//   var authorId = ownProps.data.post.authorId;
 
-  var author = getVal(state.firestore.data, `users/${authorId}`);
+//   var author = getVal(state.firestore.data, `users/${authorId}`);
 
-  var nick = author ? author.nick : "null";
+//   var nick = author ? author.nick : "null";
 
-  var avatarURL = author ? author.avatarURL : null;
+//   var avatarURL = author ? author.avatarURL : null;
 
-  // It seems I get access to blogPosts thanks to the parent of this component
-  // console.log(state.firestore.data);
+//   // It seems I get access to blogPosts thanks to the parent of this component
+//   // console.log(state.firestore.data);
 
-  return {
-    author: {
-      nick: nick,
-      avatarURL: avatarURL
-    }
-  };
-};
+//   return { ownProps };
+// };
 
-export default compose(
-  connect(mapStateToProps),
-  firestoreConnect(props => [
-    { collection: "users", doc: `${props.data.post.authorId}` }
-  ])
-)(PostForm);
+// export default compose(
+//   connect(mapStateToProps),
+//   firestoreConnect(props => [
+//     { collection: "users", doc: `${props.data.post.authorId}` }
+//   ])
+// )(PostForm);
 
-// export default PostForm;
+export default PostForm;

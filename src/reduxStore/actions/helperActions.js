@@ -28,6 +28,8 @@ export const requestDisplayableContent = rawContent => {
   }
 };
 
+/* Used only in displaying posts */
+// Refactor!
 export const requestDisplayablePostByLanguage = (post, language) => {
   let postTitle;
   let postContent;
@@ -80,6 +82,7 @@ export const requestDisplayablePostByLanguage = (post, language) => {
   };
 };
 
+/* STEP 1 */
 export const requestPostDataByLanguage = (post, language) => {
   if (post) {
     switch (language) {

@@ -45,11 +45,6 @@ class EditablePostList extends Component {
 }
 
 const mapStateToProps = state => {
-  // var result = requestDisplayablePostByLanguage(
-  //   ownProps.post,
-  //   state.language.selectedLanguage
-  // );
-  // console.log(state);
   return {
     posts: state.firestore.ordered.blogPosts
   };
