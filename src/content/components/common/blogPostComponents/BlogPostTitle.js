@@ -41,24 +41,24 @@ class BlogPostTitle extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      editableTitle: null
-    };
+    // this.state = {
+    //   editableTitle: null
+    // };
   }
 
-  componentDidMount() {
-    console.log("mount");
+//   componentDidMount() {
+//     console.log("mount");
 
-    const { initState } = this.props;
+//     const { initState } = this.props;
 
-    var data = requestPostDataByLanguage(initState, "pl");
+//     var data = requestPostDataByLanguage(initState, "pl");
 
-    var editablePost = requestEditablePostContents(data);
+//     var editablePost = requestEditablePostContents(data);
 
-    this.setState({
-      editableTitle: editablePost
-    });
-  }
+//     this.setState({
+//       editableTitle: editablePost
+//     });
+//   }
 
   render() {
     const { author, isEditable } = this.props;
@@ -69,11 +69,11 @@ class BlogPostTitle extends Component {
     if (isEditable) {
       Editor = (
         <EditableRichText
-          onChange={editorState => {
+          name="title"
+          onUpdate={editorState => {
             this.props.onUpdate(editorState, "title");
           }}
           isEditable={true}
-          name="title"
           initState={this.props.post}
           //   initState={this.props.editableTitle}
         />
@@ -87,13 +87,6 @@ class BlogPostTitle extends Component {
         <img alt="avateur" style={avatarImage} src={author.avatarURL} />
         <div className="" style={innerHeaderContainer}>
           <div className="abstractTitle">
-            {/* <Editor
-              id="titleEditor"
-              onChange={e => {
-                this.handleTitleChange(e);
-              }}
-              editorState={this.state.editor.titleEditor}
-            /> */}
             {Editor}
           </div>
           <span className="abstractDetails">{`${date} by ${author.nick}`}</span>

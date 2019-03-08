@@ -38,59 +38,50 @@ import {
   requestEditablePostContents
 } from "../../../../../reduxStore/actions/helperActions";
 
-var staticToolbarPlugin = createToolbarPlugin();
-var emojiPlugin = createEmojiPlugin();
-
-/* FIX? */
-/* I have no idea why the linkPlugin doesnt create <a> tag in the editor */
-var linkPlugin = createLinkPlugin({
-  theme: linkStyles,
-  placeholder: "https://..."
-});
-var focusPlugin = createFocusPlugin();
-var alignmentPlugin = createAlignmentPlugin();
-var { AlignmentTool } = alignmentPlugin;
-var decorator = composeDecorators(
-  alignmentPlugin.decorator,
-  focusPlugin.decorator
-);
-var videoPlugin = createVideoPlugin({ decorator });
-var { EmojiSelect, EmojiSuggestions } = emojiPlugin;
-var { Toolbar } = staticToolbarPlugin;
-var plugins = [
-  linkPlugin,
-  staticToolbarPlugin,
-  videoPlugin,
-  emojiPlugin,
-  focusPlugin,
-  alignmentPlugin
-];
-
-var placeholderText = "Hello";
+var placeholderText = "Hello, you shouldn't really see that text, hmmm";
 
 class EditableRichText extends Component {
   constructor(props) {
     super(props);
+
+    this._staticToolbarPlugin = createToolbarPlugin();
+    this._emojiPlugin = createEmojiPlugin();
+    this._linkPlugin = createLinkPlugin({
+      theme: linkStyles,
+      placeholder: "https://..."
+    });
+    this._focusPlugin = createFocusPlugin();
+    this._alignmentPlugin = createAlignmentPlugin();
+    const decorator = composeDecorators(
+      this._alignmentPlugin.decorator,
+      this._focusPlugin.decorator
+    );
+    this._videoPlugin = createVideoPlugin({ decorator });
+
+    this.plugins = [
+      this._linkPlugin,
+      this._staticToolbarPlugin,
+      this._videoPlugin,
+      this._emojiPlugin,
+      this._focusPlugin,
+      this._alignmentPlugin
+    ];
+
     this.state = {
+      loadedData: false,
       editorState: createEditorStateWithText(placeholderText)
     };
   }
 
   onChange = editorState => {
-    /* REFACTOR THIS */
-    // Possibly using Redux
-    // Oddly Draft.js requires the editorState in the state
-    // of the same component, when the editorState is being
-    // passed through the props (directly using below
-    // this.props.onChange() in Editor causes draft-anchor
-    // decorators to be lost!!).
-
-    // cant be like that, updating that state updates everything below
-    // this.props.onChange(editorState);
-
-    this.setState({
-      editorState
-    });
+    this.setState(
+      {
+        editorState: editorState
+      },
+      () => {
+        this.props.onUpdate(this.state.editorState)
+      }
+    );
   };
 
   focus = () => {
@@ -98,34 +89,35 @@ class EditableRichText extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    const { editorState } = this.props;
 
-    // console.log(editorState);
-
-    // WROMG
-    // if (editorState && editorState !== this.state.editorState) {
-    //   this.setState({
-    //     editorState
-    //   });
-    // }
-  }
-
-  componentDidMount() {
     const { initState, name, isEditable } = this.props;
 
     var data = requestPostDataByLanguage(initState, "pl");
 
     var editablePost = requestEditablePostContents(data);
 
-    this.setState({
-      editorState: editablePost[name]
-    });
+    if (initState && !this.state.loadedData)
+      this.setState({
+        loadedData: true,
+        editorState: editablePost[name]
+      });
+  }
+
+  componentDidMount() {
+    
+    // Cammot use componentDidMount to set editorState
+    // It causes draft to loose decorators
+
   }
 
   render() {
-    console.log(this.props);
 
-    var Toolbrr = this.props.isEditable ? (
+    const { AlignmentTool } = this._alignmentPlugin;
+    const { EmojiSelect, EmojiSuggestions } = this._emojiPlugin;
+    const { Toolbar } = this._staticToolbarPlugin;
+    const { LinkButton } = this._linkPlugin;
+
+    const Toolbrr = this.props.isEditable ? (
       <Toolbar>
         {externalProps => (
           <div>
@@ -138,12 +130,12 @@ class EditableRichText extends Component {
             <OrderedListButton {...externalProps} />
             <BlockquoteButton {...externalProps} />
             <CodeBlockButton {...externalProps} />
-            <linkPlugin.LinkButton {...externalProps} />
+            <LinkButton {...externalProps} />
             <EmojiSelect />
             <VideoAdd
-              editorState={this.props.editorState}
-              onChange={this.props.onChange}
-              modifier={videoPlugin.addVideo}
+              editorState={this.state.editorState}
+              onChange={this.onChange}
+              modifier={this._videoPlugin.addVideo}
             />
           </div>
         )}
@@ -156,7 +148,7 @@ class EditableRichText extends Component {
           <Editor
             onChange={this.onChange}
             editorState={this.state.editorState}
-            plugins={plugins}
+            plugins={this.plugins}
             // Ummm, what is that for?
             ref={element => {
               this.editor = element;
@@ -164,7 +156,7 @@ class EditableRichText extends Component {
           />
           {/* FIX?  */}
           {/* Can't get emoji suggestions to work :( */}
-          {/* <EmojiSuggestions /> */}
+          <EmojiSuggestions />
           <AlignmentTool />
         </div>
         <div>{Toolbrr}</div>

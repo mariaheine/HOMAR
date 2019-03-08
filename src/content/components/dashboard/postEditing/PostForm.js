@@ -135,10 +135,10 @@ class PostForm extends Component {
     e.preventDefault();
 
     let rawTitle = convertToRaw(
-      this.state.editor.titleEditor.getCurrentContent()
+      this.state.title.getCurrentContent()
     );
     let rawContent = convertToRaw(
-      this.state.editor.contentEditor.getCurrentContent()
+      this.state.content.getCurrentContent()
     );
     let rawSummary = convertToRaw(
       this.state.editor.summaryEditor.getCurrentContent()
@@ -227,23 +227,6 @@ class PostForm extends Component {
               <Label for="titleEditor" style={labelStyle}>
                 Title
               </Label>
-              {/* <div className="abstractHeader" style={outerHeaderContainer}>
-                <img alt="avateur" style={avatarImage} src={author.avatarURL} />
-                <div className="" style={innerHeaderContainer}>
-                  <div className="abstractTitle">
-                    <Editor
-                      id="titleEditor"
-                      onChange={e => {
-                        this.handleTitleChange(e);
-                      }}
-                      editorState={this.state.editor.titleEditor}
-                    />
-                  </div>
-                  <span className="abstractDetails">
-                    {`${date} by ${author.nick}`}
-                  </span>
-                </div>
-              </div> */}
               <BlogPostTitle
                 post={data.post}
                 isEditable={true}
@@ -256,30 +239,27 @@ class PostForm extends Component {
               <Label for="summaryEditor" style={labelStyle}>
                 Summary
               </Label>
-              <Editor
+              {/* <Editor
                 id="summaryEditor"
                 onChange={e => {
                   this.handleSummaryChange(e);
                 }}
                 editorState={this.state.editor.summaryEditor}
-              />
+              /> */}
             </FormGroup>
             <FormGroup style={formGroupStyle}>
               <Label for="contentEditor" style={labelStyle}>
                 Content
               </Label>
               <div className="abstractContent">
-                {/* <EditableRichText
+                <EditableRichText
                   name="content"
-                  // onChange={this.handleContentChange}
-                  onChange={editorState => {
+                  onUpdate={editorState => {
                     this.onUpdate(editorState, "content");
                   }}
                   initState={data.post}
-                  isEditable={false}
-                  // editorState={this.state.editor.contentEditor}
-                  // type="content/header"
-                /> */}
+                  isEditable={true}
+                />
               </div>
             </FormGroup>
             <FormGroup check>
@@ -302,27 +282,5 @@ class PostForm extends Component {
     );
   }
 }
-
-// const mapStateToProps = (state, ownProps) => {
-//   var authorId = ownProps.data.post.authorId;
-
-//   var author = getVal(state.firestore.data, `users/${authorId}`);
-
-//   var nick = author ? author.nick : "null";
-
-//   var avatarURL = author ? author.avatarURL : null;
-
-//   // It seems I get access to blogPosts thanks to the parent of this component
-//   // console.log(state.firestore.data);
-
-//   return { ownProps };
-// };
-
-// export default compose(
-//   connect(mapStateToProps),
-//   firestoreConnect(props => [
-//     { collection: "users", doc: `${props.data.post.authorId}` }
-//   ])
-// )(PostForm);
 
 export default PostForm;
