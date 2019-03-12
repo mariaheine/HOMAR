@@ -5,7 +5,7 @@ import { compose } from "redux";
 import { Editor } from "draft-js-plugins-editor"; // Draft-js displaying using readonly Editor
 import { Button } from "reactstrap";
 import moment from "moment";
-import { requestDisplayablePostByLanguage } from "./../../../reduxStore/actions/helperActions";
+import { requestDisplayablePostByLanguage } from "../../../reduxStore/actions/helperActions";
 import "./../../../styles/components/blog.css";
 import { firestoreConnect, getVal } from "react-redux-firebase";
 import ShareButtons from "./displayable/ShareButtons";
@@ -36,7 +36,7 @@ var rightFooter = {
   marginLeft: "auto"
 };
 
-class BlogPostSummary extends Component {
+class BlogPostShort extends Component {
   constructor(props) {
     super(props);
 
@@ -138,7 +138,7 @@ export default compose(
   firestoreConnect(props => [
     { collection: "users", doc: `${props.post.authorId}` }
   ])
-)(BlogPostSummary);
+)(BlogPostShort);
 
 // ANOTHER WAY:
 

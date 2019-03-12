@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import BlogPostSummary from "./BlogPostSummary.js";
+import BlogPostShort from "./BlogPostShort";
 import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
@@ -10,7 +10,7 @@ class TheBlog extends Component {
     const { posts } = this.props;
 
     var listedPosts =
-      posts && posts.map(post => <BlogPostSummary post={post} key={post.id} />);
+      posts && posts.map(post => <BlogPostShort post={post} key={post.id} />);
 
     /*
       atm we are displaying only the list of posts here

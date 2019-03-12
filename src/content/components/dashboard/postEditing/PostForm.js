@@ -16,30 +16,29 @@ import {
   Card,
   CardBody
 } from "reactstrap";
-import {
-  requestPostDataByLanguage,
-  requestEditablePostContents
-} from "./../../../../reduxStore/actions/helperActions";
-
 import { createEditorStateWithText } from "draft-js-plugins-editor";
-import EditableRichText from "../../blog//editable/EditableRichText";
 import "./../../../../styles/components/blog.css";
-import BlogPostTitle from "../../blog/BlogPostTitle";
+import BlogPostTitle from "../../blog/components/BlogPostTitle";
+import BlogPostSummary from "../../blog/components/BlogPostSummary";
+import BlogPostContent from "../../blog/components/BlogPostContent";
 
 class PostForm extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      title: null,
-      content: null,
       editor: {
-        titleEditor: EditorState.createEmpty(),
-        summaryEditor: EditorState.createEmpty(),
-        contentEditor: createEditorStateWithText("asd"),
-        title: createEditorStateWithText("asd"),
-        isPublished: false
+        title: null,
+        summary: null,
+        content: null
       },
+      // editor: {
+      //   titleEditor: EditorState.createEmpty(),
+      //   summaryEditor: EditorState.createEmpty(),
+      //   contentEditor: createEditorStateWithText("asd"),
+      //   title: createEditorStateWithText("asd"),
+      //   isPublished: false
+      // },
       staged: {
         postContents: {
           title: "",
@@ -53,49 +52,12 @@ class PostForm extends Component {
     };
   }
 
-  handleTitleChange = e => {
-    this.props.handleEdit();
-
-    this.setState(prevState => ({
-      editor: {
-        ...prevState.editor,
-        titleEditor: e
-      }
-    }));
-  };
-
-  handleSummaryChange = e => {
-    this.props.handleEdit();
-
-    this.setState(prevState => ({
-      editor: {
-        ...prevState.editor,
-        summaryEditor: e
-      }
-    }));
-  };
-
-  handleContentChange = e => {
-    this.props.handleEdit();
-
-    this.setState(prevState => ({
-      editor: {
-        ...prevState.editor,
-        contentEditor: e
-      }
-    }));
-  };
-
-  /* REFACTOR ABOVE AROUND THIS */
-  onChange = (editorState, target) => {
-    this.setState(prevState => ({
-      editor: { ...prevState.editor, [target]: editorState }
-    }));
-  };
-
   onUpdate = (editorState, target) => {
     this.setState(prevState => ({
-      [target]: editorState
+      editor: {
+        ...prevState.editor,
+        [target]: editorState
+      }
     }));
   };
 
@@ -108,40 +70,15 @@ class PostForm extends Component {
     }));
   };
 
-  loadPostDataIntoState = () => {
-    const { data } = this.props;
-
-    if (data) {
-      var isPublished = data.post.isPublished ? data.post.isPublished : false;
-
-      var postData = requestPostDataByLanguage(data.post, data.language);
-
-      var editablePost = requestEditablePostContents(postData);
-
-      this.setState({
-        editor: {
-          titleEditor: editablePost.title || createEditorStateWithText("asd"),
-          summaryEditor:
-            editablePost.summary || createEditorStateWithText("asd"),
-          contentEditor:
-            editablePost.content || createEditorStateWithText("asd"),
-          isPublished
-        }
-      });
-    }
-  };
-
   handleSubmit = e => {
     e.preventDefault();
 
-    let rawTitle = convertToRaw(
-      this.state.title.getCurrentContent()
-    );
+    let rawTitle = convertToRaw(this.state.editor.title.getCurrentContent());
     let rawContent = convertToRaw(
-      this.state.content.getCurrentContent()
+      this.state.editor.content.getCurrentContent()
     );
     let rawSummary = convertToRaw(
-      this.state.editor.summaryEditor.getCurrentContent()
+      this.state.editor.summary.getCurrentContent()
     );
 
     this.setState(
@@ -160,16 +97,6 @@ class PostForm extends Component {
       }
     );
   };
-
-  componentDidMount() {
-    this.loadPostDataIntoState();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.data !== this.props.data) {
-      this.loadPostDataIntoState();
-    }
-  }
 
   render() {
     const { data } = this.props;
@@ -204,28 +131,25 @@ class PostForm extends Component {
               <Label for="summaryEditor" style={labelStyle}>
                 Summary
               </Label>
-              {/* <Editor
-                id="summaryEditor"
-                onChange={e => {
-                  this.handleSummaryChange(e);
+              <BlogPostSummary
+                post={data.post}
+                isEditable={true}
+                onUpdate={editorState => {
+                  this.onUpdate(editorState, "summary");
                 }}
-                editorState={this.state.editor.summaryEditor}
-              /> */}
+              />
             </FormGroup>
             <FormGroup style={formGroupStyle}>
               <Label for="contentEditor" style={labelStyle}>
                 Content
               </Label>
-              <div className="abstractContent">
-                <EditableRichText
-                  name="content"
-                  onUpdate={editorState => {
-                    this.onUpdate(editorState, "content");
-                  }}
-                  initState={data.post}
-                  isEditable={true}
-                />
-              </div>
+              <BlogPostContent
+                post={data.post}
+                isEditable={true}
+                onUpdate={editorState => {
+                  this.onUpdate(editorState, "content");
+                }}
+              />
             </FormGroup>
             <FormGroup check>
               <legend>Is published?</legend>

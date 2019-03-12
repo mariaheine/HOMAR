@@ -7,11 +7,11 @@ import {
   getVal,
   firebaseConnect
 } from "react-redux-firebase";
-import EditableRichText from "./editable/EditableRichText";
+import EditableRichText from "../editable/EditableRichText";
 import {
   requestPostDataByLanguage,
   requestEditablePostContents
-} from "../../../reduxStore/actions/helperActions";
+} from "../../../../reduxStore/actions/helperActions";
 
 import { Editor, EditorState, convertToRaw } from "draft-js";
 
@@ -70,10 +70,10 @@ class BlogPostTitle extends Component {
       Editor = (
         <EditableRichText
           name="title"
+          isEditable={true}
           onUpdate={editorState => {
             this.props.onUpdate(editorState, "title");
           }}
-          isEditable={true}
           initState={this.props.post}
           //   initState={this.props.editableTitle}
         />
