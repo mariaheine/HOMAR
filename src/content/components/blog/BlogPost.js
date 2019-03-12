@@ -10,12 +10,12 @@ import createVideoPlugin from "draft-js-video-plugin";
 import createLinkPlugin from "draft-js-anchor-plugin";
 import createAlignmentPlugin from "draft-js-alignment-plugin";
 import moment from "moment";
-import ShareButtons from "./components/ShareButtons";
+import ShareButtons from "./displayable/ShareButtons";
 import { Button } from "reactstrap";
 
 import { requestDisplayablePostByLanguage } from "./../../../reduxStore/actions/helperActions";
 
-import "./components/styles/anchorStyles.css";
+import "./styles/anchorStyles.css";
 import "./../../../styles/components/blog.css";
 
 var outerHeaderContainer = {
@@ -156,8 +156,6 @@ const mapStateToProps = (state, ownProps) => {
   var nick = author ? author.nick : "null";
 
   var avatarURL = author ? author.avatarURL : null;
-
-  // console.log(state);
 
   var displayPost = requestDisplayablePostByLanguage(
     post,

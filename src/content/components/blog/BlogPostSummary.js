@@ -8,7 +8,7 @@ import moment from "moment";
 import { requestDisplayablePostByLanguage } from "./../../../reduxStore/actions/helperActions";
 import "./../../../styles/components/blog.css";
 import { firestoreConnect, getVal } from "react-redux-firebase";
-import ShareButtons from "./components/ShareButtons";
+import ShareButtons from "./displayable/ShareButtons";
 
 var outerHeaderContainer = {
   display: "flex",

@@ -28,12 +28,6 @@ export const signIn = credentials => {
   };
 };
 
-// const clearUserState = () => {
-//   return {
-//     type:
-//   }
-// }
-
 export const signOut = () => {
   return (dispatch, getState, { getFirebase }) => {
     const firebase = getFirebase();

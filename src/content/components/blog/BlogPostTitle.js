@@ -11,7 +11,7 @@ import EditableRichText from "./editable/EditableRichText";
 import {
   requestPostDataByLanguage,
   requestEditablePostContents
-} from "../../../../reduxStore/actions/helperActions";
+} from "../../../reduxStore/actions/helperActions";
 
 import { Editor, EditorState, convertToRaw } from "draft-js";
 

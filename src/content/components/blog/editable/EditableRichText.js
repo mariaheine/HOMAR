@@ -36,7 +36,7 @@ import VideoAdd from "./VideoAdd";
 import {
   requestPostDataByLanguage,
   requestEditablePostContents
-} from "../../../../../reduxStore/actions/helperActions";
+} from "../../../../reduxStore/actions/helperActions.js";
 
 var placeholderText = "Hello, you shouldn't really see that text, hmmm";
 

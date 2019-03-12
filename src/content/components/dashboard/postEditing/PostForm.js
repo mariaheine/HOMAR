@@ -22,9 +22,9 @@ import {
 } from "./../../../../reduxStore/actions/helperActions";
 
 import { createEditorStateWithText } from "draft-js-plugins-editor";
-import EditableRichText from "../../common/blogPostComponents/editable/EditableRichText";
+import EditableRichText from "../../blog//editable/EditableRichText";
 import "./../../../../styles/components/blog.css";
-import BlogPostTitle from "../../common/blogPostComponents/BlogPostTitle";
+import BlogPostTitle from "../../blog/BlogPostTitle";
 
 class PostForm extends Component {
   constructor(props) {
@@ -172,13 +172,8 @@ class PostForm extends Component {
   }
 
   render() {
-    const { data, author } = this.props;
+    const { data } = this.props;
 
-    let date = moment(this.props.data.post.createdAt.toDate()).format(
-      "MMM Do YY"
-    );
-
-    // console.log(this.props);
     const formGroupStyle = {};
 
     const labelStyle = {
@@ -187,36 +182,6 @@ class PostForm extends Component {
       fontSize: "2rem",
       padding: "0.5rem"
     };
-
-    var outerHeaderContainer = {
-      display: "flex",
-      flexDirection: "row",
-      alignItems: "flex-start",
-      background: "#58585852",
-      padding: "0.2rem"
-    };
-
-    var innerHeaderContainer = {
-      display: "flex",
-      flexDirection: "column",
-      margin: "0.5rem 0 0.5rem 0.5rem"
-    };
-
-    var avatarImage = {
-      width: "64px",
-      height: "64px",
-      border: "2px solid black",
-      borderRadius: "2px",
-      margin: "0.5rem 0 0.5rem 0.5rem"
-    };
-
-    // console.log(data.post)
-    // if(data) {
-    //   console.log("data")
-    // } else {
-
-    //   console.log("fukk")
-    // }
 
     return (
       <div className="container">
