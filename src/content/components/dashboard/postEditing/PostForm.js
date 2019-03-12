@@ -1,26 +1,15 @@
 import React, { Component } from "react";
-import { Editor, EditorState, convertToRaw } from "draft-js";
-import { connect } from "react-redux";
-import { compose } from "redux";
-import moment from "moment";
-import { firestoreConnect, getVal } from "react-redux-firebase";
+import { convertToRaw } from "draft-js";
 import {
-  Button,
-  Popover,
-  PopoverHeader,
-  PopoverBody,
   Form,
   FormGroup,
   Label,
-  Input,
-  Card,
-  CardBody
+  Input
 } from "reactstrap";
-import { createEditorStateWithText } from "draft-js-plugins-editor";
-import "./../../../../styles/components/blog.css";
 import BlogPostTitle from "../../blog/components/BlogPostTitle";
 import BlogPostSummary from "../../blog/components/BlogPostSummary";
 import BlogPostContent from "../../blog/components/BlogPostContent";
+import "./../../../../styles/components/blog.css";
 
 class PostForm extends Component {
   constructor(props) {
@@ -30,15 +19,9 @@ class PostForm extends Component {
       editor: {
         title: null,
         summary: null,
-        content: null
+        content: null,
+        isPublished: false
       },
-      // editor: {
-      //   titleEditor: EditorState.createEmpty(),
-      //   summaryEditor: EditorState.createEmpty(),
-      //   contentEditor: createEditorStateWithText("asd"),
-      //   title: createEditorStateWithText("asd"),
-      //   isPublished: false
-      // },
       staged: {
         postContents: {
           title: "",
@@ -52,20 +35,11 @@ class PostForm extends Component {
     };
   }
 
-  onUpdate = (editorState, target) => {
+  onUpdate = (value, target) => {
     this.setState(prevState => ({
       editor: {
         ...prevState.editor,
-        [target]: editorState
-      }
-    }));
-  };
-
-  handleIsPublishedChange = () => {
-    this.setState(prevState => ({
-      editor: {
-        ...prevState.editor,
-        isPublished: !this.state.editor.isPublished
+        [target]: value
       }
     }));
   };
@@ -97,6 +71,16 @@ class PostForm extends Component {
       }
     );
   };
+
+  componentDidMount() {
+    const { data } = this.props;
+
+    this.setState({
+      editor: {
+        isPublished: data.post.isPublished
+      }
+    });
+  }
 
   render() {
     const { data } = this.props;
@@ -157,7 +141,12 @@ class PostForm extends Component {
                 <Input
                   type="checkbox"
                   checked={this.state.editor.isPublished}
-                  onChange={this.handleIsPublishedChange}
+                  onChange={() => {
+                    this.onUpdate(
+                      !this.state.editor.isPublished,
+                      "isPublished"
+                    );
+                  }}
                 />{" "}
                 Check me out
               </Label>
