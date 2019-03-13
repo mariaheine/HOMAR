@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Editor, {
   createEditorStateWithText,
   composeDecorators
@@ -79,7 +80,7 @@ class EditableRichText extends Component {
         editorState: editorState
       },
       () => {
-        this.props.onUpdate(this.state.editorState)
+        this.props.onUpdate(this.state.editorState);
       }
     );
   };
@@ -89,29 +90,34 @@ class EditableRichText extends Component {
   };
 
   componentDidUpdate(prevProps) {
+    const { initState, name, isEditable, language } = this.props;
 
-    const { initState, name, isEditable } = this.props;
+    if (initState && !this.state.loadedData) {
+      var data = requestPostDataByLanguage(initState, language);
+      var editablePost = requestEditablePostContents(data);
 
-    var data = requestPostDataByLanguage(initState, "pl");
-
-    var editablePost = requestEditablePostContents(data);
-
-    if (initState && !this.state.loadedData)
       this.setState({
         loadedData: true,
         editorState: editablePost[name]
       });
+    }
+
+    if (initState && language != prevProps.language) {
+      var data = requestPostDataByLanguage(initState, language);
+      var editablePost = requestEditablePostContents(data);
+
+      this.setState({
+        editorState: editablePost[name]
+      });
+    } 
   }
 
   componentDidMount() {
-    
     // Cammot use componentDidMount to set editorState
     // It causes draft to loose decorators
-
   }
 
   render() {
-
     const { AlignmentTool } = this._alignmentPlugin;
     const { EmojiSelect, EmojiSuggestions } = this._emojiPlugin;
     const { Toolbar } = this._staticToolbarPlugin;
@@ -154,8 +160,6 @@ class EditableRichText extends Component {
               this.editor = element;
             }}
           />
-          {/* FIX?  */}
-          {/* Can't get emoji suggestions to work :( */}
           <EmojiSuggestions />
           <AlignmentTool />
         </div>
@@ -165,4 +169,12 @@ class EditableRichText extends Component {
   }
 }
 
-export default EditableRichText;
+const mapStateToProps = (state, ownProps) => {
+  console.log(state);
+
+  return {
+    language: state.post.editedLanguage
+  };
+};
+
+export default connect(mapStateToProps)(EditableRichText);

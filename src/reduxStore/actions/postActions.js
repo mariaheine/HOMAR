@@ -7,6 +7,11 @@ import {
   DELETE_POST_ERROR
 } from "../types";
 
+export const setEditedLanguage = language => ({
+  type: "SET_EDITED_LANGUAGE",
+  language: language
+});
+
 export const createPost = post => {
   /*
     thunk.withExtraArgument({...}) at index.js
@@ -55,63 +60,33 @@ export const createPost = post => {
 
 export const editPost = (postId, editedPost, language) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
-    const firestore = getFirestore();
+    const firestore = getFirestore();    
 
-    console.log(editedPost)
-
-    var payload = {};
     if (language === "en") {
-      payload.english = editedPost.postContents;
-    } else if (language === "pl") {
-      payload.polish = editedPost.postContents;
+      var targetLanguage = "english";
+    } else if (language === "pl") {      
+      var targetLanguage = "polish"
     } else {
-      let err = "Firestore posts db incorrect language selection.";
+      let err = "editPost: incorrect language format";
       dispatch({
         type: EDIT_POST_ERROR,
         err
       });
       return;
     }
+    
+    var payload = {
+      [targetLanguage]: editedPost.postContents
+    }
 
     var postData = editedPost.postData
-
-    /*
-
-      I DON'T LIKE THIS THING BELOW.
-      Could someone please tell me how to change that
-      single line with payload?
-    
-    */
-
-    if (language === "en") {
-      firestore
-        .collection("blogPosts")
-        .doc(postId)
-        .set(
-          {
-            english: payload.english
-          },
-          { merge: true }
-        )
-        .then(() => {
-          dispatch({
-            type: EDIT_POST_SUCCESS
-          });
-        })
-        .catch(err => {
-          dispatch({
-            type: EDIT_POST_ERROR,
-            err
-          });
-        });
-    } else if (language === "pl") {
       firestore
         .collection("blogPosts")
         .doc(postId)
         .set(
           {
             isPublished: postData.isPublished,
-            polish: payload.polish
+            [targetLanguage]: payload[targetLanguage]
           },
           { merge: true }
         )
@@ -127,7 +102,6 @@ export const editPost = (postId, editedPost, language) => {
           });
         });
     }
-  };
 };
 
 export const deletePost = postId => {

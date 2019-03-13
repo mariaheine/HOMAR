@@ -10,6 +10,7 @@ import {
   deletePost
 } from "./../../../../reduxStore/actions/postActions";
 import { requestEditablePostByLanguage } from "./../../../../reduxStore/actions/helperActions";
+import { setEditedLanguage } from "./../../../../reduxStore/actions/postActions";
 
 import PostForm from "./PostForm";
 
@@ -45,9 +46,11 @@ class EditPost extends Component {
     let targetLanguage;
     switch (e.target.id) {
       case "btnPL":
+        this.props.setEditedLanguage("pl");
         targetLanguage = "pl";
         break;
       case "btnEN":
+        this.props.setEditedLanguage("en");
         targetLanguage = "en";
         break;
     }
@@ -66,6 +69,8 @@ class EditPost extends Component {
     // console.log(this.state.hasUnsavedChanges);
 
     if (!auth.uid) return <Redirect to="/" />;
+
+    // console.log(this.state.editingLanguage);
 
     // var FormDisplayer;
     // if (post) {
@@ -158,6 +163,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    setEditedLanguage: language => dispatch(setEditedLanguage(language)),
     editPost: (postId, editedPost, language) =>
       dispatch(editPost(postId, editedPost, language)),
     deletePost: postId => dispatch(deletePost(postId))

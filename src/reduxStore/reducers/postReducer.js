@@ -1,4 +1,5 @@
 import {
+  SET_EDITED_LANGUAGE,
   CREATE_POST_SUCCESS,
   CREATE_POST_ERROR,
   EDIT_POST_SUCCESS,
@@ -12,7 +13,8 @@ const initState = {
   posts: [
     { id: "1", content: "Artice one" },
     { id: "2", content: "Article two" }
-  ]
+  ],
+  editedLanguage: "pl"
 };
 
 const postReducer = (state = initState, action) => {
@@ -37,6 +39,11 @@ const postReducer = (state = initState, action) => {
       return {
         ...state,
         postError: action.err
+      };
+    case SET_EDITED_LANGUAGE:
+      return {
+        ...state,
+        editedLanguage: action.language
       };
     default:
       return state;

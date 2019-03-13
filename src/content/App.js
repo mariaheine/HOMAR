@@ -7,15 +7,12 @@ import MainLayout from "./containers/MainLayout";
 // import AppMobile from "./AppMobile";
 
 class App extends Component {
-
   render() {
-    // TODO MOVE THAT TO THE WARP-RELATED COMPONENT
-    // NO NEED TO CHANGE ENTIRE APP
-    // var isMobile = window.navigator.userAgent.toLowerCase().includes("mobi");
-    // var isMobile = true;
-    // console.log(isMobile);
-    // if(isMobile) return <AppMobile/>
-    //   else return <AppDesktop/>
+    console.log(
+      "%cWelcome to HOMAR!",
+      "background-color: seashell; padding: 1rem; padding-bottom: 3vh; border-style: dashed; border-color: orange; font-weight: bold; font-size: 50px;color: red; text-shadow: 3px 3px 0 rgb(217,31,38) , 6px 6px 0 rgb(226,91,14) , 9px 9px 0 rgb(245,221,8) , 12px 12px 0 rgb(5,148,68) , 15px 15px 0 rgb(2,135,206) , 18px 18px 0 rgb(4,77,145) , 21px 21px 0 rgb(42,21,113)"
+    );
+
     return (
       <Router>
         <MainLayout>
