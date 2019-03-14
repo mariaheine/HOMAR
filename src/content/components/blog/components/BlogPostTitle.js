@@ -8,6 +8,7 @@ import {
   firebaseConnect
 } from "react-redux-firebase";
 import EditableRichText from "../editable/EditableRichText";
+import DisplayableRichText from "../displayable/DisplayableRichText";
 import {
   requestPostDataByLanguage,
   requestEditablePostContents
@@ -63,7 +64,7 @@ class BlogPostTitle extends Component {
   render() {
     const { author, isEditable } = this.props;
 
-    // console.log(this.props.post);
+    console.log(this.props.post);
 
     var Editor;
     if (isEditable) {
@@ -78,6 +79,14 @@ class BlogPostTitle extends Component {
           //   initState={this.props.editableTitle}
         />
       );
+    }
+    else {
+      Editor = (
+        <DisplayableRichText 
+          name="title"
+          initState={this.props.post}
+        />
+      )
     }
 
     let date = moment(this.props.post.createdAt.toDate()).format("MMM Do YY");

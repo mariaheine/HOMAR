@@ -57,7 +57,9 @@ class EditPost extends Component {
     this.setState({ editingLanguage: targetLanguage });
   };
 
-  handleEdit = () => {
+  /* USE THIS TO VERIFY PAGE LEAVE WITHOUT SAVING CHANGES */
+  onChange = () => {
+    console.log("wtf")
     if (this.state.hasUnsavedChanges === false) {
       this.setState({ hasUnsavedChanges: true });
     }
@@ -65,43 +67,13 @@ class EditPost extends Component {
 
   render() {
     const { post, postPL, postEN, auth } = this.props;
-
-    // console.log(this.state.hasUnsavedChanges);
-
+    
     if (!auth.uid) return <Redirect to="/" />;
-
-    // console.log(this.state.editingLanguage);
-
-    // var FormDisplayer;
-    // if (post) {
-    //   switch (this.state.editingLanguage) {
-    //     case "pl":
-    //       FormDisplayer = (
-    //         <PostForm
-    //           handleSubmit={this.editPost}
-    //           handleEdit={this.handleEdit}
-    //           key={`form${postPL.title}`}
-    //           data={{ language: "pl", post }}
-    //         />
-    //       );
-    //       break;
-    //     case "en":
-    //       FormDisplayer = (
-    //         <PostForm
-    //           handleSubmit={this.editPost}
-    //           handleEdit={this.handleEdit}
-    //           key={`form${postEN.title}`}
-    //           data={postEN}
-    //         />
-    //       );
-    //       break;
-    //   }
-    // }
 
     var FormDisplayer = post ? (
       <PostForm
         handleSubmit={this.editPost}
-        handleEdit={this.handleEdit}
+        onChange={this.onChange}
         key={`form${post.title}`}
         data={{ language: this.state.editingLanguage, post }}
       />

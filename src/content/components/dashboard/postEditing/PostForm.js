@@ -36,6 +36,9 @@ class PostForm extends Component {
   }
 
   onUpdate = (value, target) => {
+
+    this.props.onChange();
+
     this.setState(prevState => ({
       editor: {
         ...prevState.editor,
@@ -105,7 +108,7 @@ class PostForm extends Component {
               </Label>
               <BlogPostTitle
                 post={data.post}
-                isEditable={true}
+                isEditable={false}
                 onUpdate={editorState => {
                   this.onUpdate(editorState, "title");
                 }}

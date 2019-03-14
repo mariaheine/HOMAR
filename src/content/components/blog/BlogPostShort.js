@@ -8,7 +8,11 @@ import moment from "moment";
 import { requestDisplayablePostByLanguage } from "../../../reduxStore/actions/helperActions";
 import "./../../../styles/components/blog.css";
 import { firestoreConnect, getVal } from "react-redux-firebase";
+
+import BlogPostTitle from "../blog/components/BlogPostTitle";
+// import BlogPostSummary from "../../blog/components/BlogPostSummary";
 import ShareButtons from "./displayable/ShareButtons";
+import BlogPostSummary from "./components/BlogPostSummary";
 
 var outerHeaderContainer = {
   display: "flex",
@@ -46,11 +50,11 @@ class BlogPostShort extends Component {
   }
 
   render() {
-    const { author, displayPost } = this.props;
+    const { author, displayPost, post } = this.props;
 
     // console.log(displayPost);
 
-    let date = moment(this.props.post.createdAt.toDate()).format("MMM Do YY");
+    // let date = moment(post.createdAt.toDate()).format("MMM Do YY");
 
     var ReadMore;
     if (displayPost.hasContent) {
@@ -66,7 +70,7 @@ class BlogPostShort extends Component {
     return (
       <div className="postAbstract">
         <Link to={`/blog/${this.props.post.id}`}>
-          <div className="abstractHeader" style={outerHeaderContainer}>
+          {/* <div className="abstractHeader" style={outerHeaderContainer}>
             <img alt="avateur" style={avatarImage} src={author.avatarURL} />
             <div className="" style={innerHeaderContainer}>
               <div className="abstractTitle">
@@ -80,15 +84,17 @@ class BlogPostShort extends Component {
                 {`${date} by ${author.nick}`}
               </span>
             </div>
-          </div>
+          </div> */}
+          <BlogPostTitle post={post} isEditable={false} />
         </Link>
-        <div className="abstractContent">
-          <Editor
+        {/* <div className="abstractContent"> */}
+          {/* <Editor
             readOnly="true"
             editorState={displayPost.displayedContent}
             placeholder="EDITOR HERE"
-          />
-        </div>
+          /> */}
+          <BlogPostSummary post={post} isEditable={false} />
+        {/* </div> */}
         <div className="abstractFooter">
           <div>{ReadMore}</div>
           <div style={rightFooter}>
