@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import EditableRichText from "../editable/EditableRichText";
+import DisplayableRichText from "../displayable/DisplayableRichText";
 
 class BlogPostSummary extends Component {
   render() {
@@ -16,6 +17,10 @@ class BlogPostSummary extends Component {
           }}
           initState={this.props.post}
         />
+      );
+    } else {
+      Editor = (
+        <DisplayableRichText name="summary" initState={this.props.post} />
       );
     }
 

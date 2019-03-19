@@ -12,7 +12,6 @@ div.columnContainer {
 }
 
 div.post {
-  color: white;
   background: #2e2e2e52;
   width: 90%;
   max-width: 700px;
@@ -25,7 +24,6 @@ div.post a {
 
 div.post h3,
 h5 {
-  color: white;
   font-family: "Ubuntu", sans-serif;
 }
 
@@ -66,7 +64,7 @@ div.abstractHeader {
 }
 
 div.abstractHeader {
-  color: white;
+  color: ghostwhite;
   font-family: "Ubuntu", sans-serif;
 }
 
@@ -113,19 +111,12 @@ div.abstractFooter {
 
 /* POST CREATING / EDITING */
 
-div.editorField {
+/* div.editorField {
   background: #131313b9;
   min-height: 200px;
 }
 
 div.editorField.title {
   min-height: 50px;
-}
-
-/* div .editorField.title div {
-  min-height: 50px;
-}
-
-div .editorField div {
-  min-height: 200px;
 } */
+

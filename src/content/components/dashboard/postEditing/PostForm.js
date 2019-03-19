@@ -108,7 +108,7 @@ class PostForm extends Component {
               </Label>
               <BlogPostTitle
                 post={data.post}
-                isEditable={false}
+                isEditable={true}
                 onUpdate={editorState => {
                   this.onUpdate(editorState, "title");
                 }}

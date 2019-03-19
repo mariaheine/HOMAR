@@ -19,6 +19,7 @@ import "../styles/buttonStyles.css";
 import "../styles/anchorStyles.css";
 import linkStyles from "../styles/buttonStyles.css";
 import "draft-js-alignment-plugin/lib/plugin.css";
+import "../styles/draft.css"
 
 import {
   ItalicButton,
@@ -38,6 +39,10 @@ import {
   requestPostDataByLanguage,
   requestEditablePostContents
 } from "../../../../reduxStore/actions/helperActions.js";
+
+const toolbarContainer = {
+  padding: "1rem"
+}
 
 var placeholderText = "Hello, you shouldn't really see that text, hmmm";
 
@@ -90,7 +95,7 @@ class EditableRichText extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    const { initState, name, isEditable, language } = this.props;
+    const { initState, name, language } = this.props;
 
     if (initState && !this.state.loadedData) {
       var data = requestPostDataByLanguage(initState, language);
@@ -163,14 +168,14 @@ class EditableRichText extends Component {
           <EmojiSuggestions />
           <AlignmentTool />
         </div>
-        <div>{Toolbrr}</div>
+        <div style={toolbarContainer}>{Toolbrr}</div>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  console.log(state);
+const mapStateToProps = (state) => {
+  // console.log(state);
 
   return {
     language: state.post.editedLanguage

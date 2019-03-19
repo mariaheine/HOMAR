@@ -14,6 +14,10 @@ import { setEditedLanguage } from "./../../../../reduxStore/actions/postActions"
 
 import PostForm from "./PostForm";
 
+const editorMenu = {
+  marginRight: "2rem"
+};
+
 class EditPost extends Component {
   state = {
     editingLanguage: "pl",
@@ -45,11 +49,11 @@ class EditPost extends Component {
 
     let targetLanguage;
     switch (e.target.id) {
-      case "btnPL":
+      case "button_pl":
         this.props.setEditedLanguage("pl");
         targetLanguage = "pl";
         break;
-      case "btnEN":
+      case "button_en":
         this.props.setEditedLanguage("en");
         targetLanguage = "en";
         break;
@@ -59,15 +63,15 @@ class EditPost extends Component {
 
   /* USE THIS TO VERIFY PAGE LEAVE WITHOUT SAVING CHANGES */
   onChange = () => {
-    console.log("wtf")
+    console.log("wtf");
     if (this.state.hasUnsavedChanges === false) {
       this.setState({ hasUnsavedChanges: true });
     }
   };
 
   render() {
-    const { post, postPL, postEN, auth } = this.props;
-    
+    const { post, auth } = this.props;
+
     if (!auth.uid) return <Redirect to="/" />;
 
     var FormDisplayer = post ? (
@@ -75,7 +79,7 @@ class EditPost extends Component {
         handleSubmit={this.editPost}
         onChange={this.onChange}
         key={`form${post.title}`}
-        data={{ language: this.state.editingLanguage, post }}
+        data={{ post }}
       />
     ) : null;
 
@@ -83,29 +87,27 @@ class EditPost extends Component {
       <div className="container">
         <div className="navbar">
           <h3>POST EDITOR</h3>
-          <div className="editorMenu">
+          <div style={editorMenu}>
+            <Button
+              id="button_pl"
+              onClick={this.changeEditedLanguage}
+              color="warning"
+            >
+              Edit PL.
+            </Button>
+            <Button
+              id="button_en"
+              onClick={this.changeEditedLanguage}
+              color="info"
+            >
+              Edit EN.
+            </Button>
+          </div>
+          <div style={editorMenu}>
             <Button onClick={this.handlePostDelete} color="danger">
               DEL
             </Button>
-            <button
-              id="btnPL"
-              onClick={this.changeEditedLanguage}
-              className="editorButton"
-            >
-              Edit Polish Ver.
-            </button>
-            <button
-              id="btnEN"
-              onClick={this.changeEditedLanguage}
-              className="editorButton"
-            >
-              Edit English Ver.
-            </button>
-            <Button
-              id="submit1"
-              color="info"
-              onClick={this.props.history.goBack}
-            >
+            <Button color="info" onClick={this.props.history.goBack}>
               Go back
             </Button>
           </div>
@@ -122,13 +124,8 @@ const mapStateToProps = (state, ownProps) => {
   const posts = state.firestore.data.blogPosts;
   const post = posts ? posts[id] : null;
 
-  var displayablePostPL = requestEditablePostByLanguage(post, "pl");
-  var displayablePostEN = requestEditablePostByLanguage(post, "en");
-
   return {
     post,
-    postPL: displayablePostPL,
-    postEN: displayablePostEN,
     auth: state.firebase.auth
   };
 };

@@ -22,17 +22,22 @@ class CreatePost extends Component {
   };
 
   render() {
-    const { auth } = this.props;
+    const { auth, post } = this.props;
     if (!auth.uid) return <Redirect to="/" />;
 
     return (
-      <PostForm handleEdit={this.handleEdit} handleSubmit={this.handleSubmit} />
+      <PostForm
+        handleEdit={this.handleEdit}
+        handleSubmit={this.handleSubmit}
+        data={{ post }}
+      />
     );
   }
 }
 
 const mapStateToProps = state => {
   return {
+    post: "asd",
     auth: state.firebase.auth
   };
 };

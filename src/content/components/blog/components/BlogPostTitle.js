@@ -24,12 +24,6 @@ const outerHeaderContainer = {
   padding: "0.2rem"
 };
 
-const innerHeaderContainer = {
-  display: "flex",
-  flexDirection: "column",
-  margin: "0.5rem 0 0.5rem 0.5rem"
-};
-
 const avatarImage = {
   width: "64px",
   height: "64px",
@@ -38,31 +32,20 @@ const avatarImage = {
   margin: "0.5rem 0 0.5rem 0.5rem"
 };
 
+const innerHeaderContainer = {
+  display: "flex",
+  flexDirection: "column",
+  margin: "0.5rem 0 0.5rem 0.5rem",
+  width: "100%"
+};
+
 class BlogPostTitle extends Component {
   constructor(props) {
     super(props);
-
-    // this.state = {
-    //   editableTitle: null
-    // };
   }
 
-//   componentDidMount() {
-//     console.log("mount");
-
-//     const { initState } = this.props;
-
-//     var data = requestPostDataByLanguage(initState, "pl");
-
-//     var editablePost = requestEditablePostContents(data);
-
-//     this.setState({
-//       editableTitle: editablePost
-//     });
-//   }
-
   render() {
-    const { author, isEditable } = this.props;
+    const { author, isEditable, post } = this.props;
 
     console.log(this.props.post);
 
@@ -79,25 +62,23 @@ class BlogPostTitle extends Component {
           //   initState={this.props.editableTitle}
         />
       );
-    }
-    else {
-      Editor = (
-        <DisplayableRichText 
-          name="title"
-          initState={this.props.post}
-        />
-      )
+    } else {
+      Editor = <DisplayableRichText name="title" initState={this.props.post} />;
     }
 
-    let date = moment(this.props.post.createdAt.toDate()).format("MMM Do YY");
+    /* CHANGE DATE SETTING */
+    // if it doesnt exist yet (because create ne post)
+    // it should be saved only on first post publish
+
+    const date = post.createdAt
+      ? moment(this.props.post.createdAt.toDate()).format("MMM Do YY")
+      : null;
 
     return (
       <div className="abstractHeader" style={outerHeaderContainer}>
         <img alt="avateur" style={avatarImage} src={author.avatarURL} />
         <div className="" style={innerHeaderContainer}>
-          <div className="abstractTitle">
-            {Editor}
-          </div>
+          <div className="abstractTitle">{Editor}</div>
           <span className="abstractDetails">{`${date} by ${author.nick}`}</span>
         </div>
       </div>
