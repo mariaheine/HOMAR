@@ -27,19 +27,22 @@ export const createPost = post => {
 
     var user = getFirebase().auth().currentUser;
 
+    console.log(post)
+
     firestore
       .collection("blogPosts")
       .add({
         polish: {
-          title: post.title,
-          summary: post.summary,
-          content: post.content
+          title: post.postContents.title,
+          summary: post.postContents.summary,
+          content: post.postContents.content
         },
         english: {
           title: "",
           summary: "",
           content: ""
         },
+        isPublished: post.postData.isPublished,
         authorId: user.uid,
         createdAt: new Date()
       })

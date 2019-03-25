@@ -11,11 +11,13 @@ class CreatePost extends Component {
   };
 
   handleSubmit = stagedPost => {
+    console.log(stagedPost);
     this.props.createPost(stagedPost);
     this.props.history.push("/homaremenon");
   };
 
-  handleEdit = () => {
+  onChange = () => {
+    // console.log("wtf");
     if (this.state.hasUnsavedChanges === false) {
       this.setState({ hasUnsavedChanges: true });
     }
@@ -26,18 +28,27 @@ class CreatePost extends Component {
     if (!auth.uid) return <Redirect to="/" />;
 
     return (
-      <PostForm
-        handleEdit={this.handleEdit}
-        handleSubmit={this.handleSubmit}
-        data={{ post }}
-      />
+      <div className="container">
+        <div className="postAbstract">
+          <h3>Nowy post ⭐️😎</h3>
+          <PostForm
+            onChange={this.onChange}
+            handleSubmit={this.handleSubmit}
+            data={{ post }}
+          />
+        </div>
+      </div>
     );
   }
 }
 
 const mapStateToProps = state => {
+  console.log(state);
+
   return {
-    post: "asd",
+    post: {
+      authorId: state.firebase.auth.uid
+    },
     auth: state.firebase.auth
   };
 };

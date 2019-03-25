@@ -112,7 +112,9 @@ class EditPost extends Component {
             </Button>
           </div>
         </div>
-        {FormDisplayer}
+        <div className="container">
+          <div className="postAbstract">{FormDisplayer}</div>
+        </div>
       </div>
     );
   }
