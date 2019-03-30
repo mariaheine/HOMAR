@@ -11,7 +11,7 @@ class CreatePost extends Component {
   };
 
   handleSubmit = stagedPost => {
-    console.log(stagedPost);
+    // console.log(stagedPost);
     this.props.createPost(stagedPost);
     this.props.history.push("/homaremenon");
   };
@@ -43,7 +43,7 @@ class CreatePost extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
+  // console.log(state);
 
   return {
     post: {

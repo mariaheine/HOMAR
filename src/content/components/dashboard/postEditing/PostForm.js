@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { convertToRaw } from "draft-js";
-import { Form, FormGroup, Label, Input, Button } from "reactstrap";
+import { Form, FormGroup, Label, Input, Button, Spinner } from "reactstrap";
 import BlogPostTitle from "../../blog/components/BlogPostTitle";
 import BlogPostSummary from "../../blog/components/BlogPostSummary";
 import BlogPostContent from "../../blog/components/BlogPostContent";
@@ -44,7 +44,7 @@ class PostForm extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    console.log(this.state.editor);
+    // console.log(this.state.editor);
 
     let rawTitle = convertToRaw(this.state.editor.title.getCurrentContent());
     let rawContent = convertToRaw(
@@ -85,6 +85,20 @@ class PostForm extends Component {
 
   render() {
     const { data } = this.props;
+
+    const bottomBarStyle = {
+      width: "100%",
+      display: "flex",
+      // alignItems: "stretch",
+      // alignContent: "stretch",
+      margin: "0.5rem",
+      marginTop: "1rem"
+    };
+
+    const saveButtonStyle = {
+      margin: "auto"
+      // width: "27%"
+    };
 
     const checkboxStyle = {
       marginLeft: "-1.7rem"
@@ -133,62 +147,66 @@ class PostForm extends Component {
     console.log(this.state.editor);
 
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <FormGroup>
-          <Label for="titleEditor" style={labelStyle}>
-            💛 Title
-          </Label>
-          <BlogPostTitle
-            post={data.post}
-            isEditable={true}
-            onUpdate={editorState => {
-              this.onUpdate(editorState, "title");
-            }}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="summaryEditor" style={labelStyle}>
-            💙 Summary
-          </Label>
-          <BlogPostSummary
-            post={data.post}
-            isEditable={true}
-            onUpdate={editorState => {
-              this.onUpdate(editorState, "summary");
-            }}
-          />
-        </FormGroup>
-        <FormGroup>
-          <Label for="contentEditor" style={labelStyle}>
-            💜 Content
-          </Label>
-          <BlogPostContent
-            post={data.post}
-            isEditable={true}
-            onUpdate={editorState => {
-              this.onUpdate(editorState, "content");
-            }}
-          />
-        </FormGroup>
-        <Label style={labelStyle}>Mmmm? 😋🍰🍷</Label>
-        <FormGroup check>
-          <Label check style={labelStyle}>
-            <Input
-              type="checkbox"
-              style={checkboxStyle}
-              checked={this.state.editor.isPublished}
-              onChange={() => {
-                this.onUpdate(!this.state.editor.isPublished, "isPublished");
+      <div>
+        <Form onSubmit={this.handleSubmit}>
+          <FormGroup>
+            <Label for="titleEditor" style={labelStyle}>
+              💛 Title
+            </Label>
+            <BlogPostTitle
+              post={data.post}
+              isEditable={true}
+              onUpdate={editorState => {
+                this.onUpdate(editorState, "title");
               }}
             />
-            {isPublishedText}
-          </Label>
-        </FormGroup>
-        <div>
-          <br/>
-          <Button color="primary">Zapisz zmiany, klik!</Button>
-        </div>
-      </Form>
+          </FormGroup>
+          <FormGroup>
+            <Label for="summaryEditor" style={labelStyle}>
+              💙 Summary
+            </Label>
+            <BlogPostSummary
+              post={data.post}
+              isEditable={true}
+              onUpdate={editorState => {
+                this.onUpdate(editorState, "summary");
+              }}
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label for="contentEditor" style={labelStyle}>
+              💜 Content
+            </Label>
+            <BlogPostContent
+              post={data.post}
+              isEditable={true}
+              onUpdate={editorState => {
+                this.onUpdate(editorState, "content");
+              }}
+            />
+          </FormGroup>
+          <Label style={labelStyle}>Mmmm? 😋🍰🍷</Label>
+          <FormGroup check>
+            <Label check style={labelStyle}>
+              <Input
+                type="checkbox"
+                style={checkboxStyle}
+                checked={this.state.editor.isPublished}
+                onChange={() => {
+                  this.onUpdate(!this.state.editor.isPublished, "isPublished");
+                }}
+              />
+              {isPublishedText}
+            </Label>
+            <div style={bottomBarStyle}>
+              <Button style={saveButtonStyle} color="primary">
+                Zapisz zmiany, klik!
+              </Button>
+            </div>
+          </FormGroup>
+          <div />
+        </Form>
+      </div>
     );
   }
 }

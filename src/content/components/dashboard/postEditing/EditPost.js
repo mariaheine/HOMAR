@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Prompt } from "react-router-dom";
 import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Redirect } from "react-router-dom";
-import { Button } from "reactstrap";
+import { Button, Popover, PopoverHeader, PopoverBody } from "reactstrap";
 
 import {
   editPost,
@@ -14,24 +15,28 @@ import { setEditedLanguage } from "./../../../../reduxStore/actions/postActions"
 
 import PostForm from "./PostForm";
 
-const editorMenu = {
-  marginRight: "2rem"
-};
+
 
 class EditPost extends Component {
   state = {
     editingLanguage: "pl",
     translatedData: null,
-    hasUnsavedChanges: false
+    hasUnsavedChanges: false,
+    popoversOpen: {
+      delete: false
+    }
   };
 
   editPost = stagedPost => {
     const postId = this.props.match.params.postId;
     const language = this.state.editingLanguage;
 
-    console.log(stagedPost);
+    // console.log(stagedPost);
 
     this.props.editPost(postId, stagedPost, language);
+
+    // Add a condition to check if save failed
+    this.setState({hasUnsavedChanges: false});
   };
 
   handlePostDelete = () => {
@@ -63,13 +68,42 @@ class EditPost extends Component {
 
   /* USE THIS TO VERIFY PAGE LEAVE WITHOUT SAVING CHANGES */
   onChange = () => {
-    console.log("wtf");
     if (this.state.hasUnsavedChanges === false) {
       this.setState({ hasUnsavedChanges: true });
     }
   };
 
+  togglePopover = target => {
+    this.setState({
+      popoversOpen: {
+        ...this.state.popoversOpen,
+        [target]: !this.state.popoversOpen[target]
+      }
+    });
+  };
+
   render() {
+
+    const editorMenu = {
+      marginRight: "2rem"
+    };
+
+    const deletePostImg = {
+      width: "100%",
+      height: "auto"
+    };
+
+    const deletePostText = {
+      marginTop: "1rem",
+      color: "black"
+    };
+
+    const deletePostButton = {
+      width: "100%"
+    };
+
+    const promtMessage = "Zapisaliście zmiany? 🐹"
+
     const { post, auth } = this.props;
 
     if (!auth.uid) return <Redirect to="/" />;
@@ -104,9 +138,37 @@ class EditPost extends Component {
             </Button>
           </div>
           <div style={editorMenu}>
-            <Button onClick={this.handlePostDelete} color="danger">
+            <Button
+              color="danger"
+              id="delete"
+              type="button"
+              onClick={() => this.togglePopover("delete")}
+            >
               DEL
             </Button>
+            <Popover
+              placement="left"
+              target="delete"
+              isOpen={this.state.popoversOpen.delete}
+              onClick={() => this.togglePopover("delete")}
+            >
+              <PopoverHeader>DELETE THIS POST</PopoverHeader>
+              <PopoverBody>
+                <img
+                  src="https://media.giphy.com/media/CpoZsKS27cK40/giphy.gif"
+                  style={deletePostImg}
+                />
+                <p style={deletePostText}>Are you sure?</p>
+                <Button
+                  onClick={this.handlePostDelete}
+                  color="danger"
+                  id="delete"
+                  style={deletePostButton}
+                >
+                  <span>yes, delete:(</span>
+                </Button>
+              </PopoverBody>
+            </Popover>
             <Button color="info" onClick={this.props.history.goBack}>
               Go back
             </Button>
@@ -115,6 +177,7 @@ class EditPost extends Component {
         <div className="container">
           <div className="postAbstract">{FormDisplayer}</div>
         </div>
+        <Prompt when={this.state.hasUnsavedChanges} message={promtMessage} />
       </div>
     );
   }
