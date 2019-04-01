@@ -9,11 +9,21 @@ import { signOut } from "../../../../reduxStore/actions/authActions";
 
 import "./../../../../styles/components/dashboard.css";
 
+const topPanelStyle = {
+  alignSelf: "flex-end",
+  padding: "1.2rem",
+  paddingBottom: "0"
+};
+
+const logoutButtonStyle = {
+  alignSelf: "flex-start"
+};
+
 class Homaremenon extends Component {
   render() {
     return (
       <div className="container">
-        <div className="topPanel">
+        <div className="topPanel" style={topPanelStyle}>
           <Link
             to={{
               pathname: "/create",
@@ -29,7 +39,11 @@ class Homaremenon extends Component {
           >
             <Button color="warning">(▀̿Ĺ̯▀̿ ̿)</Button>
           </Link>
-          <Button onClick={this.props.signOut} color="danger">
+          <Button
+            onClick={this.props.signOut}
+            color="danger"
+            style={logoutButtonStyle}
+          >
             ┬┴┬┴┤ ͜ʖ ͡°) ├┬┴┬┴
           </Button>
         </div>

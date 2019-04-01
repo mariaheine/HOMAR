@@ -7,7 +7,6 @@ import Editor, {
 import createVideoPlugin from "draft-js-video-plugin";
 import createLinkPlugin from "draft-js-anchor-plugin";
 import createAlignmentPlugin from "draft-js-alignment-plugin";
-import "draft-js-static-toolbar-plugin/lib/plugin.css";
 import "draft-js-emoji-plugin/lib/plugin.css";
 import "draft-js/dist/Draft.css";
 import "../styles/focusedStyles.css";
@@ -48,9 +47,9 @@ class DisplayableRichText extends Component {
     });
   };
 
-  //   focus = () => {
-  //     this.editor.focus();
-  //   };
+  // focus = () => {
+  //   this.editor.focus();
+  // };
 
   componentDidUpdate(prevProps) {
     const { displayedContent } = this.props;
@@ -73,7 +72,7 @@ class DisplayableRichText extends Component {
         <div className="editor">
           <Editor
             readonly="true"
-            onChange={this.onChange}
+            // onChange={this.onChange}
             editorState={this.state.editorState}
             plugins={this.plugins}
             // Ummm, what is that for?
@@ -90,7 +89,10 @@ class DisplayableRichText extends Component {
 const mapStateToProps = (state, ownProps) => {
   const { name, initState } = ownProps;
 
-  var data = requestPostDataByLanguage(initState, state.language.selectedLanguage);
+  var data = requestPostDataByLanguage(
+    initState,
+    state.language.selectedLanguage
+  );
   var editablePost = requestEditablePostContents(data);
 
   return {

@@ -11,12 +11,8 @@ import "./../../../styles/components/dashboard.css";
 class Dashboard extends Component {
   componentDidMount() {
     const { auth, userState } = this.props;
-    
-    // console.log(userState);
 
     if (auth.uid && !userState.claims) {
-      // console.log("gothere");
-
       this.props.checkUserClaims();
     }
   }

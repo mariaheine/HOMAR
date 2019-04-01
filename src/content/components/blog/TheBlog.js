@@ -6,18 +6,12 @@ import { compose } from "redux";
 
 class TheBlog extends Component {
   render() {
-    // This cool "trick" grabs just the articles off the props
     const { posts } = this.props;
-
-    console.log(posts);
 
     var listedPosts = posts
       ? posts && posts.map(post => <BlogPostShort post={post} key={post.id} />)
       : null;
-
-    /*
-      atm we are displaying only the list of posts here
-    */
+    
     return (
       <div className="container">
         <div className="">{listedPosts}</div>
@@ -27,7 +21,6 @@ class TheBlog extends Component {
 }
 
 const mapStateToProps = state => {
-  // console.log(state.firestore)
   return {
     posts: state.firestore.ordered.blogPosts
   };

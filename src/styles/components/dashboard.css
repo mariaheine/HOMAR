@@ -26,7 +26,7 @@ div.flexCol {
 
 div.leftPanel {
   background: #00000056;
-  flex-grow: 1;
+  flex-grow: 0.3;
   margin-right: 0.5rem;
 }
 
