@@ -30,7 +30,7 @@ class CreatePost extends Component {
     return (
       <div className="container">
         <div className="postAbstract">
-          <h3>Nowy post ⭐️😎</h3>
+          <h3>New post ⭐️🌊</h3>
           <PostForm
             onChange={this.onChange}
             handleSubmit={this.handleSubmit}

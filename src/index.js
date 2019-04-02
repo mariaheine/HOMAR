@@ -15,7 +15,7 @@ import {
 } from "react-redux-firebase";
 
 // this place here is where we connect redux to the firebase
-import firebaseConfig from "./content/config/firebaseConfig";
+import firebaseConfig from "./config/firebaseConfig";
 
 /* 
  We could have many diffrent store enhancers/middleware here

@@ -15,7 +15,7 @@ export const signIn = credentials => {
     const firebase = getFirebase();
 
     // console.log(credentials);
-
+ 
     firebase
       .auth()
       .signInWithEmailAndPassword(credentials.email, credentials.password)
@@ -104,13 +104,6 @@ export const checkUserClaims = () => {
 
     const firebase = getFirebase();
 
-    // var userClaims = {
-    //   claims: {
-    //     isMod: null,
-    //     isSudo: null
-    //   }
-    // };
-
     var userClaims = {
       claims: {
         isMod: null,
@@ -123,11 +116,11 @@ export const checkUserClaims = () => {
       .currentUser.getIdTokenResult()
       .then(result => {
         if (result.claims.isMod === true) {
-          // console.log(result);
+          // console.log("IS MOD");
           userClaims.claims.isMod = true;
         }
         if (result.claims.isSudo === true) {
-          // console.log("is sudo");
+          // console.log("IS SUDO");
           userClaims.claims.isSudo = true;
         }
         dispatch({ type: CHECK_CLAIMS_SUCCESS, payload: userClaims });
@@ -135,8 +128,6 @@ export const checkUserClaims = () => {
       .catch(err => {
         dispatch({ type: CHECK_CLAIMS_ERROR, err });
       });
-
-    console.log(userClaims);
   };
 };
 
@@ -165,13 +156,13 @@ export const grantMOD = email => {
 
     const firebase = getFirebase();    
 
-    const grantSudoClaims = firebase
+    const grantModClaims = firebase
       .functions()
       .httpsCallable("grantModClaims");
 
-    grantSudoClaims({ email: email })
+    grantModClaims({ email: email })
       .then(result => {
-        // console.log(result);
+        console.log(result);
         dispatch({ type: "USER_GRANT_ADMIN_SUCCESS" });
       })
       .catch(err => {

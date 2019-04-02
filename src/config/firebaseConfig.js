@@ -1,8 +1,10 @@
 // React, Redux & Firebase App Tutorial #15 - Creating a Firebase Project
 
+// import firebase from "firebase/app";
 import firebase from "firebase/app";
 import "firebase/firestore";
 import "firebase/auth";
+import "firebase/functions";
 
 // Initialize Firebase
 var config = {
@@ -14,6 +16,8 @@ var config = {
   messagingSenderId: "1052257630582"
 };
 firebase.initializeApp(config);
+
+console.log(firebase)
 
 firebase.firestore().settings({ timestampsInSnapshots: true });
 

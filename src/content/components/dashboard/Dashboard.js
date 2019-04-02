@@ -20,7 +20,7 @@ class Dashboard extends Component {
   render() {
     const { auth, userState } = this.props;
 
-    // console.log(auth, userState);
+    console.log(userState);
 
     if (!auth.uid) {
       return <Redirect to="/signin" />
