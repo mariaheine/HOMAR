@@ -47,7 +47,7 @@ class BlogPostTitle extends Component {
   render() {
     const { author, isEditable, post } = this.props;
 
-    console.log(this.props.post);
+    // console.log(this.props.post);
 
     var Editor;
     if (isEditable) {

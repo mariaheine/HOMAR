@@ -141,7 +141,7 @@ class PostForm extends Component {
       </p>
     );
 
-    console.log(this.state.editor);
+    // console.log(this.state.editor);
 
     return (
       <div>
