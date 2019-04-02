@@ -1,17 +1,37 @@
-const { Editor, EditorState, Modifier, RichUtils } = Draft;
+import React, { Component } from "react";
+import { Modifier, EditorState, RichUtils } from "draft-js";
 
-class ColorfulEditorExample extends React.Component {
+export const colorStyleMap = {
+    red: {
+      color: "rgba(255, 0, 0, 1.0)"
+    },
+    orange: {
+      color: "rgba(255, 127, 0, 1.0)"
+    },
+    yellow: {
+      color: "rgba(180, 180, 0, 1.0)"
+    },
+    green: {
+      color: "rgba(0, 180, 0, 1.0)"
+    },
+    blue: {
+      color: "rgba(0, 0, 255, 1.0)"
+    },
+    indigo: {
+      color: "rgba(75, 0, 130, 1.0)"
+    },
+    violet: {
+      color: "rgba(127, 0, 255, 1.0)"
+    }
+  };
+
+class ColorPicker extends Component {
   constructor(props) {
     super(props);
-    this.state = { editorState: EditorState.createEmpty() };
-
-    this.focus = () => this.refs.editor.focus();
-    this.onChange = editorState => this.setState({ editorState });
-    this.toggleColor = toggledColor => this._toggleColor(toggledColor);
   }
 
-  _toggleColor(toggledColor) {
-    const { editorState } = this.state;
+  toggleColor = toggledColor => {
+    const { editorState } = this.props;
     const selection = editorState.getSelection();
 
     // Let's just allow one color at a time. Turn off all active colors.
@@ -21,8 +41,6 @@ class ColorfulEditorExample extends React.Component {
       },
       editorState.getCurrentContent()
     );
-
-    console.log(Modifier.removeInlineStyle());
 
     let nextEditorState = EditorState.push(
       editorState,
@@ -47,24 +65,21 @@ class ColorfulEditorExample extends React.Component {
       );
     }
 
-    this.onChange(nextEditorState);
-  }
+    this.props.onChange(nextEditorState);
+  };
 
   render() {
-    const { editorState } = this.state;
+    const { editorState } = this.props;
+
+    if(!(!!editorState)) {
+        return null
+    }
+
     return (
-      <div style={styles.root}>
-        <ColorControls editorState={editorState} onToggle={this.toggleColor} />
-        <div style={styles.editor} onClick={this.focus}>
-          <Editor
-            customStyleMap={colorStyleMap}
-            editorState={editorState}
-            onChange={this.onChange}
-            placeholder="Write something colorful..."
-            ref="editor"
-          />
-        </div>
-      </div>
+      <ColorControls
+        editorState={editorState}
+        onToggle={this.toggleColor}
+      />
     );
   }
 }
@@ -110,7 +125,7 @@ const ColorControls = props => {
   return (
     <div style={styles.controls}>
       {COLORS.map(type => {
-        i = i+1
+        i = i + 1;
         return (
           <StyleButton
             key={`${type}_${i}`}
@@ -123,32 +138,6 @@ const ColorControls = props => {
       })}
     </div>
   );
-};
-
-// This object provides the styling information for our custom color
-// styles.
-const colorStyleMap = {
-  red: {
-    color: "rgba(255, 0, 0, 1.0)"
-  },
-  orange: {
-    color: "rgba(255, 127, 0, 1.0)"
-  },
-  yellow: {
-    color: "rgba(180, 180, 0, 1.0)"
-  },
-  green: {
-    color: "rgba(0, 180, 0, 1.0)"
-  },
-  blue: {
-    color: "rgba(0, 0, 255, 1.0)"
-  },
-  indigo: {
-    color: "rgba(75, 0, 130, 1.0)"
-  },
-  violet: {
-    color: "rgba(127, 0, 255, 1.0)"
-  }
 };
 
 const styles = {
@@ -180,4 +169,4 @@ const styles = {
   }
 };
 
-ReactDOM.render(<ColorfulEditorExample />, document.getElementById("target"));
+export default ColorPicker;
