@@ -11,7 +11,6 @@ class BlogPostSummary extends Component {
       Editor = (
         <EditableRichText
           name="summary"
-          isEditable={true}
           onUpdate={editorState => {
             this.props.onUpdate(editorState, "summary");
           }}

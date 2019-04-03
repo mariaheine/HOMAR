@@ -6,6 +6,7 @@ import Editor, {
 } from "draft-js-plugins-editor";
 import { Modifier, EditorState, RichUtils } from "draft-js";
 import createToolbarPlugin, { Separator } from "draft-js-static-toolbar-plugin";
+import createInlineToolbarPlugin from "draft-js-inline-toolbar-plugin";
 import createVideoPlugin from "draft-js-video-plugin";
 import createEmojiPlugin from "draft-js-emoji-plugin";
 import createLinkPlugin from "draft-js-anchor-plugin";
@@ -53,6 +54,7 @@ class EditableRichText extends Component {
     super(props);
 
     this._staticToolbarPlugin = createToolbarPlugin();
+    this._inlineToolbarPlugin = createInlineToolbarPlugin();
     this._emojiPlugin = createEmojiPlugin();
     this._linkPlugin = createLinkPlugin({
       theme: linkStyles,
@@ -69,6 +71,7 @@ class EditableRichText extends Component {
     this.plugins = [
       this._linkPlugin,
       this._staticToolbarPlugin,
+      this._inlineToolbarPlugin,
       this._videoPlugin,
       this._emojiPlugin,
       this._focusPlugin,
@@ -77,6 +80,8 @@ class EditableRichText extends Component {
 
     this.state = {
       loadedData: false,
+      isFocused: false,
+      focusEntered: false,
       editorState: createEditorStateWithText(placeholderText)
     };
   }
@@ -92,8 +97,14 @@ class EditableRichText extends Component {
     );
   };
 
-  focus = () => {
-    this.editor.focus();
+  enableFocus = () => {
+    this.setState({ isFocused: true }, () => {
+      this.editor.focus();
+    });
+  };
+
+  disableFocus = () => {
+    this.setState({ isFocused: false });
   };
 
   componentDidUpdate(prevProps) {
@@ -122,18 +133,46 @@ class EditableRichText extends Component {
   componentDidMount() {
     // Cammot use componentDidMount to set editorState
     // It causes draft to loose decorators
+
+    const editor = document.getElementById(`${this.props.name}Editor`);
+
+    editor.addEventListener("focusin", e => {
+      const enteringParent = !editor.contains(e.relatedTarget);
+
+      if (enteringParent) {
+        console.log("entered parent");
+        this.setState({ focusEntered: true });
+      }
+    });
+
+    editor.addEventListener("focusout", e => {
+      const leavingParent = !editor.contains(e.relatedTarget);
+
+      if (leavingParent) {
+        setTimeout(() => {
+          if (!this.state.focusEntered) {
+            this.disableFocus();
+            console.log("leaved parent");
+          } else {
+            
+          }
+        }, 100);
+      }
+      this.setState({ focusEntered: false });
+    });
   }
 
   render() {
     const { AlignmentTool } = this._alignmentPlugin;
     const { EmojiSelect, EmojiSuggestions } = this._emojiPlugin;
     const { Toolbar } = this._staticToolbarPlugin;
+    const { InlineToolbar } = this._inlineToolbarPlugin;
     const { LinkButton } = this._linkPlugin;
 
-    const Toolbrr = this.props.isEditable ? (
+    const Toolbrr = this.state.isFocused ? (
       <Toolbar>
         {externalProps => (
-          <div>
+          <div id="toolbar">
             <BoldButton {...externalProps} />
             <ItalicButton {...externalProps} />
             <UnderlineButton {...externalProps} />
@@ -146,19 +185,23 @@ class EditableRichText extends Component {
             <LinkButton {...externalProps} />
             <EmojiSelect />
             <VideoAdd
+              {...externalProps}
               editorState={this.state.editorState}
               onChange={this.onChange}
               modifier={this._videoPlugin.addVideo}
             />
-            <ColorPicker editorState={this.state.editorState} onChange={this.onChange} />
+            <ColorPicker
+              editorState={this.state.editorState}
+              onChange={this.onChange}
+            />
           </div>
         )}
       </Toolbar>
     ) : null;
 
     return (
-      <div>        
-        <div className="editor" onClick={this.focus}>
+      <div id={`${this.props.name}Editor`} onClick={this.enableFocus}>
+        <div className="editor">
           <Editor
             onChange={this.onChange}
             editorState={this.state.editorState}
@@ -171,8 +214,19 @@ class EditableRichText extends Component {
           />
           <EmojiSuggestions />
           <AlignmentTool />
+          {/* <InlineToolbar>
+            {externalProps => (
+              <div>
+                <ColorPicker
+                  {...externalProps}
+                  editorState={this.state.editorState}
+                  onChange={this.onChange}
+                />
+              </div>
+            )}
+          </InlineToolbar> */}
+          <div style={toolbarContainer}>{Toolbrr}</div>
         </div>
-        <div style={toolbarContainer}>{Toolbrr}</div>
       </div>
     );
   }

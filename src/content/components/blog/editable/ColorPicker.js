@@ -131,7 +131,7 @@ class StyleButton extends React.Component {
       backgroundColor: colorStyleMap[this.props.style].color
     };
 
-    console.log(this.props.style);
+    // console.log(this.props.style);
 
     return (
       //   <span style={style} onMouseDown={this.onToggle}>

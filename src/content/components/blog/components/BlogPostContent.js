@@ -10,7 +10,6 @@ class BlogPostContent extends Component {
       Editor = (
         <EditableRichText
           name="content"
-          isEditable={true}
           onUpdate={editorState => {
             this.props.onUpdate(editorState, "content");
           }}

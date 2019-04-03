@@ -54,7 +54,6 @@ class BlogPostTitle extends Component {
       Editor = (
         <EditableRichText
           name="title"
-          isEditable={true}
           onUpdate={editorState => {
             this.props.onUpdate(editorState, "title");
           }}
