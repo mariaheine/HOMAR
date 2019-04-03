@@ -157,9 +157,7 @@ class EditableRichText extends Component {
     ) : null;
 
     return (
-      <div>
-        {/* REOMVING ASFDALFJ LAJF LKAFS */}
-        
+      <div>        
         <div className="editor" onClick={this.focus}>
           <Editor
             onChange={this.onChange}
