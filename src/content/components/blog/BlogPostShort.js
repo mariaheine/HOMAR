@@ -7,7 +7,7 @@ import "./../../../styles/components/blog.css";
 
 import BlogPostTitle from "../blog/components/BlogPostTitle";
 import BlogPostSummary from "./components/BlogPostSummary";
-import ShareButtons from "./displayable/ShareButtons";
+import ShareButtons from "./displayable/plugins/ShareButtons";
 
 var rightFooter = {
   marginLeft: "auto"

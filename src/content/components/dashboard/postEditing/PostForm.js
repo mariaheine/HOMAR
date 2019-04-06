@@ -6,6 +6,8 @@ import BlogPostSummary from "../../blog/components/BlogPostSummary";
 import BlogPostContent from "../../blog/components/BlogPostContent";
 import "./../../../../styles/components/blog.css";
 
+import TestEditor from "../../blog/editable/TestEditor"
+
 class PostForm extends Component {
   constructor(props) {
     super(props);
@@ -84,6 +86,8 @@ class PostForm extends Component {
   }
 
   render() {
+    // return <TestEditor/>
+
     const { data } = this.props;
 
     const bottomBarStyle = {

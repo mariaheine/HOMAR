@@ -7,8 +7,8 @@ import Editor, {
 import createVideoPlugin from "draft-js-video-plugin";
 import createLinkPlugin from "draft-js-anchor-plugin";
 import createAlignmentPlugin from "draft-js-alignment-plugin";
-import "../styles/draft-emoji-plugin.css"
-import "../styles/draft-toolbar-plugin.css"
+import "../styles/draft-emoji-plugin.css";
+import "../styles/draft-toolbar-plugin.css";
 import "draft-js/dist/Draft.css";
 import "../styles/focusedStyles.css";
 import "../styles/toolbarStyles.css";
@@ -20,6 +20,7 @@ import {
   requestPostDataByLanguage,
   requestEditablePostContents
 } from "../../../../reduxStore/actions/helperActions.js";
+import addLinkPlugin from "../editable/plugins/addLinkPlugin";
 
 var placeholderText = "Hello, you shouldn't really see that text, hmmm";
 
@@ -51,14 +52,19 @@ class DisplayableRichText extends Component {
   constructor(props) {
     super(props);
 
-    this._linkPlugin = createLinkPlugin({
-      theme: linkStyles,
-      placeholder: "https://..."
-    });
+    // this._linkPlugin = createLinkPlugin({
+    //   theme: linkStyles,
+    //   placeholder: "https://..."
+    // });
     this._alignmentPlugin = createAlignmentPlugin();
     const videoDecorator = composeDecorators(this._alignmentPlugin.decorator);
     this._videoPlugin = createVideoPlugin({ videoDecorator });
-    this.plugins = [this._linkPlugin, this._videoPlugin, this._alignmentPlugin];
+    this.plugins = [
+      // this._linkPlugin,
+      this._videoPlugin,
+      this._alignmentPlugin,
+      addLinkPlugin
+    ];
 
     this.state = {
       loadedData: false,
@@ -96,15 +102,15 @@ class DisplayableRichText extends Component {
       <div>
         <div className="editor">
           <Editor
-            readonly="true"
-            // onChange={this.onChange}
+            readOnly="true"
+            onChange={this.onChange}
             editorState={this.state.editorState}
             plugins={this.plugins}
             customStyleMap={colorStyleMap}
             // Ummm, what is that for?
-            // ref={element => {
-            //   this.editor = element;
-            // }}
+            ref={element => {
+              this.editor = element;
+            }}
           />
         </div>
       </div>

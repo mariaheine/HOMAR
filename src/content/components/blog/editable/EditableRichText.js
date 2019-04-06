@@ -4,14 +4,15 @@ import Editor, {
   createEditorStateWithText,
   composeDecorators
 } from "draft-js-plugins-editor";
+import { CompositeDecorator, EditorState } from "draft-js";
 import createToolbarPlugin, { Separator } from "draft-js-static-toolbar-plugin";
 import createVideoPlugin from "draft-js-video-plugin";
 import createEmojiPlugin from "draft-js-emoji-plugin";
 import createLinkPlugin from "draft-js-anchor-plugin";
 import createAlignmentPlugin from "draft-js-alignment-plugin";
 import createFocusPlugin from "draft-js-focus-plugin";
-import "../styles/draft-toolbar-plugin.css"
-import "../styles/draft-emoji-plugin.css"
+import "../styles/draft-toolbar-plugin.css";
+import "../styles/draft-emoji-plugin.css";
 import "draft-js/dist/Draft.css";
 import "../styles/focusedStyles.css";
 import "../styles/toolbarStyles.css";
@@ -34,21 +35,24 @@ import {
   BlockquoteButton,
   CodeBlockButton
 } from "draft-js-buttons";
-import VideoAdd from "./VideoAdd";
 import {
   requestPostDataByLanguage,
   requestEditablePostContents
 } from "../../../../reduxStore/actions/helperActions.js";
-import ColorPicker, { colorStyleMap } from "./ColorPicker";
+import ColorPicker, { colorStyleMap } from "./plugins/ColorPicker";
+import VideoAdd from "./plugins/VideoAdd";
+import AddLink from "./plugins/AddLink";
+
+import addLinkPlugin from "./plugins/addLinkPlugin";
 
 const styles = {
   toolbarContainer: {
     padding: "1rem",
     position: "fixed",
     width: "30%",
-  top: "0",
-  left: "35%",
-  zIndex: "15",
+    top: "0",
+    left: "35%",
+    zIndex: "15"
   },
   toolbar: {
     padding: "0.2rem",
@@ -59,8 +63,13 @@ const styles = {
   },
   emojiContainer: {
     backgroundColor: "black"
+  },
+
+  link: {
+    color: "red",
+    textDecoration: "underline"
   }
-}
+};
 
 var placeholderText = "Hello, you shouldn't really see that text, hmmm";
 
@@ -68,12 +77,20 @@ class EditableRichText extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      loadedData: false,
+      isFocused: false,
+      focusEntered: false,
+      // editorState: EditorState.createEmpty()
+      editorState: createEditorStateWithText(placeholderText)
+    };
+
     this._staticToolbarPlugin = createToolbarPlugin();
     this._emojiPlugin = createEmojiPlugin();
-    this._linkPlugin = createLinkPlugin({
-      theme: linkStyles,
-      placeholder: "https://..."
-    });
+    // this._linkPlugin = createLinkPlugin({
+    //   theme: linkStyles,
+    //   placeholder: "https://..."
+    // });
     this._focusPlugin = createFocusPlugin();
     this._alignmentPlugin = createAlignmentPlugin();
     const decorator = composeDecorators(
@@ -83,23 +100,18 @@ class EditableRichText extends Component {
     this._videoPlugin = createVideoPlugin({ decorator });
 
     this.plugins = [
-      this._linkPlugin,
+      // this._linkPlugin,
       this._staticToolbarPlugin,
       this._videoPlugin,
       this._emojiPlugin,
       this._focusPlugin,
-      this._alignmentPlugin
+      this._alignmentPlugin,
+      addLinkPlugin
     ];
-
-    this.state = {
-      loadedData: false,
-      isFocused: false,
-      focusEntered: false,
-      editorState: createEditorStateWithText(placeholderText)
-    };
   }
 
   onChange = editorState => {
+    console.log("lol");
     this.setState(
       {
         editorState: editorState
@@ -167,7 +179,6 @@ class EditableRichText extends Component {
             this.disableFocus();
             // console.log("leaved parent");
           } else {
-            
           }
         }, 100);
       }
@@ -179,7 +190,7 @@ class EditableRichText extends Component {
     const { AlignmentTool } = this._alignmentPlugin;
     const { EmojiSelect, EmojiSuggestions } = this._emojiPlugin;
     const { Toolbar } = this._staticToolbarPlugin;
-    const { LinkButton } = this._linkPlugin;
+    // const { LinkButton } = this._linkPlugin;
 
     const Toolbrr = this.state.isFocused ? (
       <Toolbar>
@@ -198,7 +209,7 @@ class EditableRichText extends Component {
             <OrderedListButton {...externalProps} />
             {/* <BlockquoteButton {...externalProps} /> */}
             {/* <CodeBlockButton {...externalProps} /> */}
-            <LinkButton {...externalProps} />
+            {/* <LinkButton {...externalProps} /> */}
             <VideoAdd
               {...externalProps}
               editorState={this.state.editorState}
@@ -210,6 +221,10 @@ class EditableRichText extends Component {
               onChange={this.onChange}
             />
             <EmojiSelect style={styles.emojiContainer} />
+            <AddLink
+              editorState={this.state.editorState}
+              onChange={this.onChange}
+            />
           </div>
         )}
       </Toolbar>

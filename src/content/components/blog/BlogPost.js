@@ -10,7 +10,7 @@ import createVideoPlugin from "draft-js-video-plugin";
 import createLinkPlugin from "draft-js-anchor-plugin";
 import createAlignmentPlugin from "draft-js-alignment-plugin";
 import moment from "moment";
-import ShareButtons from "./displayable/ShareButtons";
+import ShareButtons from "./displayable/plugins/ShareButtons";
 import { Button } from "reactstrap";
 
 import { requestDisplayablePostByLanguage } from "./../../../reduxStore/actions/helperActions";
