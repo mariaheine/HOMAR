@@ -4,16 +4,12 @@ import Editor, {
   createEditorStateWithText,
   composeDecorators
 } from "draft-js-plugins-editor";
-import { Modifier, EditorState, RichUtils } from "draft-js";
 import createToolbarPlugin, { Separator } from "draft-js-static-toolbar-plugin";
-import createInlineToolbarPlugin from "draft-js-inline-toolbar-plugin";
 import createVideoPlugin from "draft-js-video-plugin";
 import createEmojiPlugin from "draft-js-emoji-plugin";
 import createLinkPlugin from "draft-js-anchor-plugin";
 import createAlignmentPlugin from "draft-js-alignment-plugin";
 import createFocusPlugin from "draft-js-focus-plugin";
-// import "draft-js-static-toolbar-plugin/lib/plugin.css";
-// import "draft-js-emoji-plugin/lib/plugin.css";
 import "../styles/draft-toolbar-plugin.css"
 import "../styles/draft-emoji-plugin.css"
 import "draft-js/dist/Draft.css";
@@ -73,7 +69,6 @@ class EditableRichText extends Component {
     super(props);
 
     this._staticToolbarPlugin = createToolbarPlugin();
-    this._inlineToolbarPlugin = createInlineToolbarPlugin();
     this._emojiPlugin = createEmojiPlugin();
     this._linkPlugin = createLinkPlugin({
       theme: linkStyles,
@@ -90,7 +85,6 @@ class EditableRichText extends Component {
     this.plugins = [
       this._linkPlugin,
       this._staticToolbarPlugin,
-      this._inlineToolbarPlugin,
       this._videoPlugin,
       this._emojiPlugin,
       this._focusPlugin,
@@ -159,7 +153,7 @@ class EditableRichText extends Component {
       const enteringParent = !editor.contains(e.relatedTarget);
 
       if (enteringParent) {
-        console.log("entered parent");
+        // console.log("entered parent");
         this.setState({ focusEntered: true });
       }
     });
@@ -171,7 +165,7 @@ class EditableRichText extends Component {
         setTimeout(() => {
           if (!this.state.focusEntered) {
             this.disableFocus();
-            console.log("leaved parent");
+            // console.log("leaved parent");
           } else {
             
           }
@@ -185,7 +179,6 @@ class EditableRichText extends Component {
     const { AlignmentTool } = this._alignmentPlugin;
     const { EmojiSelect, EmojiSuggestions } = this._emojiPlugin;
     const { Toolbar } = this._staticToolbarPlugin;
-    const { InlineToolbar } = this._inlineToolbarPlugin;
     const { LinkButton } = this._linkPlugin;
 
     const Toolbrr = this.state.isFocused ? (
@@ -195,12 +188,16 @@ class EditableRichText extends Component {
             <BoldButton {...externalProps} />
             <ItalicButton {...externalProps} />
             <UnderlineButton {...externalProps} />
-            <CodeButton {...externalProps} />
+            {/* <CodeButton {...externalProps} /> */}
+            <Separator {...externalProps} />
+            <HeadlineOneButton {...externalProps} />
+            <HeadlineTwoButton {...externalProps} />
+            <HeadlineThreeButton {...externalProps} />
             <Separator {...externalProps} />
             <UnorderedListButton {...externalProps} />
             <OrderedListButton {...externalProps} />
-            <BlockquoteButton {...externalProps} />
-            <CodeBlockButton {...externalProps} />
+            {/* <BlockquoteButton {...externalProps} /> */}
+            {/* <CodeBlockButton {...externalProps} /> */}
             <LinkButton {...externalProps} />
             <VideoAdd
               {...externalProps}
