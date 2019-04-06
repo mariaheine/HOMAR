@@ -87,8 +87,13 @@ export default class ColorPicker extends Component {
     }
 
     return (
-      <div>
-        <Badge id="colorBadge" color="warning" onClick={this.togglePopover}>
+      <div style={styles.containerDiv}>
+        <Badge
+          style={styles.colorsBadgeButton}
+          id="colorBadge"
+          color="warning"
+          onClick={this.togglePopover}
+        >
           Colours
         </Badge>
         <Popover
@@ -205,6 +210,15 @@ const styles = {
     width: "20px",
     height: "10px",
     margin: "2px"
+  },
+  colorsBadgeButton: {
+    fontSize: "1rem",
+    fontFamily: "Anonymous Pro, monospace"
+  },
+  containerDiv: {
+    marginLeft: "0.2rem",
+    marginRight: "auto",
+    flexGrow: "1"
   },
   styleButton: {
     color: "#999",

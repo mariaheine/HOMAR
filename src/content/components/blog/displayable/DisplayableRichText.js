@@ -7,7 +7,8 @@ import Editor, {
 import createVideoPlugin from "draft-js-video-plugin";
 import createLinkPlugin from "draft-js-anchor-plugin";
 import createAlignmentPlugin from "draft-js-alignment-plugin";
-import "draft-js-emoji-plugin/lib/plugin.css";
+import "../styles/draft-emoji-plugin.css"
+import "../styles/draft-toolbar-plugin.css"
 import "draft-js/dist/Draft.css";
 import "../styles/focusedStyles.css";
 import "../styles/toolbarStyles.css";

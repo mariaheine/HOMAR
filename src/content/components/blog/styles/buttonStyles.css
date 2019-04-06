@@ -24,9 +24,9 @@
   }
   
   .active {
-    color: #6a9cc9;
+    color: #313131;
   }
   
   .active svg {
-    fill: #6a9cc9;
+    fill: #ffbb00;
   }

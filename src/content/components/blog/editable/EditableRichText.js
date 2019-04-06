@@ -12,8 +12,10 @@ import createEmojiPlugin from "draft-js-emoji-plugin";
 import createLinkPlugin from "draft-js-anchor-plugin";
 import createAlignmentPlugin from "draft-js-alignment-plugin";
 import createFocusPlugin from "draft-js-focus-plugin";
-import "draft-js-static-toolbar-plugin/lib/plugin.css";
-import "draft-js-emoji-plugin/lib/plugin.css";
+// import "draft-js-static-toolbar-plugin/lib/plugin.css";
+// import "draft-js-emoji-plugin/lib/plugin.css";
+import "../styles/draft-toolbar-plugin.css"
+import "../styles/draft-emoji-plugin.css"
 import "draft-js/dist/Draft.css";
 import "../styles/focusedStyles.css";
 import "../styles/toolbarStyles.css";
@@ -43,9 +45,26 @@ import {
 } from "../../../../reduxStore/actions/helperActions.js";
 import ColorPicker, { colorStyleMap } from "./ColorPicker";
 
-const toolbarContainer = {
-  padding: "1rem"
-};
+const styles = {
+  toolbarContainer: {
+    padding: "1rem",
+    position: "fixed",
+    width: "30%",
+  top: "0",
+  left: "35%",
+  zIndex: "15",
+  },
+  toolbar: {
+    padding: "0.2rem",
+    display: "flex",
+    flexWrap: "wrap",
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
+  emojiContainer: {
+    backgroundColor: "black"
+  }
+}
 
 var placeholderText = "Hello, you shouldn't really see that text, hmmm";
 
@@ -172,7 +191,7 @@ class EditableRichText extends Component {
     const Toolbrr = this.state.isFocused ? (
       <Toolbar>
         {externalProps => (
-          <div id="toolbar">
+          <div style={styles.toolbar} id="toolbar">
             <BoldButton {...externalProps} />
             <ItalicButton {...externalProps} />
             <UnderlineButton {...externalProps} />
@@ -183,7 +202,6 @@ class EditableRichText extends Component {
             <BlockquoteButton {...externalProps} />
             <CodeBlockButton {...externalProps} />
             <LinkButton {...externalProps} />
-            <EmojiSelect />
             <VideoAdd
               {...externalProps}
               editorState={this.state.editorState}
@@ -194,6 +212,7 @@ class EditableRichText extends Component {
               editorState={this.state.editorState}
               onChange={this.onChange}
             />
+            <EmojiSelect style={styles.emojiContainer} />
           </div>
         )}
       </Toolbar>
@@ -225,7 +244,7 @@ class EditableRichText extends Component {
               </div>
             )}
           </InlineToolbar> */}
-          <div style={toolbarContainer}>{Toolbrr}</div>
+          <div style={styles.toolbarContainer}>{Toolbrr}</div>
         </div>
       </div>
     );

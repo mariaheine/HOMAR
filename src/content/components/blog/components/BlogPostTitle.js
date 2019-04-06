@@ -77,7 +77,7 @@ class BlogPostTitle extends Component {
       <div className="abstractHeader" style={outerHeaderContainer}>
         <img alt="avateur" style={avatarImage} src={author.avatarURL} />
         <div className="" style={innerHeaderContainer}>
-          <div className="abstractTitle">{Editor}</div>
+          <div id="abstractTitle" className="abstractTitle">{Editor}</div>
           <span className="abstractDetails">{`${date} by ${author.nick}`}</span>
         </div>
       </div>

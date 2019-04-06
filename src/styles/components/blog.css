@@ -68,8 +68,8 @@ div.abstractHeader {
   font-family: "Ubuntu", sans-serif;
 }
 
-div.abstractTitle span {
-  font-size: 1.3rem;
+#abstractTitle span {
+  font-size: 1.2rem;
 }
 
 div.abstractHeader .abstractDetails {
