@@ -92,6 +92,7 @@ export default class ColorPicker extends Component {
           style={styles.colorsBadgeButton}
           id="colorBadge"
           color="warning"
+          type="button"
           onClick={this.togglePopover}
         >
           Colours
@@ -223,7 +224,7 @@ const styles = {
   styleButton: {
     color: "#999",
     cursor: "pointer",
-    marginRight: 16,
+    marginRight: "auto",
     padding: "2px 0"
   }
 };

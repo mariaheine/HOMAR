@@ -3,7 +3,7 @@ import { Button, Badge, Popover, PopoverHeader, PopoverBody } from "reactstrap";
 
 const styles = {
   container: {
-    marginLeft: "0.5rem"
+    margin: "0 0.2rem"
   },
   videoAddBadge: {
     fontSize: "1rem",
@@ -58,28 +58,11 @@ class VideoAdd extends Component {
   };
 
   render() {
-    // const popoverClassName = this.state.open
-    //   ? styles.addVideoPopover
-    //   : styles.addVideoClosedPopover;
-    // const buttonClassName = this.state.open
-    //   ? styles.addVideoPressedButton
-    //   : styles.addVideoButton;
-
     return (
       <div style={styles.container}>
-        {/* <div className={styles.addVideo}> */}
-        {/* <button
-          className={buttonClassName}
-          onMouseUp={this.openPopover}
-          type="button"
-        >
-          +
-        </button>
-        <div className={popoverClassName} onClick={this.onPopoverClick}> */}
-
         <Badge
           style={styles.videoAddBadge}
-          color="primary"
+          color="dark"
           id="videoAdd"
           type="button"
           onClick={this.togglePopover}
@@ -87,7 +70,6 @@ class VideoAdd extends Component {
           Add Video
         </Badge>
         <Popover
-          // style={styles.colorPalette}
           placement="bottom"
           isOpen={this.state.popoverOpen}
           target="videoAdd"
@@ -110,17 +92,8 @@ class VideoAdd extends Component {
           </PopoverHeader>
           <PopoverBody>
             {this.state.url}
-            {/* <input
-          type="text"
-          placeholder="Paste the video url …"
-          //   className={styles.addVideoInput}
-          onChange={this.changeUrl}
-          value={this.state.url}
-          autoFocus={true}
-        /> */}
           </PopoverBody>
         </Popover>
-        {/* </div> */}
       </div>
     );
   }

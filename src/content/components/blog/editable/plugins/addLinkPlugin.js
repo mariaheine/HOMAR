@@ -6,6 +6,8 @@ import {
 	CompositeDecorator
 } from "draft-js";
 
+// const styles
+
 export const linkStrategy = (contentBlock, callback, contentState) => {
 	contentBlock.findEntityRanges(character => {
 		const entityKey = character.getEntity();
@@ -16,7 +18,7 @@ export const linkStrategy = (contentBlock, callback, contentState) => {
 	}, callback);
 };
 
-export const Link = props => {
+export const LinkComponent = props => {
 	const { contentState, entityKey } = props;
 	const { url } = contentState.getEntity(entityKey).getData();
 	return (
@@ -25,9 +27,9 @@ export const Link = props => {
 			href={url}
 			rel="noopener noreferrer"
 			target="_blank"
-			aria-label={url}
+			// aria-label={url}
 		>
-			{props.children}
+			<h1>{props.children}</h1>
 		</a>
 	);
 };
@@ -71,7 +73,7 @@ const addLinkPlugin = {
 	decorators: [
 		{
 			strategy: linkStrategy,
-			component: Link
+			component: LinkComponent
 		}
 	]
 };

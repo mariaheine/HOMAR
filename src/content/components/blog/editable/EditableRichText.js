@@ -4,11 +4,9 @@ import Editor, {
   createEditorStateWithText,
   composeDecorators
 } from "draft-js-plugins-editor";
-import { CompositeDecorator, EditorState } from "draft-js";
 import createToolbarPlugin, { Separator } from "draft-js-static-toolbar-plugin";
 import createVideoPlugin from "draft-js-video-plugin";
 import createEmojiPlugin from "draft-js-emoji-plugin";
-import createLinkPlugin from "draft-js-anchor-plugin";
 import createAlignmentPlugin from "draft-js-alignment-plugin";
 import createFocusPlugin from "draft-js-focus-plugin";
 import "../styles/draft-toolbar-plugin.css";
@@ -18,7 +16,6 @@ import "../styles/focusedStyles.css";
 import "../styles/toolbarStyles.css";
 import "../styles/buttonStyles.css";
 import "../styles/anchorStyles.css";
-import linkStyles from "../styles/buttonStyles.css";
 import "draft-js-alignment-plugin/lib/plugin.css";
 import "../styles/draft.css";
 
@@ -41,9 +38,7 @@ import {
 } from "../../../../reduxStore/actions/helperActions.js";
 import ColorPicker, { colorStyleMap } from "./plugins/ColorPicker";
 import VideoAdd from "./plugins/VideoAdd";
-import AddLink from "./plugins/AddLink";
-
-import addLinkPlugin from "./plugins/addLinkPlugin";
+import AddLink, { createLinkPlugin} from "./plugins/AddLink";
 
 const styles = {
   toolbarContainer: {
@@ -63,11 +58,6 @@ const styles = {
   },
   emojiContainer: {
     backgroundColor: "black"
-  },
-
-  link: {
-    color: "red",
-    textDecoration: "underline"
   }
 };
 
@@ -81,16 +71,11 @@ class EditableRichText extends Component {
       loadedData: false,
       isFocused: false,
       focusEntered: false,
-      // editorState: EditorState.createEmpty()
       editorState: createEditorStateWithText(placeholderText)
     };
 
     this._staticToolbarPlugin = createToolbarPlugin();
     this._emojiPlugin = createEmojiPlugin();
-    // this._linkPlugin = createLinkPlugin({
-    //   theme: linkStyles,
-    //   placeholder: "https://..."
-    // });
     this._focusPlugin = createFocusPlugin();
     this._alignmentPlugin = createAlignmentPlugin();
     const decorator = composeDecorators(
@@ -98,20 +83,19 @@ class EditableRichText extends Component {
       this._focusPlugin.decorator
     );
     this._videoPlugin = createVideoPlugin({ decorator });
+      this.linkplug = createLinkPlugin()
 
     this.plugins = [
-      // this._linkPlugin,
       this._staticToolbarPlugin,
       this._videoPlugin,
       this._emojiPlugin,
       this._focusPlugin,
       this._alignmentPlugin,
-      addLinkPlugin
+      this.linkplug
     ];
   }
 
   onChange = editorState => {
-    console.log("lol");
     this.setState(
       {
         editorState: editorState
@@ -216,15 +200,15 @@ class EditableRichText extends Component {
               onChange={this.onChange}
               modifier={this._videoPlugin.addVideo}
             />
+            <AddLink
+              editorState={this.state.editorState}
+              onChange={this.onChange}
+            />
             <ColorPicker
               editorState={this.state.editorState}
               onChange={this.onChange}
             />
             <EmojiSelect style={styles.emojiContainer} />
-            <AddLink
-              editorState={this.state.editorState}
-              onChange={this.onChange}
-            />
           </div>
         )}
       </Toolbar>
