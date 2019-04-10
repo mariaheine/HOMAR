@@ -116,6 +116,11 @@ class EditableRichText extends Component {
     this.setState({ isFocused: false });
   };
 
+  preventDefault = e => {
+    /* Just to avoid view scroll jump on toolbar click */
+    e.preventDefault();
+  }
+
   componentDidUpdate(prevProps) {
     const { initState, name, language } = this.props;
 
@@ -179,7 +184,7 @@ class EditableRichText extends Component {
     const Toolbrr = this.state.isFocused ? (
       <Toolbar>
         {externalProps => (
-          <div style={styles.toolbar} id="toolbar">
+          <div onMouseDown={this.preventDefault} style={styles.toolbar} id="toolbar">
             <BoldButton {...externalProps} />
             <ItalicButton {...externalProps} />
             <UnderlineButton {...externalProps} />

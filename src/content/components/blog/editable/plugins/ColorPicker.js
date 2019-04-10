@@ -116,7 +116,7 @@ export const colorStyleMap = {
   },
   somegreen: {
     color: "#4CAF50"
-  },
+  }
 };
 
 export default class ColorPicker extends Component {
@@ -166,7 +166,8 @@ export default class ColorPicker extends Component {
     this.props.onChange(nextEditorState);
   };
 
-  togglePopover = () => {
+  togglePopover = e => {
+    e.preventDefault();
     this.setState({
       popoverOpen: !this.state.popoverOpen
     });
@@ -186,7 +187,7 @@ export default class ColorPicker extends Component {
           id="colorBadge"
           color="warning"
           type="button"
-          onClick={this.togglePopover}
+          onMouseDown={this.togglePopover}
         >
           Colours
         </Badge>
@@ -230,12 +231,9 @@ class StyleButton extends React.Component {
       backgroundColor: colorStyleMap[this.props.style].color
     };
 
-    return (
-      <div style={newStyle} onMouseDown={this.onToggle}/>
-    );
+    return <div style={newStyle} onMouseDown={this.onToggle} />;
   }
 }
-
 
 const ColorControls = props => {
   var currentStyle = props.editorState.getCurrentInlineStyle();
