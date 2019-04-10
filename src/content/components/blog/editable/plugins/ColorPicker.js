@@ -3,27 +3,120 @@ import { Modifier, EditorState, RichUtils } from "draft-js";
 import { Badge, Popover, PopoverHeader, PopoverBody } from "reactstrap";
 
 export const colorStyleMap = {
-  red: {
-    color: "rgba(255, 0, 0, 1.0)"
+  white: {
+    color: "#fff"
   },
-  orange: {
-    color: "rgba(255, 127, 0, 1.0)"
+  /* Summer rain palette */
+  brightnavyblue: {
+    color: "#1764E4"
   },
-  yellow: {
-    color: "rgba(180, 180, 0, 1.0)"
+  ballblue: {
+    color: "#2595D4"
   },
-  green: {
-    color: "rgba(0, 180, 0, 1.0)"
+  maxbluegreen: {
+    color: "#30B4C9"
   },
-  blue: {
-    color: "rgba(0, 0, 255, 1.0)"
+  eucalyptus: {
+    color: "#38D5BA"
   },
-  indigo: {
-    color: "rgba(75, 0, 130, 1.0)"
+  brighteucalyptus: {
+    color: "#45F6AE"
+  },
+  /* BLUES, VIOLETS */
+  indigoA200: {
+    color: "rgba(83, 109, 254,1.0)"
+  },
+  indigoA400: {
+    color: "rgba(61, 90, 254,1.0)"
+  },
+  indigo500: {
+    color: "rgba(63, 81, 181,1.0)"
+  },
+  slateblue: {
+    color: "rgb(106,90,205)"
+  },
+  mediumslateblue: {
+    color: "rgb(123,104,238)"
+  },
+  mediumpurple: {
+    color: "rgb(147,112,219)"
+  },
+  royalpurple: {
+    color: "#814EA0"
+  },
+  mediumorchid: {
+    color: "rgb(186,85,211)"
   },
   violet: {
-    color: "rgba(127, 0, 255, 1.0)"
-  }
+    color: "rgb(238,130,238)"
+  },
+  plum: {
+    color: "rgb(221,160,221)"
+  },
+  /* PINKS */
+  pink: {
+    color: "#E91E63"
+  },
+  cerisepink: {
+    color: "#EA407B"
+  },
+  darkpink: {
+    color: "#E14F76"
+  },
+  tulip: {
+    color: "#FF7A8A"
+  },
+  charmpink: {
+    color: "#E68CAA"
+  },
+  persianpink: {
+    color: "#F78BC1"
+  },
+  /* REDS */
+  awesomereds: {
+    color: "#FF2251"
+  },
+  sizzlingred: {
+    color: "#F93E57"
+  },
+  /* ORANGES */
+  chineseorange: {
+    color: "#EF693A"
+  },
+  darkorange: {
+    color: "#FF8D04"
+  },
+  sunglow: {
+    color: "#FCC63E"
+  },
+  vividyellow: {
+    color: "#FFE401"
+  },
+  /* GREENS */
+  pearlaqua: {
+    color: "#8FC5B9"
+  },
+  tiffanyblue: {
+    color: "#09BAC0"
+  },
+  teal: {
+    color: "rgba(0, 150, 136,1.0)"
+  },
+  oceangreen: {
+    color: "#4CC395"
+  },
+  darkhkaki: {
+    color: "#B8C774"
+  },
+  pistachio: {
+    color: "#94D56C"
+  },
+  dollarbill: {
+    color: "#86C64C"
+  },
+  somegreen: {
+    color: "#4CAF50"
+  },
 };
 
 export default class ColorPicker extends Component {
@@ -137,26 +230,12 @@ class StyleButton extends React.Component {
       backgroundColor: colorStyleMap[this.props.style].color
     };
 
-    // console.log(this.props.style);
-
     return (
-      //   <span style={style} onMouseDown={this.onToggle}>
-      //     {this.props.label}
-      //   </span>
-      <div style={newStyle} />
+      <div style={newStyle} onMouseDown={this.onToggle}/>
     );
   }
 }
 
-// var COLORS = [
-//   { label: "Red", style: "red" },
-//   { label: "Orange", style: "orange" },
-//   { label: "Yellow", style: "yellow" },
-//   { label: "Green", style: "green" },
-//   { label: "Blue", style: "blue" },
-//   { label: "Indigo", style: "indigo" },
-//   { label: "Violet", style: "violet" }
-// ];
 
 const ColorControls = props => {
   var currentStyle = props.editorState.getCurrentInlineStyle();
@@ -180,37 +259,20 @@ const ColorControls = props => {
 };
 
 const styles = {
-  root: {
-    fontFamily: "'Georgia', serif",
-    fontSize: 14,
-    padding: 20,
-    width: 600
-  },
-  editor: {
-    borderTop: "1px solid #ddd",
-    cursor: "text",
-    fontSize: 16,
-    marginTop: 20,
-    minHeight: 400,
-    paddingTop: 20
-  },
   colorPalette: {
-    width: "10rem",
-    height: "auto"
+    width: "9.6rem",
+    height: "auto",
+    backgroundColor: "#272727"
   },
   controls: {
     display: "flex",
-    flexWrap: "wrap",
-    fontFamily: "'Helvetica', sans-serif",
-    fontSize: 14,
-    marginBottom: 10,
-    userSelect: "none"
+    flexWrap: "wrap"
   },
   colorPick: {
     backgroundColor: "black",
-    width: "20px",
-    height: "10px",
-    margin: "2px"
+    width: "1.5rem",
+    height: "1rem",
+    margin: "0.2rem"
   },
   colorsBadgeButton: {
     fontSize: "1rem",

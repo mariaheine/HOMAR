@@ -48,9 +48,9 @@ class Homaremenon extends Component {
           </Button>
         </div>
         <div className="rowContainer">
-          <div className="leftPanel">
+          {/* <div className="leftPanel">
             <Notifications />
-          </div>
+          </div> */}
           <div className="rightPanel">
             <EditablePostList />
           </div>
