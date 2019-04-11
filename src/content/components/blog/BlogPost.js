@@ -14,6 +14,8 @@ import ShareButtons from "./displayable/plugins/ShareButtons";
 import { Button } from "reactstrap";
 
 import { requestDisplayablePostByLanguage } from "./../../../reduxStore/actions/helperActions";
+import BlogPostTitle from "../blog/components/BlogPostTitle";
+import BlogPostContent from "../blog/components/BlogPostContent";
 
 import "./styles/anchorStyles.css";
 import "./../../../styles/components/blog.css";
@@ -80,9 +82,13 @@ class BlogPost extends Component {
   }
 
   render() {
-    const { displayPost, author } = this.props;
+    const { displayPost, author, post } = this.props;
 
     document.body.scrollTop = 0;
+
+    if(!post) {
+      return <p>Loading...</p>
+    }
 
     var date;
     if (displayPost.createdAt) {
@@ -94,7 +100,7 @@ class BlogPost extends Component {
     return (
       <div className="container">
         <div className="postAbstract">
-          <div className="abstractHeader" style={outerHeaderContainer}>
+          {/* <div className="abstractHeader" style={outerHeaderContainer}>
             <img alt="avatar" style={avatarImage} src={author.avatarURL} />
             <div className="" style={innerHeaderContainer}>
               <div className="abstractTitle">
@@ -111,16 +117,20 @@ class BlogPost extends Component {
                 author.nick
               }`}</span>
             </div>
-          </div>
+          </div> */}
+          <BlogPostTitle post={post} isEditable={false} />
+
           <div className="abstractContent">
-            <Editor
+            {/* <Editor
               readOnly="true"
               editorState={this.state.post.content}
               onChange={editorState => {
                 this.onChange(editorState, "content");
               }}
               plugins={plugins}
-            />
+            /> */}
+                      <BlogPostContent post={post} isEditable={false} />
+
           </div>
           <div className="abstractFooter">
             <Button
@@ -146,7 +156,12 @@ class BlogPost extends Component {
 const mapStateToProps = (state, ownProps) => {
   const postId = ownProps.match.params.postId;
 
+  console.log(state);
+
   var post = getVal(state.firestore.data, `blogPosts/${postId}`);
+  // var post = state.firestore.data.blogPosts.postId
+
+  console.log(post)
 
   if (post) {
     var author = getVal(state.firestore.data, `users/${post.authorId}`);
@@ -172,6 +187,7 @@ const mapStateToProps = (state, ownProps) => {
       displayedContent: whatToDisplay,
       createdAt
     },
+    post,
     author: {
       nick: nick,
       avatarURL: avatarURL

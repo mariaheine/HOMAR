@@ -21,32 +21,9 @@ import {
   requestEditablePostContents
 } from "../../../../reduxStore/actions/helperActions.js";
 import addLinkPlugin from "../editable/plugins/addLinkPlugin";
+import { colorStyleMap } from "../editable/plugins/ColorPicker"
 
 var placeholderText = "Hello, you shouldn't really see that text, hmmm";
-
-const colorStyleMap = {
-  red: {
-    color: "rgba(255, 0, 0, 1.0)"
-  },
-  orange: {
-    color: "rgba(255, 127, 0, 1.0)"
-  },
-  yellow: {
-    color: "rgba(180, 180, 0, 1.0)"
-  },
-  green: {
-    color: "rgba(0, 180, 0, 1.0)"
-  },
-  blue: {
-    color: "rgba(0, 0, 255, 1.0)"
-  },
-  indigo: {
-    color: "rgba(75, 0, 130, 1.0)"
-  },
-  violet: {
-    color: "rgba(127, 0, 255, 1.0)"
-  }
-};
 
 class DisplayableRichText extends Component {
   constructor(props) {

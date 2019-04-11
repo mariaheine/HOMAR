@@ -6,7 +6,7 @@ import BlogPostSummary from "../../blog/components/BlogPostSummary";
 import BlogPostContent from "../../blog/components/BlogPostContent";
 import "./../../../../styles/components/blog.css";
 
-import TestEditor from "../../blog/editable/TestEditor"
+import TestEditor from "../../blog/editable/TestEditor";
 
 class PostForm extends Component {
   constructor(props) {
@@ -76,7 +76,10 @@ class PostForm extends Component {
   componentDidMount() {
     const { data } = this.props;
 
-    if (data.isPublished !== undefined) {
+    // console.log(data)
+
+    if (data.post.isPublished !== undefined) {
+      // console.log(data.isPublished)
       this.setState({
         editor: {
           isPublished: data.post.isPublished
@@ -90,68 +93,25 @@ class PostForm extends Component {
 
     const { data } = this.props;
 
-    const bottomBarStyle = {
-      width: "100%",
-      display: "flex",
-      margin: "0.5rem",
-      marginTop: "1rem"
-    };
-
-    const saveButtonStyle = {
-      margin: "auto"
-    };
-
-    const checkboxStyle = {
-      marginLeft: "-1.7rem"
-    };
-
-    const labelStyle = {
-      width: "100%",
-      backgroundColor: "#4e4e4e52",
-      fontSize: "1.5rem",
-      fontFamily: "Helvetica Neue, Arial",
-      padding: "0.5rem"
-    };
-
-    const publishedInfoStyle = {
-      fontSize: "0.9rem",
-      color: "white",
-      backgroundColor: "royalblue",
-      margin: "0",
-      padding: "0.5rem"
-    };
-
-    const publishedImgStyle = {
-      height: "151px",
-      width: "auto"
-    };
-
-    const unPublishedInfoStyle = {
-      fontSize: "0.9rem",
-      color: "white",
-      backgroundColor: "DARKSLATEBLUE",
-      margin: "0",
-      padding: "0.5rem"
-    };
-
     var isPublishedText = this.state.editor.isPublished ? (
-      <p style={publishedInfoStyle}>
-        <img src="https://i.gifer.com/JsF.gif" style={publishedImgStyle} />
+      <p style={styles.publishedInfoStyle}>
+        <img
+          src="https://i.gifer.com/JsF.gif"
+          style={styles.publishedImgStyle}
+        />
         {"  "}🌼 Post jest live {`<3`}
       </p>
     ) : (
-      <p style={unPublishedInfoStyle}>
-        Post jest aktualnie ukryty/nieopublikowany 👥😎
+      <p style={styles.unPublishedInfoStyle}>
+        Post jest aktualnie ukryty/nieopublikowany 👥😎 [klik!]
       </p>
     );
-
-    // console.log(this.state.editor);
 
     return (
       <div>
         <Form onSubmit={this.handleSubmit}>
           <FormGroup>
-            <Label for="titleEditor" style={labelStyle}>
+            <Label for="titleEditor" style={styles.labelStyle}>
               💛 Title
             </Label>
             <BlogPostTitle
@@ -163,7 +123,7 @@ class PostForm extends Component {
             />
           </FormGroup>
           <FormGroup>
-            <Label for="summaryEditor" style={labelStyle}>
+            <Label for="summaryEditor" style={styles.labelStyle}>
               💙 Summary
             </Label>
             <BlogPostSummary
@@ -175,7 +135,7 @@ class PostForm extends Component {
             />
           </FormGroup>
           <FormGroup>
-            <Label for="contentEditor" style={labelStyle}>
+            <Label for="contentEditor" style={styles.labelStyle}>
               💜 Content
             </Label>
             <BlogPostContent
@@ -186,21 +146,19 @@ class PostForm extends Component {
               }}
             />
           </FormGroup>
-          <Label style={labelStyle}>Mmmm? 😋🍰🍷</Label>
-          <FormGroup check>
-            <Label check style={labelStyle}>
-              <Input
-                type="checkbox"
-                style={checkboxStyle}
-                checked={this.state.editor.isPublished}
-                onChange={() => {
-                  this.onUpdate(!this.state.editor.isPublished, "isPublished");
-                }}
-              />
+          <Label style={styles.labelStyle}>Mmmm? 😋🍰🍷</Label>
+          <FormGroup>
+            <Label
+              check
+              style={styles.labelStyle}
+              onMouseDown={() => {
+                this.onUpdate(!this.state.editor.isPublished, "isPublished");
+              }}
+            >
               {isPublishedText}
             </Label>
-            <div style={bottomBarStyle}>
-              <Button style={saveButtonStyle} color="primary">
+            <div style={styles.bottomBarStyle}>
+              <Button style={styles.saveButtonStyle} color="primary">
                 Zapisz zmiany, klik!
               </Button>
             </div>
@@ -211,5 +169,45 @@ class PostForm extends Component {
     );
   }
 }
+
+const styles = {
+  bottomBarStyle: {
+    width: "100%",
+    display: "flex",
+    margin: "0.5rem",
+    marginTop: "1rem"
+  },
+  saveButtonStyle: {
+    margin: "auto"
+  },
+  checkboxStyle: {
+    marginLeft: "-1.7rem"
+  },
+  labelStyle: {
+    width: "100%",
+    backgroundColor: "#4e4e4e52",
+    fontSize: "1.5rem",
+    fontFamily: "Helvetica Neue, Arial",
+    padding: "0.5rem"
+  },
+  publishedInfoStyle: {
+    fontSize: "0.9rem",
+    color: "white",
+    backgroundColor: "royalblue",
+    margin: "0",
+    padding: "0.5rem"
+  },
+  publishedImgStyle: {
+    height: "151px",
+    width: "auto"
+  },
+  unPublishedInfoStyle: {
+    fontSize: "0.9rem",
+    color: "white",
+    backgroundColor: "DARKSLATEBLUE",
+    margin: "0",
+    padding: "0.5rem"
+  }
+};
 
 export default PostForm;
