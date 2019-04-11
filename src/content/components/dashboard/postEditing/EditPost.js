@@ -11,11 +11,12 @@ import {
   deletePost
 } from "./../../../../reduxStore/actions/postActions";
 import { requestEditablePostByLanguage } from "./../../../../reduxStore/actions/helperActions";
-import { setEditedLanguage } from "./../../../../reduxStore/actions/postActions";
+import {
+  setEditedLanguage,
+  moderatorViewPost
+} from "./../../../../reduxStore/actions/postActions";
 
 import PostForm from "./PostForm";
-
-
 
 class EditPost extends Component {
   state = {
@@ -30,13 +31,14 @@ class EditPost extends Component {
   editPost = stagedPost => {
     const postId = this.props.match.params.postId;
     const language = this.state.editingLanguage;
+    const moderatorId = this.props.auth.uid;
 
-    // console.log(stagedPost);
+    console.log(moderatorId);
 
-    this.props.editPost(postId, stagedPost, language);
+    this.props.editPost(postId, stagedPost, language, moderatorId);
 
     // Add a condition to check if save failed
-    this.setState({hasUnsavedChanges: false});
+    this.setState({ hasUnsavedChanges: false });
   };
 
   handlePostDelete = () => {
@@ -82,8 +84,14 @@ class EditPost extends Component {
     });
   };
 
-  render() {
+  componentDidMount() {
+    if (this.props.auth.uid) {
+      const postId = this.props.match.params.postId;
+      this.props.moderatorViewPost(postId, this.props.auth.uid);
+    }
+  }
 
+  render() {
     const editorMenu = {
       marginRight: "2rem"
     };
@@ -102,7 +110,7 @@ class EditPost extends Component {
       width: "100%"
     };
 
-    const promtMessage = "Zapisaliście zmiany? 🐹"
+    const promtMessage = "Zapisaliście zmiany? 🐹";
 
     const { post, auth } = this.props;
 
@@ -198,9 +206,11 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = dispatch => {
   return {
     setEditedLanguage: language => dispatch(setEditedLanguage(language)),
-    editPost: (postId, editedPost, language) =>
-      dispatch(editPost(postId, editedPost, language)),
-    deletePost: postId => dispatch(deletePost(postId))
+    editPost: (postId, editedPost, language, moderatorId) =>
+      dispatch(editPost(postId, editedPost, language, moderatorId)),
+    deletePost: postId => dispatch(deletePost(postId)),
+    moderatorViewPost: (postId, moderatorId) =>
+      dispatch(moderatorViewPost(postId, moderatorId))
   };
 };
 

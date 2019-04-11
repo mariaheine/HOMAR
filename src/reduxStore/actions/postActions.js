@@ -61,7 +61,7 @@ export const createPost = post => {
   };
 };
 
-export const editPost = (postId, editedPost, language) => {
+export const editPost = (postId, editedPost, language, moderatorId) => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {
     const firestore = getFirestore();    
 
@@ -82,6 +82,8 @@ export const editPost = (postId, editedPost, language) => {
       [targetLanguage]: editedPost.postContents
     }
 
+    console.log(moderatorId)
+
     var postData = editedPost.postData
       firestore
         .collection("blogPosts")
@@ -89,7 +91,8 @@ export const editPost = (postId, editedPost, language) => {
         .set(
           {
             isPublished: postData.isPublished,
-            [targetLanguage]: payload[targetLanguage]
+            [targetLanguage]: payload[targetLanguage],
+            moderatorViews: [moderatorId]
           },
           { merge: true }
         )
@@ -106,6 +109,34 @@ export const editPost = (postId, editedPost, language) => {
         });
     }
 };
+
+export const moderatorViewPost = (postId, moderatorId) => {
+  return (dispatch, getState, { getFirebase, getFirestore}) => {
+    const firebase = getFirebase();
+    const firestore = getFirestore();
+
+    console.log(moderatorId)
+    console.log(firebase)
+
+    firestore
+      .collection("blogPosts")
+      .doc(postId)
+      .update({
+        moderatorViews: firebase.firestore.FieldValue.arrayUnion(moderatorId)
+      })
+      .then(() => {
+        dispatch({
+          type: DELETE_POST_SUCCESS
+        });
+      })
+      .catch(err => {
+        dispatch({
+          type: DELETE_POST_ERROR,
+          err
+        });
+      });
+  }
+}
 
 export const deletePost = postId => {
   return (dispatch, getState, { getFirebase, getFirestore }) => {

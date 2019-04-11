@@ -89,6 +89,15 @@ div.container {
   }
 }
 
+@keyframes rotateEmoji {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(360deg);
+  }
+}
+
 .boxShadowed {
   box-shadow: 0vw 1vh 5px black;
 }

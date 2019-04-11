@@ -9,34 +9,46 @@ import moment from "moment";
 
 import { requestDisplayableContent } from "./../../../../reduxStore/actions/helperActions";
 
-const postTabStyle = {
-  width: "auto",
-  padding: "0.2rem 0.5rem",
-  margin: "0.2rem 0.2rem",
-  display: "flex",
-  alignItems: "flex-end",
-  background: "#272727bc"
-};
+const styles = {
+  postTabStyle: {
+    width: "auto",
+    padding: "0.2rem 0.5rem",
+    margin: "0.2rem 0.2rem",
+    display: "flex",
+    alignItems: "center",
+    background: "#272727bc"
+  },
+  newEditsNotification: {
+    // width: "5%",
+    margin: "0.2rem 0.2rem",
+    marginLeft: "0",
+    fontSize: "1.4rem",
+    alignSelf: "flex-start",
+    padding: "0",
+    // paddingLeft: "0",
+    // animation: "rotateEmoji 9s linear infinite"
+  },
+  postButtonStyle: {
+    decoration: "none",
+    flexGrow: "1"
+  },
+  tabDetailsStyle: {
+    fontSize: "0.8rem",
+    width: "15%",
+    alignSelf: "flex-end",
 
-const postButtonStyle = {
-  decoration: "none",
-  flexGrow: "1"
-};
-
-const tabDetailsStyle = {
-  fontSize: "0.8rem",
-  width: "15%"
+  }
 };
 
 class EditablePostList extends Component {
   render() {
-    const { posts, users } = this.props;
-
-    // console.log(this.props);
+    const { posts, users, auth } = this.props;
 
     var listedPosts =
       posts &&
       posts.map(post => {
+        const { moderatorViews } = post;
+
         let buttonAttributes = {
           outline: !post.isPublished,
           color: post.isPublished ? "primary" : "warning"
@@ -49,18 +61,27 @@ class EditablePostList extends Component {
           postAge: author ? moment(post.createdAt.toDate()).fromNow() : null
         };
 
-        // console.log(post)
-        console.log(tabDetails);
+        var newEditsInfo = null;
+        if (moderatorViews) {
+          // console.log(moderatorViews);
+          newEditsInfo = moderatorViews.includes(auth.uid) ? (
+            <div style={styles.newEditsNotification}>💎</div>
+          ) : null;
+        }
+
+        // console.log(moderatorViews)
+        // console.log(tabDetails);
 
         return (
-          <div key={`Div${post.id}`} style={postTabStyle}>
+          <div key={`Div${post.id}`} style={styles.postTabStyle}>
+            {newEditsInfo}
             <Link
               key={`Link${post.id}`}
               to={{
                 pathname: `/homaremenon/edit/${post.id}`,
                 state: { postId: post.postId }
               }}
-              style={postButtonStyle}
+              style={styles.postButtonStyle}
             >
               <Button {...buttonAttributes} key={post.id}>
                 <Editor
@@ -72,7 +93,7 @@ class EditablePostList extends Component {
                 />
               </Button>
             </Link>
-            <span style={tabDetailsStyle}>
+            <span style={styles.tabDetailsStyle}>
               {`${tabDetails.authorNick}`}
               <br />
               {`${tabDetails.postAge}`}
@@ -94,11 +115,15 @@ const mapStateToProps = state => {
   console.log(state);
   return {
     posts: state.firestore.ordered.blogPosts,
-    users: state.firestore.data.users
+    users: state.firestore.data.users,
+    auth: state.firebase.auth
   };
 };
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([{ collection: "blogPosts", orderBy: ['createdAt', 'desc'] }, { collection: "users" }])
+  firestoreConnect([
+    { collection: "blogPosts", orderBy: ["createdAt", "desc"] },
+    { collection: "users" }
+  ])
 )(EditablePostList);
