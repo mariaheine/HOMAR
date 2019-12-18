@@ -1,33 +1,7 @@
 import React, { Component } from "react";
-import { Button, Badge, Popover, PopoverHeader, PopoverBody } from "reactstrap";
-import { EditorState, Modifier, RichUtils, SelectionState } from "draft-js";
+import { Badge, Popover, PopoverHeader, PopoverBody } from "reactstrap";
+import { EditorState, RichUtils, SelectionState } from "draft-js";
 import getRangesForDraftEntity from "draft-js/lib/getRangesForDraftEntity";
-
-const styles = {
-  container: {
-    marginLeft: "0.5rem"
-  },
-
-  containerDiv: {
-    margin: "0 0.2rem"
-  },
-  linkBadge: {
-    fontSize: "1rem",
-    fontFamily: "Anonymous Pro, monospace"
-  },
-  popoverHeader: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between"
-  },
-  popoverButton: {
-    margin: "0 0.5em"
-  },
-  link: {
-    color: "red",
-    textDecoration: "underline"
-  }
-};
 
 export const createLinkPlugin = () => {
   return {
@@ -39,6 +13,15 @@ export const createLinkPlugin = () => {
     ]
   };
 };
+
+export const plugindecoraator = {
+  decorators: [
+    {
+      strategy: linkStrategy,
+      component: LinkComponent
+    }
+  ]
+}
 
 export default class AddLink extends Component {
   state = {
@@ -54,6 +37,8 @@ export default class AddLink extends Component {
     const { editorState } = this.props;
     const contentState = editorState.getCurrentContent();
     const selection = editorState.getSelection();
+
+    console.log(navigator.clipboard);
 
     if (!selection.isCollapsed()) {
       if (this.checkInvalidEntitiesInSelection()) {
@@ -255,6 +240,7 @@ export const LinkComponent = props => {
   return (
     <a
       className="link"
+      style={styles.link}
       href={url}
       rel="noopener noreferrer"
       target="_blank"
@@ -263,4 +249,29 @@ export const LinkComponent = props => {
       🌐{props.children}
     </a>
   );
+};
+
+const styles = {
+  container: {
+    marginLeft: "0.5rem"
+  },
+  containerDiv: {
+    margin: "0 0.2rem"
+  },
+  linkBadge: {
+    fontSize: "1rem",
+    fontFamily: "Anonymous Pro, monospace"
+  },
+  popoverHeader: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between"
+  },
+  popoverButton: {
+    margin: "0 0.5em"
+  },
+  link: {
+    // color: "red",
+    textDecoration: "underline"
+  }
 };

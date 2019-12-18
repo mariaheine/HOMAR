@@ -45,11 +45,15 @@ export const requestDisplayablePostByLanguage = (post, language) => {
       case "en":
         // Check here if data isnt empty, itf is - fallback to polish version
         // Also could add a notification that its not available in english
-        if (post.english.title && post.english.summary) {
+
+        if (post.english.title !== "" && post.english.summary !== "") {
           dataSource = post.english;
-        } else {
+        } 
+        else {
+
           let altTitle = post.polish.title;
           let altSummary = "Not translated yet, sorry 😿";
+
           return {
             title: covertDataFromRaw(altTitle).EditorData,
             summary: displayableContentFromString(altSummary),
@@ -62,6 +66,8 @@ export const requestDisplayablePostByLanguage = (post, language) => {
         dataSource = post.polish;
         break;
     }
+
+    console.log(dataSource);
 
     postTitle = covertDataFromRaw(dataSource.title).EditorData;
     postSummary = covertDataFromRaw(dataSource.summary).EditorData;

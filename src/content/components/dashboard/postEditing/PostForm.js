@@ -146,7 +146,7 @@ class PostForm extends Component {
               }}
             />
           </FormGroup>
-          <Label style={styles.labelStyle}>Mmmm? 😋🍰🍷</Label>
+          <Label style={styles.labelStyle}>🍰🍷</Label>
           <FormGroup>
             <Label
               check

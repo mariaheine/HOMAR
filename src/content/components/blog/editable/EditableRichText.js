@@ -38,7 +38,7 @@ import {
 } from "../../../../reduxStore/actions/helperActions.js";
 import ColorPicker, { colorStyleMap } from "./plugins/ColorPicker";
 import VideoAdd from "./plugins/VideoAdd";
-import AddLink, { createLinkPlugin} from "./plugins/AddLink";
+import AddLink, { createLinkPlugin } from "./plugins/AddLink";
 
 const styles = {
   toolbarContainer: {
@@ -66,24 +66,19 @@ var placeholderText = "Hello, you shouldn't really see that text, hmmm";
 class EditableRichText extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      loadedData: false,
-      isFocused: false,
-      focusEntered: false,
-      editorState: createEditorStateWithText(placeholderText)
-    };
-
+    
     this._staticToolbarPlugin = createToolbarPlugin();
     this._emojiPlugin = createEmojiPlugin();
     this._focusPlugin = createFocusPlugin();
     this._alignmentPlugin = createAlignmentPlugin();
-    const decorator = composeDecorators(
+    
+    const videoDecorator = composeDecorators(
       this._alignmentPlugin.decorator,
       this._focusPlugin.decorator
     );
-    this._videoPlugin = createVideoPlugin({ decorator });
-      this.linkplug = createLinkPlugin()
+    
+    this._videoPlugin = createVideoPlugin({ videoDecorator });
+    this.linkplug = createLinkPlugin();
 
     this.plugins = [
       this._staticToolbarPlugin,
@@ -93,6 +88,13 @@ class EditableRichText extends Component {
       this._alignmentPlugin,
       this.linkplug
     ];
+
+    this.state = {
+      loadedData: false,
+      isFocused: false,
+      focusEntered: false,
+      editorState: createEditorStateWithText(placeholderText)
+    };
   }
 
   onChange = editorState => {
@@ -119,7 +121,7 @@ class EditableRichText extends Component {
   preventDefault = e => {
     /* Just to avoid view scroll jump on toolbar click */
     e.preventDefault();
-  }
+  };
 
   componentDidUpdate(prevProps) {
     const { initState, name, language } = this.props;
@@ -184,7 +186,11 @@ class EditableRichText extends Component {
     const Toolbrr = this.state.isFocused ? (
       <Toolbar>
         {externalProps => (
-          <div onMouseDown={this.preventDefault} style={styles.toolbar} id="toolbar">
+          <div
+            onMouseDown={this.preventDefault}
+            style={styles.toolbar}
+            id="toolbar"
+          >
             <BoldButton {...externalProps} />
             <ItalicButton {...externalProps} />
             <UnderlineButton {...externalProps} />

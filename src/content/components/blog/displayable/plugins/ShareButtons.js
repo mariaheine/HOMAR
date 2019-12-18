@@ -5,19 +5,21 @@ import {
   TwitterShareButton,
   TwitterIcon
 } from "react-share";
+import { connect } from "react-redux";
+import { compose } from "redux";
+import { requestDisplayablePostByLanguage } from "../../../../../reduxStore/actions/helperActions";
+
 
 var shareButtons = {
   display: "flex"
 };
 
 const ShareButtons = props => {
-  const { displayPost, postId } = props;
+  const { displayPost, postId, language } = props;
 
   if (!displayPost) {
     return null;
   }
-
-  // console.log(displayPost)
 
   let quote = displayPost.displayedContent.getCurrentContent().getPlainText();
   quote = quote.slice(0, 252);
@@ -38,4 +40,25 @@ const ShareButtons = props => {
   );
 };
 
-export default ShareButtons;
+const mapStateToProps = (state, ownProps) => {
+  console.log(ownProps.displayPost);
+
+  var result = requestDisplayablePostByLanguage(
+    ownProps.displayPost,
+    state.language.selectedLanguage
+  );
+
+
+  return {
+    displayPost: {
+      title: result.title,
+      displayedContent: result.summary,
+      hasContent: result.hasContent
+    },
+    selectedLanguage: state.language.selectedLanguage
+  };
+};
+
+export default compose(
+  connect(mapStateToProps)
+)(ShareButtons);

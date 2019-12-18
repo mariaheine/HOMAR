@@ -1,36 +1,90 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 
-import { Entity, Scene } from "aframe-react";
-import "aframe";
-import "aframe-mouse-cursor-component"; //rmove!
-import "aframe-environment-component";
-import "aframe-html-shader";
+import * as THREE from "three";
 
 import "./../../../styles/components/home.css";
-import Diagram from "./calosc.png";
 require("./DejaVu-sdf.fnt");
 
 export default class Home extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      count: 0,
-      redirectoToWarp: false
-    };
+    this.state = {};
   }
 
-  handleClick = () => {
-    if (this.state.count > 1) {
-      this.setState({ redirectoToWarp: true });
-    } else {
-      this.setState({ count: this.state.count + 1 });
-    }
-  };
+  componentDidMount() {
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(
+      75,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+
+    var renderer = new THREE.WebGLRenderer({ alpha: true });
+    var width = document.getElementById("threeContainer").offsetWidth;
+    var height = document.getElementById("threeContainer").offsetHeight;
+    renderer.setSize(width, height);
+    renderer.setClearColor(0xffffff, 0);
+    this.mount.appendChild(renderer.domElement);
+
+    // why it doesnt work? :(
+
+    // var makeCube = (cubeColor, size) => {
+    //   var geo = new THREE.BoxGeometry(size, size, size);
+    //   var mat = new THREE.MeshBasicMaterial({
+    //     color: cubeColor,
+    //     wireframe: false
+    //   });
+    //   return new THREE.Mesh(geo, mat);
+    // };
+
+    var geometry = new THREE.BoxGeometry(1, 1, 1);
+    var material = new THREE.MeshBasicMaterial({
+      color: 0x00ff00,
+      wireframe: true
+    });
+    var cube = new THREE.Mesh(geometry, material);
+    scene.add(cube);
+
+    var geometry2 = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+    var material2 = new THREE.MeshBasicMaterial({
+      color: 0xff0000,
+      wireframe: true
+    });
+    var cube2 = new THREE.Mesh(geometry2, material2);
+    scene.add(cube2);
+
+    var geometry3 = new THREE.BoxGeometry(3, 3, 3);
+    var material3 = new THREE.MeshBasicMaterial({
+      color: 0x0000ff,
+      wireframe: true
+    });
+    var cube3 = new THREE.Mesh(geometry3, material3);
+    scene.add(cube3);
+
+    camera.position.z = 5;
+
+    var animate = function() {
+      requestAnimationFrame(animate);
+
+      cube.rotation.x += 0.01;
+      cube.rotation.y += 0.01;
+
+      cube2.rotation.x -= 0.005;
+      cube2.rotation.y -= 0.005;
+
+      cube3.rotation.x -= 0.005;
+      cube3.rotation.y -= 0.005;
+
+      renderer.render(scene, camera);
+    };
+
+    animate();
+  }
 
   render() {
-    const aframeContainer = {
+    const threeContainerStyle = {
       margin: "auto",
       width: "95%",
       height: "70vh",
@@ -38,83 +92,11 @@ export default class Home extends Component {
       margin: "1rem"
     };
 
-    // const aframeContainer = {
-    //   margin: "auto",
-    //   width: "95%",
-    //   maxWidth: "1062px",
-    //   position: "relative",
-    //   paddingBottom: "75%"
-    // };
-
-    // const aframeContent = {
-    //   position: "absolute",
-    //   top: "0",
-    //   bottom: "0",
-    //   left: "0",
-    //   right: "0",
-    //   zIndex: "1"
-    // };
-
-    if (this.state.redirectoToWarp) {
-      return <Redirect to="/entity" />;
-    }
-
     return (
       <div className="container">
-        <div style={aframeContainer}>
-          {/* <div style={aframeContent}> */}
-            <Scene embedded vr-mode-ui="enabled: false">
-              <Entity
-                environment={{
-                  preset: "starry",
-                  ground: "hills",
-                  groundYScale: "30",
-                  dressing: "towers",
-                  dressingVariance: "10 50 10"
-                }}
-              />
-              <Entity id="UI" position="0 0 0">
-                <Entity
-                  position="0.7 2 -4"
-                  geometry="primitive: plane; height: 2.5; width: 3.5;"
-                  material={{
-                    color: "black",
-                    opacity: 0.6,
-                    side: "double",
-                    shader: "flat"
-                  }}
-                  text={{
-                    color: "white",
-                    anchor: "center",
-                    font: "dejavu",
-                    align: "center",
-                    width: "3",
-                    value:
-                      "INFO: THIS IS ONLY A MODEL DIAGRAM\n\nPlease, enter the Entity (by double-pressing on the diagram) to find it's still functional replica.\n\nWARNING: Your smartphone will NOT handle that tech, use pc instead."
-                  }}
-                  rotation="0 -35 0"
-                  scale="0.6 0.6 0.6"
-                />
-                />
-                <Entity
-                  geometry="primitive: plane; height: 4; width: 4;"
-                  material={{
-                    src: Diagram,
-                    shader: "flat",
-                    side: "double",
-                    transparent: true
-                  }}
-                  position="-3.308 2 -4.312"
-                  rotation="0 35 0"
-                  events={{ click: this.handleClick }}
-                />
-              </Entity>
-              <Entity camera position="-1.5 2 -2" look-controls wasd-controls>
-                <Entity cursor={{ fuse: false, rayOrigin: "mouse" }} />
-              </Entity>
-            </Scene>
-          </div>
-        {/* </div> */}
+        <div id="threeContainer" style={threeContainerStyle}>
+          <div ref={ref => (this.mount = ref)} />
+        </div>
       </div>
     );
   }

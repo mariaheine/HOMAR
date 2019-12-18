@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { firestoreConnect, getVal } from "react-redux-firebase";
+import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Link } from "react-router-dom";
 import { Editor } from "draft-js";
@@ -9,36 +9,6 @@ import moment from "moment";
 
 import { requestDisplayableContent } from "./../../../../reduxStore/actions/helperActions";
 
-const styles = {
-  postTabStyle: {
-    width: "auto",
-    padding: "0.2rem 0.5rem",
-    margin: "0.2rem 0.2rem",
-    display: "flex",
-    alignItems: "center",
-    background: "#272727bc"
-  },
-  newEditsNotification: {
-    // width: "5%",
-    margin: "0.2rem 0.2rem",
-    marginLeft: "0",
-    fontSize: "1.4rem",
-    alignSelf: "flex-start",
-    padding: "0",
-    // paddingLeft: "0",
-    // animation: "rotateEmoji 9s linear infinite"
-  },
-  postButtonStyle: {
-    decoration: "none",
-    flexGrow: "1"
-  },
-  tabDetailsStyle: {
-    fontSize: "0.8rem",
-    width: "15%",
-    alignSelf: "flex-end",
-
-  }
-};
 
 class EditablePostList extends Component {
   render() {
@@ -63,14 +33,10 @@ class EditablePostList extends Component {
 
         var newEditsInfo = null;
         if (moderatorViews) {
-          // console.log(moderatorViews);
-          newEditsInfo = moderatorViews.includes(auth.uid) ? (
+          newEditsInfo = !moderatorViews.includes(auth.uid) ? (
             <div style={styles.newEditsNotification}>💎</div>
           ) : null;
         }
-
-        // console.log(moderatorViews)
-        // console.log(tabDetails);
 
         return (
           <div key={`Div${post.id}`} style={styles.postTabStyle}>
@@ -112,7 +78,6 @@ class EditablePostList extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     posts: state.firestore.ordered.blogPosts,
     users: state.firestore.data.users,
@@ -127,3 +92,33 @@ export default compose(
     { collection: "users" }
   ])
 )(EditablePostList);
+
+
+const styles = {
+  postTabStyle: {
+    width: "auto",
+    padding: "0.2rem 0.5rem",
+    margin: "0.2rem 0.2rem",
+    display: "flex",
+    alignItems: "center",
+    background: "#272727bc"
+  },
+  newEditsNotification: {
+    margin: "0.2rem 0.2rem",
+    marginLeft: "0",
+    fontSize: "1.4rem",
+    alignSelf: "flex-start",
+    padding: "0"
+    // animation: "rotateEmoji 9s linear infinite"
+  },
+  postButtonStyle: {
+    decoration: "none",
+    flexGrow: "1"
+  },
+  tabDetailsStyle: {
+    fontSize: "0.8rem",
+    width: "15%",
+    alignSelf: "flex-end",
+
+  }
+};

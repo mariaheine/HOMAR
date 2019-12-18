@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { compose } from "redux";import { Button } from "reactstrap";
+import { compose } from "redux";
+import { Button } from "reactstrap";
 import { requestDisplayablePostByLanguage } from "../../../reduxStore/actions/helperActions";
 import "./../../../styles/components/blog.css";
 
@@ -14,19 +15,12 @@ var rightFooter = {
 };
 
 class BlogPostShort extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      // content: EditorState.createWithContent(DBEditorState)
-    };
-  }
 
   render() {
-    const { displayPost, post } = this.props;
+    const { post, hasContent, selectedLanguage } = this.props;
 
     var ReadMore;
-    if (displayPost.hasContent) {
+    if (hasContent) {
       ReadMore = (
         <div>
           <Link to={`/blog/${post.id}`}>
@@ -46,7 +40,8 @@ class BlogPostShort extends Component {
           <div>{ReadMore}</div>
           <div style={rightFooter}>
             <ShareButtons
-              displayPost={displayPost}
+              displayPost={post}
+              // language={selectedLanguage}
               postId={post.id}
             />
           </div>
@@ -57,17 +52,15 @@ class BlogPostShort extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  console.log(ownProps.post);
   var result = requestDisplayablePostByLanguage(
     ownProps.post,
     state.language.selectedLanguage
   );
 
   return {
-    displayPost: {
-      title: result.title,
-      displayedContent: result.summary,
-      hasContent: result.hasContent
-    }
+    hasContent: result.hasContent,
+    selectedLanguage: state.language.selectedLanguage
   };
 };
 

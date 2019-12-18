@@ -5,7 +5,6 @@ import Editor, {
   composeDecorators
 } from "draft-js-plugins-editor";
 import createVideoPlugin from "draft-js-video-plugin";
-import createLinkPlugin from "draft-js-anchor-plugin";
 import createAlignmentPlugin from "draft-js-alignment-plugin";
 import "../styles/draft-emoji-plugin.css";
 import "../styles/draft-toolbar-plugin.css";
@@ -18,10 +17,13 @@ import linkStyles from "../styles/buttonStyles.css";
 import "draft-js-alignment-plugin/lib/plugin.css";
 import {
   requestPostDataByLanguage,
-  requestEditablePostContents
+  requestEditablePostContents,
+  requestDisplayableContent,
+  requestDisplayablePostByLanguage
 } from "../../../../reduxStore/actions/helperActions.js";
-import addLinkPlugin from "../editable/plugins/addLinkPlugin";
-import { colorStyleMap } from "../editable/plugins/ColorPicker"
+// import addLinkPlugin from "../editable/plugins/addLinkPlugin";
+import { createLinkPlugin } from "../editable/plugins/AddLink";
+import { colorStyleMap } from "../editable/plugins/ColorPicker";
 
 var placeholderText = "Hello, you shouldn't really see that text, hmmm";
 
@@ -36,11 +38,15 @@ class DisplayableRichText extends Component {
     this._alignmentPlugin = createAlignmentPlugin();
     const videoDecorator = composeDecorators(this._alignmentPlugin.decorator);
     this._videoPlugin = createVideoPlugin({ videoDecorator });
+    this._linkPlugin = createLinkPlugin();
+
     this.plugins = [
       // this._linkPlugin,
       this._videoPlugin,
       this._alignmentPlugin,
-      addLinkPlugin
+      // addLinkPlugin
+      // plugindecoraator
+      this._linkPlugin
     ];
 
     this.state = {
@@ -98,14 +104,13 @@ class DisplayableRichText extends Component {
 const mapStateToProps = (state, ownProps) => {
   const { name, initState } = ownProps;
 
-  var data = requestPostDataByLanguage(
+  var displayablePost = requestDisplayablePostByLanguage(
     initState,
     state.language.selectedLanguage
   );
-  var editablePost = requestEditablePostContents(data);
 
   return {
-    displayedContent: editablePost[name]
+    displayedContent: displayablePost[name]
   };
 };
 

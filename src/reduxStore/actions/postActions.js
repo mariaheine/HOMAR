@@ -115,9 +115,6 @@ export const moderatorViewPost = (postId, moderatorId) => {
     const firebase = getFirebase();
     const firestore = getFirestore();
 
-    console.log(moderatorId)
-    console.log(firebase)
-
     firestore
       .collection("blogPosts")
       .doc(postId)

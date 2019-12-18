@@ -9,12 +9,6 @@ import {
 } from "react-redux-firebase";
 import EditableRichText from "../editable/EditableRichText";
 import DisplayableRichText from "../displayable/DisplayableRichText";
-import {
-  requestPostDataByLanguage,
-  requestEditablePostContents
-} from "../../../../reduxStore/actions/helperActions";
-
-import { Editor, EditorState, convertToRaw } from "draft-js";
 
 const outerHeaderContainer = {
   display: "flex",
@@ -47,7 +41,7 @@ class BlogPostTitle extends Component {
   render() {
     const { author, isEditable, post } = this.props;
 
-    // console.log(this.props.post);
+    console.log(this.props.post);
 
     var Editor;
     if (isEditable) {
@@ -58,10 +52,10 @@ class BlogPostTitle extends Component {
             this.props.onUpdate(editorState, "title");
           }}
           initState={this.props.post}
-          //   initState={this.props.editableTitle}
         />
       );
-    } else {
+    } 
+    else {
       Editor = <DisplayableRichText name="title" initState={this.props.post} />;
     }
 
@@ -109,8 +103,8 @@ const mapStateToProps = (state, ownProps) => {
 export default compose(
   connect(mapStateToProps),
   firestoreConnect(props => {
+    
     // console.log(props);
-
     return [{ collection: "users", doc: `${props.post.authorId}` }];
   })
 )(BlogPostTitle);

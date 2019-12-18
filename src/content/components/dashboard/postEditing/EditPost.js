@@ -85,7 +85,9 @@ class EditPost extends Component {
   };
 
   componentDidMount() {
+    
     if (this.props.auth.uid) {
+      console.log("asd")
       const postId = this.props.match.params.postId;
       this.props.moderatorViewPost(postId, this.props.auth.uid);
     }
