@@ -5,8 +5,8 @@ import BlogPostTitle from "../../blog/components/BlogPostTitle";
 import BlogPostSummary from "../../blog/components/BlogPostSummary";
 import BlogPostContent from "../../blog/components/BlogPostContent";
 import "./../../../../styles/components/blog.css";
+import UrlInputField from "./components/UrlInputField";
 
-import TestEditor from "../../blog/editable/TestEditor";
 
 class PostForm extends Component {
   constructor(props) {
@@ -109,6 +109,7 @@ class PostForm extends Component {
 
     return (
       <div>
+        <UrlInputField />
         <Form onSubmit={this.handleSubmit}>
           <FormGroup>
             <Label for="titleEditor" style={styles.labelStyle}>

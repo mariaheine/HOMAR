@@ -12,9 +12,12 @@ import {
 } from "./../../../../reduxStore/actions/postActions";
 import { requestEditablePostByLanguage } from "./../../../../reduxStore/actions/helperActions";
 import {
-  setEditedLanguage,
   moderatorViewPost
 } from "./../../../../reduxStore/actions/postActions";
+import {
+  setEditedLanguage
+} from "./../../../../reduxStore/actions/postEditActions";
+
 
 import PostForm from "./PostForm";
 
@@ -53,7 +56,7 @@ class EditPost extends Component {
     /* SAME FOR GO BACK AND DELETE POST BUTTONS */
 
     /* USE state: hasUnsavedChanges */
-
+    
     let targetLanguage;
     switch (e.target.id) {
       case "button_pl":
@@ -87,7 +90,6 @@ class EditPost extends Component {
   componentDidMount() {
     
     if (this.props.auth.uid) {
-      console.log("asd")
       const postId = this.props.match.params.postId;
       this.props.moderatorViewPost(postId, this.props.auth.uid);
     }
@@ -194,6 +196,7 @@ class EditPost extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  // console.log(state);
   // [!] Refactor: This could be grabbed directly through firestoreConnect
   const id = ownProps.match.params.postId;
   const posts = state.firestore.data.blogPosts;

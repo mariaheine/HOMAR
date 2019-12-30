@@ -1,5 +1,14 @@
 import React, { Component } from "react";
-import { Badge, Popover, PopoverHeader, PopoverBody } from "reactstrap";
+import {
+  Badge,
+  Popover,
+  PopoverHeader,
+  PopoverBody,
+  InputGroup,
+  InputGroupAddon,
+  Button,
+  Input
+} from "reactstrap";
 import { EditorState, RichUtils, SelectionState } from "draft-js";
 import getRangesForDraftEntity from "draft-js/lib/getRangesForDraftEntity";
 
@@ -21,7 +30,7 @@ export const plugindecoraator = {
       component: LinkComponent
     }
   ]
-}
+};
 
 export default class AddLink extends Component {
   state = {
@@ -29,7 +38,106 @@ export default class AddLink extends Component {
     popoverHeader: "",
     popoverContent: "",
     isLinkSelected: false,
-    url: ""
+    url: "asd"
+  };
+
+  RemoveLinkButton = () => {
+    return (
+      <Badge
+        color="danger"
+        style={styles.linkBadge}
+        onMouseDown={this.removelink}
+      >
+        Remove
+      </Badge>
+    );
+  };
+
+  handleLinkUrlChange = e => {
+    console.log("hange");
+
+    this.setState({ url: e.target.value });
+  };
+
+  test = e => {
+    console.log(e);
+  };
+
+  CreateLinkField = e => {
+    return (
+      <div>
+        {/* <InputGroup>
+        <InputGroupAddon addonType="prepend">
+          <Button>To the Left!</Button>
+        </InputGroupAddon>
+        <Input placeholder="Amount" value={this.state.url} onChange={this.handleLinkUrlChange} onClick={this.test} />
+      </InputGroup> */}
+        {/* <Badge color="primary" style={styles.linkBadge} onMouseDown={this.onAddLink}>
+        Create
+      </Badge> */}
+      </div>
+    );
+  };
+
+  getSelectedText = () => {
+    // A bit mad just for getting text conent, is draft.js insane?
+
+    const { editorState } = this.props;
+    var selectionState = editorState.getSelection();
+    var anchorKey = selectionState.getAnchorKey();
+    var currentContent = editorState.getCurrentContent();
+    var currentContentBlock = currentContent.getBlockForKey(anchorKey);
+    var start = selectionState.getStartOffset();
+    var end = selectionState.getEndOffset();
+    var selectedText = currentContentBlock.getText().slice(start, end);
+
+    return selectedText;
+  };
+
+  onLinkButtonPressed = (e, newUrl) => {
+    console.log(newUrl);
+    // e.preventDefault();
+    const { editorState } = this.props;
+    const contentState = editorState.getCurrentContent();
+    const selection = editorState.getSelection();
+
+    const entityKey = this.getEntityKeyAtSelection();
+    const hasLinkEntityAtSelection = entityKey
+      ? contentState.getEntity(entityKey).getType() === "LINK"
+      : false;
+
+    let popoverHeader, popoverContent;
+
+    if (hasLinkEntityAtSelection) {
+      popoverHeader = (
+        <PopoverHeader>
+          {this.RemoveLinkButton} {`Current link at selection:`}
+        </PopoverHeader>
+      );
+
+      const linkData = contentState.getEntity(entityKey).getData();
+
+      popoverContent = <PopoverBody>{`🌐${linkData.url}`}</PopoverBody>;
+    } else {
+      popoverHeader = (
+        <PopoverHeader>{`Create new link at selection:`}</PopoverHeader>
+      );
+
+      popoverContent = (
+        <PopoverBody>
+          {`Selected text: ${this.getSelectedText()}`}
+          <br />
+          {`Target url: ${this.props.url}`}
+        </PopoverBody>
+      );
+    }
+
+    this.setState({
+      popoverOpen: true,
+      popoverHeader,
+      popoverContent,
+      isLinkSelected: true // check what is it
+    });
   };
 
   onAddLink = e => {
@@ -182,19 +290,23 @@ export default class AddLink extends Component {
   componentDidUpdate(prevProps) {
     const { editorState } = this.props;
 
+    console.log(this.props.url);
+
     if (this.state.popoverOpen && editorState !== prevProps.editorState) {
       this.togglePopover();
     }
   }
 
   render() {
+    console.log("state url udpate");
+    console.log(this.props.url);
     var RemoveButton = this.state.isLinkSelected ? (
       <Badge
         color="danger"
         style={styles.linkBadge}
         onMouseDown={this.removelink}
       >
-        Remove
+        Removee
       </Badge>
     ) : null;
 
@@ -205,7 +317,7 @@ export default class AddLink extends Component {
           color="primary"
           type="button"
           style={styles.linkBadge}
-          onMouseDown={this.onAddLink}
+          onMouseDown={(e) => {this.onLinkButtonPressed(e, this.props.url)}}
         >
           Link
         </Badge>
@@ -214,10 +326,12 @@ export default class AddLink extends Component {
           isOpen={this.state.popoverOpen}
           target="linkBadge"
         >
-          <PopoverHeader>
+          {/* <PopoverHeader>
             {RemoveButton} {this.state.popoverHeader}
           </PopoverHeader>
-          <PopoverBody>{this.state.popoverContent}</PopoverBody>
+          <PopoverBody>{this.state.popoverContent}</PopoverBody> */}
+          {this.state.popoverHeader}
+          {this.state.popoverContent}
         </Popover>
       </div>
     );

@@ -7,10 +7,10 @@ import {
   DELETE_POST_ERROR
 } from "../types";
 
-export const setEditedLanguage = language => ({
-  type: "SET_EDITED_LANGUAGE",
-  language: language
-});
+// export const setEditedLanguage = editedLanguage => ({
+//   type: "SET_EDITED_LANGUAGE",
+//   editedLanguage
+// });
 
 export const createPost = post => {
   /*

@@ -41,7 +41,7 @@ class BlogPostTitle extends Component {
   render() {
     const { author, isEditable, post } = this.props;
 
-    console.log(this.props.post);
+    // console.log(post);
 
     var Editor;
     if (isEditable) {
@@ -51,12 +51,12 @@ class BlogPostTitle extends Component {
           onUpdate={editorState => {
             this.props.onUpdate(editorState, "title");
           }}
-          initState={this.props.post}
+          initState={post}
         />
       );
     } 
     else {
-      Editor = <DisplayableRichText name="title" initState={this.props.post} />;
+      Editor = <DisplayableRichText name="title" initState={post} />;
     }
 
     /* CHANGE DATE SETTING */

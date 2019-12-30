@@ -39,6 +39,7 @@ import {
 import ColorPicker, { colorStyleMap } from "./plugins/ColorPicker";
 import VideoAdd from "./plugins/VideoAdd";
 import AddLink, { createLinkPlugin } from "./plugins/AddLink";
+// import UrlInputField from "../../dashboard/postEditing/components/UrlInputField";
 
 const styles = {
   toolbarContainer: {
@@ -66,17 +67,17 @@ var placeholderText = "Hello, you shouldn't really see that text, hmmm";
 class EditableRichText extends Component {
   constructor(props) {
     super(props);
-    
+
     this._staticToolbarPlugin = createToolbarPlugin();
     this._emojiPlugin = createEmojiPlugin();
     this._focusPlugin = createFocusPlugin();
     this._alignmentPlugin = createAlignmentPlugin();
-    
+
     const videoDecorator = composeDecorators(
       this._alignmentPlugin.decorator,
       this._focusPlugin.decorator
     );
-    
+
     this._videoPlugin = createVideoPlugin({ videoDecorator });
     this.linkplug = createLinkPlugin();
 
@@ -123,22 +124,41 @@ class EditableRichText extends Component {
     e.preventDefault();
   };
 
+  // onUrlChange = e => {
+  //   console.log("url change");
+  //   // this.setState({ url: e.target.value }, () => {console.log(this.state)});
+  // };
+
   componentDidUpdate(prevProps) {
-    const { initState, name, language } = this.props;
+    // console.log("update");
+    // console.log(this.state.editorState.getCurrentContent().getPlainText());
+    const { initState, name, editedlanguage } = this.props;
+    
+    console.log("gonna update");
 
     if (initState && !this.state.loadedData) {
-      var data = requestPostDataByLanguage(initState, language);
+      var data = requestPostDataByLanguage(initState, editedlanguage);
       var editablePost = requestEditablePostContents(data);
+      console.log("update1");
 
       this.setState({
         loadedData: true,
         editorState: editablePost[name]
       });
+
+      return;
     }
 
-    if (initState && language != prevProps.language) {
-      var data = requestPostDataByLanguage(initState, language);
+    if (initState && editedlanguage != prevProps.editedlanguage ) {
+      // if (initState && this.props != prevProps) {
+
+      console.log(initState === prevProps.initState);
+      // console.log(prevProps);
+      // console.log(this.props);
+
+      var data = requestPostDataByLanguage(initState, editedlanguage);
       var editablePost = requestEditablePostContents(data);
+      console.log("update2");
 
       this.setState({
         editorState: editablePost[name]
@@ -184,6 +204,7 @@ class EditableRichText extends Component {
     // const { LinkButton } = this._linkPlugin;
 
     const Toolbrr = this.state.isFocused ? (
+      // const Toolbrr = true ? (
       <Toolbar>
         {externalProps => (
           <div
@@ -212,35 +233,45 @@ class EditableRichText extends Component {
               modifier={this._videoPlugin.addVideo}
             />
             <AddLink
+              {...externalProps}
               editorState={this.state.editorState}
               onChange={this.onChange}
+              url={this.state.url}
             />
             <ColorPicker
               editorState={this.state.editorState}
               onChange={this.onChange}
             />
             <EmojiSelect style={styles.emojiContainer} />
+            {/* <input
+              type="text"
+              name="LastName"
+              value="Mouse"
+              onChange={this.handleLinkUrlChange}
+            /> */}
           </div>
         )}
       </Toolbar>
     ) : null;
 
     return (
-      <div id={`${this.props.name}Editor`} onClick={this.enableFocus}>
-        <div className="editor">
-          <Editor
-            onChange={this.onChange}
-            editorState={this.state.editorState}
-            plugins={this.plugins}
-            customStyleMap={colorStyleMap}
-            // Ummm, what is that for?
-            ref={element => {
-              this.editor = element;
-            }}
-          />
-          <EmojiSuggestions />
-          <AlignmentTool />
-          {/* <InlineToolbar>
+      <div>
+        {/* <UrlInputField url={this.state.url} onUrlChange={this.onUrlChange} /> */}
+        <div id={`${this.props.name}Editor`} onClick={this.enableFocus}>
+          <div className="editor">
+            <Editor
+              onChange={this.onChange}
+              editorState={this.state.editorState}
+              plugins={this.plugins}
+              customStyleMap={colorStyleMap}
+              // Ummm, what is that for?
+              ref={element => {
+                this.editor = element;
+              }}
+            />
+            <EmojiSuggestions />
+            <AlignmentTool />
+            {/* <InlineToolbar>
             {externalProps => (
               <div>
                 <ColorPicker
@@ -251,7 +282,9 @@ class EditableRichText extends Component {
               </div>
             )}
           </InlineToolbar> */}
-          <div style={styles.toolbarContainer}>{Toolbrr}</div>
+            {/* <UrlInputField /> */}
+            <div style={styles.toolbarContainer}>{Toolbrr}</div>
+          </div>
         </div>
       </div>
     );
@@ -259,10 +292,11 @@ class EditableRichText extends Component {
 }
 
 const mapStateToProps = state => {
-  // console.log(state);
+  console.log(state);
 
   return {
-    language: state.post.editedLanguage
+    editedlanguage: state.postEdit.editedLanguage,
+    linkedUrl: state.postEdit.linkedUrl
   };
 };
 

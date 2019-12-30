@@ -13,11 +13,11 @@ const initState = {
   posts: [
     { id: "1", content: "Artice one" },
     { id: "2", content: "Article two" }
-  ],
-  editedLanguage: "pl"
+  ]
 };
 
 const postReducer = (state = initState, action) => {
+
   switch (action.type) {
     case CREATE_POST_SUCCESS:
       return state;
@@ -40,11 +40,13 @@ const postReducer = (state = initState, action) => {
         ...state,
         postError: action.err
       };
-    case SET_EDITED_LANGUAGE:
-      return {
-        ...state,
-        editedLanguage: action.language
-      };
+    // case SET_EDITED_LANGUAGE:
+    //   console.log(state)
+
+    //   return {
+    //     ...state,
+    //     editedLanguage: action.editedLanguage
+    //   };
     default:
       return state;
   }

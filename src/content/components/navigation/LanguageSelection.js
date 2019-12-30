@@ -6,8 +6,8 @@ import { Button } from "reactstrap";
 import { setLanguage } from "./../../../reduxStore/actions/langActions";
 
 class LanguageSelection extends Component {
+  
   onClick = e => {
-    // console.log(e.target.name);
     e.preventDefault();
     this.props.setLanguage(e.target.name);
   };
