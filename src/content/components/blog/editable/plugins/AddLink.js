@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import {
   Badge,
   Popover,
@@ -11,6 +12,9 @@ import {
 } from "reactstrap";
 import { EditorState, RichUtils, SelectionState } from "draft-js";
 import getRangesForDraftEntity from "draft-js/lib/getRangesForDraftEntity";
+import getBlockMapKeys from "draft-js-focus-plugin/lib/utils/getBlockMapKeys";
+
+import { SET_LINKED_URL } from "reduxStore/types";
 
 export const createLinkPlugin = () => {
   return {
@@ -32,51 +36,16 @@ export const plugindecoraator = {
   ]
 };
 
-export default class AddLink extends Component {
+class AddLink extends Component {
   state = {
     popoverOpen: false,
     popoverHeader: "",
     popoverContent: "",
-    isLinkSelected: false,
-    url: "asd"
-  };
-
-  RemoveLinkButton = () => {
-    return (
-      <Badge
-        color="danger"
-        style={styles.linkBadge}
-        onMouseDown={this.removelink}
-      >
-        Remove
-      </Badge>
-    );
+    isLinkSelected: false
   };
 
   handleLinkUrlChange = e => {
-    console.log("hange");
-
     this.setState({ url: e.target.value });
-  };
-
-  test = e => {
-    console.log(e);
-  };
-
-  CreateLinkField = e => {
-    return (
-      <div>
-        {/* <InputGroup>
-        <InputGroupAddon addonType="prepend">
-          <Button>To the Left!</Button>
-        </InputGroupAddon>
-        <Input placeholder="Amount" value={this.state.url} onChange={this.handleLinkUrlChange} onClick={this.test} />
-      </InputGroup> */}
-        {/* <Badge color="primary" style={styles.linkBadge} onMouseDown={this.onAddLink}>
-        Create
-      </Badge> */}
-      </div>
-    );
   };
 
   getSelectedText = () => {
@@ -94,43 +63,58 @@ export default class AddLink extends Component {
     return selectedText;
   };
 
-  onLinkButtonPressed = (e, newUrl) => {
-    console.log(newUrl);
-    // e.preventDefault();
-    const { editorState } = this.props;
+  onLinkButtonPressed = e => {
+    e.preventDefault();
+
+    if (this.state.popoverOpen === true) {
+      this.togglePopover();
+      return;
+    }
+
+    const { editorState, linkedUrl } = this.props;
     const contentState = editorState.getCurrentContent();
-    const selection = editorState.getSelection();
 
     const entityKey = this.getEntityKeyAtSelection();
-    const hasLinkEntityAtSelection = entityKey
+    const hasLinkEntityAtSelection = entityKey // rework into a function lib
       ? contentState.getEntity(entityKey).getType() === "LINK"
       : false;
 
     let popoverHeader, popoverContent;
 
+    var popoverHeaderData = {
+      headerText: "",
+      confirmationButtonText: "",
+      confirmationButtonClickAction: null,
+      confirmationButtonColor: ""
+    };
+
     if (hasLinkEntityAtSelection) {
-      popoverHeader = (
-        <PopoverHeader>
-          {this.RemoveLinkButton} {`Current link at selection:`}
-        </PopoverHeader>
-      );
+
+      popoverHeaderData.headerText = "Link at selection:";
+      popoverHeaderData.confirmationButtonText = "Remove";
+      popoverHeaderData.confirmationButtonClickAction = () => this.removeLink();
+      popoverHeaderData.confirmationButtonColor = "danger";
 
       const linkData = contentState.getEntity(entityKey).getData();
 
       popoverContent = <PopoverBody>{`🌐${linkData.url}`}</PopoverBody>;
     } else {
-      popoverHeader = (
-        <PopoverHeader>{`Create new link at selection:`}</PopoverHeader>
-      );
+
+      popoverHeaderData.headerText = "Create new link at selection:";
+      popoverHeaderData.confirmationButtonText = "Create";
+      popoverHeaderData.confirmationButtonClickAction = () => this.addLink();
+      popoverHeaderData.confirmationButtonColor = "primary";
 
       popoverContent = (
         <PopoverBody>
           {`Selected text: ${this.getSelectedText()}`}
           <br />
-          {`Target url: ${this.props.url}`}
+          {`Target url: ${linkedUrl}`}
         </PopoverBody>
       );
     }
+
+    popoverHeader = <LinkPopoverHeader data={popoverHeaderData}/>;
 
     this.setState({
       popoverOpen: true,
@@ -140,13 +124,10 @@ export default class AddLink extends Component {
     });
   };
 
-  onAddLink = e => {
-    e.preventDefault();
-    const { editorState } = this.props;
+  addLink = () => {
+    const { editorState, linkedUrl } = this.props;
     const contentState = editorState.getCurrentContent();
     const selection = editorState.getSelection();
-
-    console.log(navigator.clipboard);
 
     if (!selection.isCollapsed()) {
       if (this.checkInvalidEntitiesInSelection()) {
@@ -166,26 +147,23 @@ export default class AddLink extends Component {
         );
         this.props.onChange(removedLinkEditorState);
       } else {
-        navigator.clipboard.readText().then(e => {
-          this.setState({ url: e }, () => {
-            const contentStateWithEntity = contentState.createEntity(
-              "LINK",
-              "MUTABLE",
-              { url: this.state.url }
-            );
-            const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
-            const newEditorState = EditorState.set(editorState, {
-              currentContent: contentStateWithEntity
-            });
-            this.props.onChange(
-              RichUtils.toggleLink(
-                newEditorState,
-                newEditorState.getSelection(),
-                entityKey
-              )
-            );
-          });
+        const contentStateWithEntity = contentState.createEntity(
+          "LINK",
+          "MUTABLE",
+          { url: linkedUrl }
+        );
+        const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+        const newEditorState = EditorState.set(editorState, {
+          currentContent: contentStateWithEntity
         });
+        this.props.onChange(
+          RichUtils.toggleLink(
+            newEditorState,
+            newEditorState.getSelection(),
+            entityKey
+          )
+        );
+        this.togglePopover();
       }
     } else {
       const entityKey = this.getEntityKeyAtSelection();
@@ -197,7 +175,7 @@ export default class AddLink extends Component {
         const linkData = contentState.getEntity(entityKey).getData();
         this.setState({
           popoverOpen: true,
-          popoverHeader: "Link at selection:",
+          popoverHeader: "Selected link:",
           popoverContent: `🌐${linkData.url}`,
           isLinkSelected: true
         });
@@ -273,43 +251,34 @@ export default class AddLink extends Component {
     return entitySelection;
   };
 
-  removelink = e => {
-    e.preventDefault();
+  removeLink = () => {
+    // e.preventDefult();
     const { editorState } = this.props;
     let entitySelectionState = this.getEntitySelectionState();
 
     this.props.onChange(
       RichUtils.toggleLink(editorState, entitySelectionState, null)
     );
+
+    this.togglePopover();
   };
 
   togglePopover = () => {
     this.setState({ popoverOpen: !this.state.popoverOpen });
+    // this.setState({ popoverOpen: true });
   };
 
   componentDidUpdate(prevProps) {
     const { editorState } = this.props;
 
-    console.log(this.props.url);
-
-    if (this.state.popoverOpen && editorState !== prevProps.editorState) {
-      this.togglePopover();
-    }
+    // what was that for? hmmm
+    // ah, failed attempt to refresh popover when selection changed
+    // if (this.state.popoverOpen && editorState !== prevProps.editorState) {
+    //   this.togglePopover();
+    // }
   }
 
   render() {
-    console.log("state url udpate");
-    console.log(this.props.url);
-    var RemoveButton = this.state.isLinkSelected ? (
-      <Badge
-        color="danger"
-        style={styles.linkBadge}
-        onMouseDown={this.removelink}
-      >
-        Removee
-      </Badge>
-    ) : null;
-
     return (
       <div style={styles.containerDiv}>
         <Badge
@@ -317,7 +286,7 @@ export default class AddLink extends Component {
           color="primary"
           type="button"
           style={styles.linkBadge}
-          onMouseDown={(e) => {this.onLinkButtonPressed(e, this.props.url)}}
+          onMouseDown={this.onLinkButtonPressed}
         >
           Link
         </Badge>
@@ -326,10 +295,6 @@ export default class AddLink extends Component {
           isOpen={this.state.popoverOpen}
           target="linkBadge"
         >
-          {/* <PopoverHeader>
-            {RemoveButton} {this.state.popoverHeader}
-          </PopoverHeader>
-          <PopoverBody>{this.state.popoverContent}</PopoverBody> */}
           {this.state.popoverHeader}
           {this.state.popoverContent}
         </Popover>
@@ -337,6 +302,46 @@ export default class AddLink extends Component {
     );
   }
 }
+
+function LinkPopoverHeader(data) {
+  var {
+    headerText,
+    confirmationButtonText,
+    confirmationButtonClickAction,
+    confirmationButtonColor
+  } = data.data;
+
+  return (
+    <PopoverHeader>
+      <div style={styles.popoverHeaderConatiner}>
+        <p style={styles.popoverHeaderText}>{headerText}</p>
+        <ConfirmLinkButton
+          text={confirmationButtonText}
+          onClick={confirmationButtonClickAction}
+          color={confirmationButtonColor}
+        />
+      </div>
+    </PopoverHeader>
+  );
+}
+
+function ConfirmLinkButton(data) {
+  var { text, onClick, color } = data;
+
+  return (
+    <Badge color={color} style={styles.linkBadge} onMouseDown={onClick}>
+      {text}
+    </Badge>
+  );
+}
+
+const mapStateToProps = state => {
+  return {
+    linkedUrl: state.postEdit.linkedUrl
+  };
+};
+
+export default connect(mapStateToProps)(AddLink);
 
 export const linkStrategy = (contentBlock, callback, contentState) => {
   contentBlock.findEntityRanges(character => {
@@ -376,16 +381,20 @@ const styles = {
     fontSize: "1rem",
     fontFamily: "Anonymous Pro, monospace"
   },
-  popoverHeader: {
+  popoverHeaderConatiner: {
     display: "flex",
-    alignItems: "center",
+    alignItems: "flex-end",
     justifyContent: "space-between"
+  },
+  popoverHeaderText: {
+    color: "black",
+    paddingLeft: "1em",
+    marginBottom: 0
   },
   popoverButton: {
     margin: "0 0.5em"
   },
   link: {
-    // color: "red",
     textDecoration: "underline"
   }
 };

@@ -124,22 +124,13 @@ class EditableRichText extends Component {
     e.preventDefault();
   };
 
-  // onUrlChange = e => {
-  //   console.log("url change");
-  //   // this.setState({ url: e.target.value }, () => {console.log(this.state)});
-  // };
-
   componentDidUpdate(prevProps) {
-    // console.log("update");
     // console.log(this.state.editorState.getCurrentContent().getPlainText());
     const { initState, name, editedlanguage } = this.props;
     
-    console.log("gonna update");
-
     if (initState && !this.state.loadedData) {
       var data = requestPostDataByLanguage(initState, editedlanguage);
       var editablePost = requestEditablePostContents(data);
-      console.log("update1");
 
       this.setState({
         loadedData: true,
@@ -150,11 +141,6 @@ class EditableRichText extends Component {
     }
 
     if (initState && editedlanguage != prevProps.editedlanguage ) {
-      // if (initState && this.props != prevProps) {
-
-      console.log(initState === prevProps.initState);
-      // console.log(prevProps);
-      // console.log(this.props);
 
       var data = requestPostDataByLanguage(initState, editedlanguage);
       var editablePost = requestEditablePostContents(data);
@@ -201,7 +187,6 @@ class EditableRichText extends Component {
     const { AlignmentTool } = this._alignmentPlugin;
     const { EmojiSelect, EmojiSuggestions } = this._emojiPlugin;
     const { Toolbar } = this._staticToolbarPlugin;
-    // const { LinkButton } = this._linkPlugin;
 
     const Toolbrr = this.state.isFocused ? (
       // const Toolbrr = true ? (
@@ -225,7 +210,6 @@ class EditableRichText extends Component {
             <OrderedListButton {...externalProps} />
             {/* <BlockquoteButton {...externalProps} /> */}
             {/* <CodeBlockButton {...externalProps} /> */}
-            {/* <LinkButton {...externalProps} /> */}
             <VideoAdd
               {...externalProps}
               editorState={this.state.editorState}
@@ -236,19 +220,12 @@ class EditableRichText extends Component {
               {...externalProps}
               editorState={this.state.editorState}
               onChange={this.onChange}
-              url={this.state.url}
             />
             <ColorPicker
               editorState={this.state.editorState}
               onChange={this.onChange}
             />
             <EmojiSelect style={styles.emojiContainer} />
-            {/* <input
-              type="text"
-              name="LastName"
-              value="Mouse"
-              onChange={this.handleLinkUrlChange}
-            /> */}
           </div>
         )}
       </Toolbar>
@@ -256,7 +233,6 @@ class EditableRichText extends Component {
 
     return (
       <div>
-        {/* <UrlInputField url={this.state.url} onUrlChange={this.onUrlChange} /> */}
         <div id={`${this.props.name}Editor`} onClick={this.enableFocus}>
           <div className="editor">
             <Editor
@@ -271,18 +247,6 @@ class EditableRichText extends Component {
             />
             <EmojiSuggestions />
             <AlignmentTool />
-            {/* <InlineToolbar>
-            {externalProps => (
-              <div>
-                <ColorPicker
-                  {...externalProps}
-                  editorState={this.state.editorState}
-                  onChange={this.onChange}
-                />
-              </div>
-            )}
-          </InlineToolbar> */}
-            {/* <UrlInputField /> */}
             <div style={styles.toolbarContainer}>{Toolbrr}</div>
           </div>
         </div>
@@ -292,7 +256,7 @@ class EditableRichText extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
+  // console.log(state);
 
   return {
     editedlanguage: state.postEdit.editedLanguage,

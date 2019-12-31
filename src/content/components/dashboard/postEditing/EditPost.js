@@ -36,7 +36,7 @@ class EditPost extends Component {
     const language = this.state.editingLanguage;
     const moderatorId = this.props.auth.uid;
 
-    console.log(moderatorId);
+    // console.log(moderatorId);
 
     this.props.editPost(postId, stagedPost, language, moderatorId);
 

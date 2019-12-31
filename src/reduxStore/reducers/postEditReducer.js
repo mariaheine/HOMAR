@@ -13,14 +13,12 @@ const postEditReducer = (state = initState, action) => {
         linkedUrl: action.linkedUrl
       };
     }
-    // return Object.assign({}, state, { linkedUrl: action.linkedUrl });
     case SET_EDITED_LANGUAGE:
       return {
         ...state,
         editedLanguage: action.editedLanguage
       };
     default:
-      console.log("default cry");
       return state;
   }
 };
