@@ -1,7 +1,7 @@
 import { SET_LINKED_URL, SET_EDITED_LANGUAGE } from "../types";
 
 const initState = {
-  linkedUrl: "https://www.homar.xyz/luckcharmsouch",
+  linkedUrl: "<<no url, drop one above ^ 🐝 >>",
   editedLanguage: "pl"
 };
 

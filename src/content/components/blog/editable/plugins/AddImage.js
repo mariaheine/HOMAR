@@ -21,7 +21,7 @@ const styles = {
   }
 };
 
-class VideoAdd extends Component {
+class AddImage extends Component {
   state = {
     url: "The youtube video url...",
     open: false,
@@ -44,9 +44,10 @@ class VideoAdd extends Component {
     });
   };
 
-  addVideo = () => {
+  addImage = () => {
     const { editorState, onChange, linkedUrl } = this.props;
-    onChange(this.props.modifier(editorState, { src: linkedUrl }));
+    console.log(linkedUrl);
+    onChange(this.props.modifier(editorState, linkedUrl ));
   };
 
   render() {
@@ -58,28 +59,28 @@ class VideoAdd extends Component {
         <Badge
           style={styles.videoAddBadge}
           color="primary"
-          id="videoAdd"
+          id="imageAdd"
           type="button"
           onClick={this.togglePopover}
         >
-          Video
+          Image
         </Badge>
         <Popover
           placement="bottom"
           isOpen={this.state.popoverOpen}
-          target="videoAdd"
+          target="imageAdd"
         >
           <PopoverHeader style={styles.popoverHeader}>
             <Button
               color="warning"
               style={styles.popoverButton}
-              onClick={this.addVideo}
+              onClick={this.addImage}
             >
-              {`Click to plugin video 📺`}
+              {`Click to add image ⛺️`}
             </Button>
           </PopoverHeader>
           <PopoverBody>
-            {`The link below is the one that will be used to create a video, youtube and vimeo links are both supported.`}
+            {`Make sure the link has .jpg or other file format ending`}
             <br />
             <br />
             {linkedUrl}
@@ -96,4 +97,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(VideoAdd);
+export default connect(mapStateToProps)(AddImage);

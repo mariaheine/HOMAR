@@ -4,13 +4,12 @@ import { connect } from "react-redux";
 import { InputGroup, InputGroupAddon, Button, Input } from "reactstrap";
 import { setLinkedUrl } from "../../../../../reduxStore/actions/postEditActions";
 
-
 const styles = {
   urlInput: {
     position: "fixed",
-    width: "50vw",
-    bottom: "1vh",
-    left: "25%"
+    width: "40vw",
+    top: "1vh",
+    left: "30vw"
   }
 };
 
@@ -19,21 +18,23 @@ class UrlInputField extends Component {
     super(props);
 
     this.state = {
-      url: "asd"
+      url: ""
     };
   }
 
   handleLinkUrlChange = e => {
-    this.setState({ url: e.target.value });
+    this.setState({ url: e.target.value }, () => {
+      this.props.setLinkedUrl(this.state.url);
+    });
   };
 
   onClick = e => {
-    console.log(this.state.url)
+    console.log(this.state.url);
     this.props.setLinkedUrl(this.state.url);
-  }
+  };
 
   render() {
-    var { url, onUrlChange, isEnabled } = this.props;
+    var { isEnabled } = this.props;
 
     // Untill changed in the parent
     isEnabled = true;
@@ -42,31 +43,32 @@ class UrlInputField extends Component {
       <div style={styles.urlInput}>
         <InputGroup>
           <InputGroupAddon addonType="prepend">
-            <Button onClick={this.onClick} >Input link/image/video urls here:</Button>
+            <Button color="warning" onClick={this.onClick}>
+              {`🐝`}
+            </Button>
           </InputGroupAddon>
           <Input
-            placeholder="https://www.youtube.com/watch?v=YjUhBVkJoMk"
+            placeholder="input image/link/video urls here 🌱"
             value={this.state.url}
             onChange={this.handleLinkUrlChange}
-            // onClick={this.focus}
           />
         </InputGroup>
       </div>
     ) : null;
 
-    return <div>{ UrlInput }</div>;
+    return <div>{UrlInput}</div>;
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return {state}
-}
+  return { state };
+};
 
 const mapDispatchToProps = dispatch => {
-    return {
-        setLinkedUrl: linkedUrl => dispatch(setLinkedUrl(linkedUrl))
-    }
-}
+  return {
+    setLinkedUrl: linkedUrl => dispatch(setLinkedUrl(linkedUrl))
+  };
+};
 
 // moze jeszcze wyrzuc componse
 export default connect(mapStateToProps, mapDispatchToProps)(UrlInputField);

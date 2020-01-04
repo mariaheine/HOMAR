@@ -1,0 +1,20 @@
+
+/* draft js */
+
+.DraftEditor-root figure
+{
+    margin: 0;
+}
+
+.DraftEditor-root img {
+    width: 100%;
+    padding: 1.5vh 0;
+}
+
+.DraftEditor-root iframe {
+    display: block;
+    width: 80%;
+    height: 30vh;
+    margin-left:10%;
+    padding: 1.5vh 0;
+}

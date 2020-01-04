@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+
 import Editor, {
   createEditorStateWithText,
   composeDecorators
@@ -9,6 +10,12 @@ import createVideoPlugin from "draft-js-video-plugin";
 import createEmojiPlugin from "draft-js-emoji-plugin";
 import createAlignmentPlugin from "draft-js-alignment-plugin";
 import createFocusPlugin from "draft-js-focus-plugin";
+import createImagePlugin from "draft-js-image-plugin";
+import AddLink, { createLinkPlugin } from "./plugins/AddLink";
+import VideoAdd from "./plugins/VideoAdd";
+import AddImage from "./plugins/AddImage";
+import ColorPicker, { colorStyleMap } from "./plugins/ColorPicker";
+
 import "../styles/draft-toolbar-plugin.css";
 import "../styles/draft-emoji-plugin.css";
 import "draft-js/dist/Draft.css";
@@ -16,9 +23,9 @@ import "../styles/focusedStyles.css";
 import "../styles/toolbarStyles.css";
 import "../styles/buttonStyles.css";
 import "../styles/anchorStyles.css";
+import "../styles/mediaStyles.css";
 import "draft-js-alignment-plugin/lib/plugin.css";
 import "../styles/draft.css";
-
 import {
   ItalicButton,
   BoldButton,
@@ -32,21 +39,18 @@ import {
   BlockquoteButton,
   CodeBlockButton
 } from "draft-js-buttons";
+
 import {
   requestPostDataByLanguage,
   requestEditablePostContents
 } from "../../../../reduxStore/actions/helperActions.js";
-import ColorPicker, { colorStyleMap } from "./plugins/ColorPicker";
-import VideoAdd from "./plugins/VideoAdd";
-import AddLink, { createLinkPlugin } from "./plugins/AddLink";
-// import UrlInputField from "../../dashboard/postEditing/components/UrlInputField";
 
 const styles = {
   toolbarContainer: {
     padding: "1rem",
     position: "fixed",
     width: "30%",
-    top: "0",
+    top: "4vh",
     left: "35%",
     zIndex: "15"
   },
@@ -79,11 +83,13 @@ class EditableRichText extends Component {
     );
 
     this._videoPlugin = createVideoPlugin({ videoDecorator });
+    this._imagePlugin = createImagePlugin();
     this.linkplug = createLinkPlugin();
 
     this.plugins = [
       this._staticToolbarPlugin,
       this._videoPlugin,
+      this._imagePlugin,
       this._emojiPlugin,
       this._focusPlugin,
       this._alignmentPlugin,
@@ -127,7 +133,7 @@ class EditableRichText extends Component {
   componentDidUpdate(prevProps) {
     // console.log(this.state.editorState.getCurrentContent().getPlainText());
     const { initState, name, editedlanguage } = this.props;
-    
+
     if (initState && !this.state.loadedData) {
       var data = requestPostDataByLanguage(initState, editedlanguage);
       var editablePost = requestEditablePostContents(data);
@@ -140,8 +146,7 @@ class EditableRichText extends Component {
       return;
     }
 
-    if (initState && editedlanguage != prevProps.editedlanguage ) {
-
+    if (initState && editedlanguage != prevProps.editedlanguage) {
       var data = requestPostDataByLanguage(initState, editedlanguage);
       var editablePost = requestEditablePostContents(data);
       console.log("update2");
@@ -215,6 +220,12 @@ class EditableRichText extends Component {
               editorState={this.state.editorState}
               onChange={this.onChange}
               modifier={this._videoPlugin.addVideo}
+            />
+            <AddImage
+              {...externalProps}
+              editorState={this.state.editorState}
+              onChange={this.onChange}
+              modifier={this._imagePlugin.addImage}
             />
             <AddLink
               {...externalProps}
