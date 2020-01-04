@@ -1,7 +1,7 @@
 /* draft js */
 
 .editor :global(.public-DraftEditor-content) {
-    min-height: 100px;
-    padding: 10px;
+    min-height: 40px;
+    /* padding: 2.5vh 0.4rem 1.5vh 0.4rem; */
     width: 100%;
 }

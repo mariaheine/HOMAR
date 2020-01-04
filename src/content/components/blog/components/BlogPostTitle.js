@@ -29,7 +29,7 @@ const avatarImage = {
 const innerHeaderContainer = {
   display: "flex",
   flexDirection: "column",
-  margin: "0.5rem 0 0.5rem 0.5rem",
+  padding: "0.5rem 0 0.5rem 1rem",
   width: "100%"
 };
 
@@ -54,8 +54,7 @@ class BlogPostTitle extends Component {
           initState={post}
         />
       );
-    } 
-    else {
+    } else {
       Editor = <DisplayableRichText name="title" initState={post} />;
     }
 
@@ -69,9 +68,13 @@ class BlogPostTitle extends Component {
 
     return (
       <div className="abstractHeader" style={outerHeaderContainer}>
-        <img alt="avateur" style={avatarImage} src={author.avatarURL} />
+        <div>
+          <img alt="avateur" style={avatarImage} src={author.avatarURL} />
+        </div>
         <div className="" style={innerHeaderContainer}>
-          <div id="abstractTitle" className="abstractTitle">{Editor}</div>
+          <div id="abstractTitle" className="abstractTitle">
+            {Editor}
+          </div>
           <span className="abstractDetails">{`${date} by ${author.nick}`}</span>
         </div>
       </div>
@@ -103,7 +106,6 @@ const mapStateToProps = (state, ownProps) => {
 export default compose(
   connect(mapStateToProps),
   firestoreConnect(props => {
-    
     // console.log(props);
     return [{ collection: "users", doc: `${props.post.authorId}` }];
   })

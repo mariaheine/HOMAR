@@ -22,16 +22,16 @@ div.post a {
   text-decoration: none;
 }
 
-div.post h3,
+/* div.post h3,
 h5 {
   font-family: "Ubuntu", sans-serif;
-}
+} */
 
-div.post span {
-  color: white;
+/* div.post span {
+  color: red;
   font-size: 1em;
-  font-family: "Anonymous Pro", monospace;
-}
+  font-family: 'News Cycle', sans-serif;
+} */
 
 /* POST ABSTRACT STYLING */
 
@@ -41,13 +41,19 @@ div.postAbstract {
   padding: 0.5rem;
   margin: 0.5rem;
   width: 95%;
-  max-width: 700px;
+  max-width: 650px;
+  line-height: 1.2;
 }
 
 @media screen and (min-width: 1000px) {
   div.postAbstract {
     margin: 1.5rem;
     min-width: 700px;
+  }
+  
+  div.abstractContent span
+  {
+    line-height: 1.4;
   }
 }
 
@@ -65,33 +71,30 @@ div.abstractHeader {
 
 div.abstractHeader {
   color: ghostwhite;
-  font-family: "Ubuntu", sans-serif;
 }
 
 #abstractTitle span {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
 }
 
 div.abstractHeader .abstractDetails {
   font-family: "Anonymous Pro", monospace;
   font-size: 0.9em;
   font-style: italic;
+  padding-top: 1vh;
 }
 
 /* abstract content */
 
 div.abstractContent {
-  padding: 0.2rem;
-  padding-top: 1.5rem;
-  padding-bottom: 1rem;
+  color: #f1f1f1;
+  text-shadow: #232323 2px 5px 10px;
+  font-size: 1.06em;
+  padding: 2.5vh 0.4rem;
 }
 
 div.abstractContent span {
-  /* color: white; */
-  /* font-family: "Raleway", sans-serif; */
-  /* font-family: "Montserrat", sans-serif; */
-  /* font-family: "Open Sans", sans-serif; */
-  font-family: "Anonymous Pro", monospace;
+  font-family: 'News Cycle', sans-serif;
 }
 
 /* abstract footer */
@@ -106,17 +109,3 @@ div.abstractFooter {
   /* padding: 0.5rem;   */
   align-items: center
 }
-
-/* POST CONTENT STYLING */
-
-/* POST CREATING / EDITING */
-
-/* div.editorField {
-  background: #131313b9;
-  min-height: 200px;
-}
-
-div.editorField.title {
-  min-height: 50px;
-} */
-
