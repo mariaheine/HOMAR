@@ -41,7 +41,7 @@ const ShareButtons = props => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(ownProps.displayPost);
+  // console.log(ownProps.displayPost);
 
   var result = requestDisplayablePostByLanguage(
     ownProps.displayPost,

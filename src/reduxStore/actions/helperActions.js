@@ -67,7 +67,7 @@ export const requestDisplayablePostByLanguage = (post, language) => {
         break;
     }
 
-    console.log(dataSource);
+    // console.log(dataSource);
 
     postTitle = covertDataFromRaw(dataSource.title).EditorData;
     postSummary = covertDataFromRaw(dataSource.summary).EditorData;

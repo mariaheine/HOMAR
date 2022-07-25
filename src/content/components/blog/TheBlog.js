@@ -8,6 +8,8 @@ class TheBlog extends Component {
   render() {
     const { posts } = this.props;
 
+    // console.log(posts);
+
     var listedPosts = posts
       ? posts && posts.map(post => <BlogPostShort post={post} key={post.id} />)
       : null;
@@ -21,18 +23,34 @@ class TheBlog extends Component {
 }
 
 const mapStateToProps = state => {
+
+  // let entries = Object.entries(state.staticDataReducer.blogPosts);
+  // // console.log(entries);
+
+  // let parsedEntries = entries.map(entry => {
+  //   return {
+  //     id: entry[0],
+  //     ...entry[1],
+  //     createdAt:  new Date(entry[1].createdAt._seconds * 1000),
+  //   }
+  // });
+
+  // console.log(parsedEntries);
+
   return {
-    posts: state.firestore.ordered.blogPosts
+    posts: state.staticDataReducer.posts,
+    editedLanguage: state.postEdit.editedLanguage
+    // posts: state.firestore.ordered.blogPosts
   };
 };
 
 export default compose(
-  connect(mapStateToProps),
-  firestoreConnect([
-    {
-      collection: "blogPosts",
-      where: ["isPublished", "==", true],
-      orderBy: ["createdAt", "desc"]
-    }
-  ])
+  connect(mapStateToProps)
+  // firestoreConnect([
+  //   {
+  //     collection: "blogPosts",
+  //     where: ["isPublished", "==", true],
+  //     orderBy: ["createdAt", "desc"]
+  //   }
+  // ])
 )(TheBlog);

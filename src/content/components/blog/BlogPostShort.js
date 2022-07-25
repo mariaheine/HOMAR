@@ -52,7 +52,7 @@ class BlogPostShort extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log(ownProps.post);
+  // console.log(ownProps.post);
   var result = requestDisplayablePostByLanguage(
     ownProps.post,
     state.language.selectedLanguage

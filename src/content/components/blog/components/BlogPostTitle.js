@@ -63,7 +63,7 @@ class BlogPostTitle extends Component {
     // it should be saved only on first post publish
 
     const date = post.createdAt
-      ? moment(this.props.post.createdAt.toDate()).format("MMM Do YY")
+      ? moment(this.props.post.createdAt).format("MMM Do YY")
       : null;
 
     return (

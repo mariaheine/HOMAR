@@ -2,6 +2,7 @@ import authReducer from "./authReducer";
 import postReducer from "./postReducer";
 import langReducer from "./langReducer";
 import postEditReducer from "./postEditReducer";
+import staticDataReducer from "./staticDataReducer";
 
 import { combineReducers } from "redux";
 import { firestoreReducer } from "redux-firestore";
@@ -13,7 +14,8 @@ const rootReducer = combineReducers({
   language: langReducer,
   postEdit: postEditReducer,
   firestore: firestoreReducer,
-  firebase: firebaseReducer
+  firebase: firebaseReducer,
+  staticDataReducer: staticDataReducer
 });
 
 export default rootReducer;
