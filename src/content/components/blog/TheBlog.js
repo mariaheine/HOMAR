@@ -12,7 +12,7 @@ class TheBlog extends Component {
   render() {
     const { posts } = this.props
 
-    console.log(posts);
+    // console.log(posts);
 
     var listedPosts = posts
       ? posts &&
@@ -44,25 +44,11 @@ class TheBlog extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // let entries = Object.entries(state.staticDataReducer.blogPosts);
-  // // console.log(entries);
-
-  // let parsedEntries = entries.map(entry => {
-  //   return {
-  //     id: entry[0],
-  //     ...entry[1],
-  //     createdAt:  new Date(entry[1].createdAt._seconds * 1000),
-  //   }
-  // });
-
-  // console.log(parsedEntries);
-
   return {
     posts: state.staticDataReducer.posts,
     isFirstPage: state.staticDataReducer.isFirstPage,
     isLastPage: state.staticDataReducer.isLastPage,
     editedLanguage: state.postEdit.editedLanguage,
-    // posts: state.firestore.ordered.blogPosts
   }
 };
 
@@ -75,13 +61,4 @@ const mapDispatchToProps = dispatch => {
   }
 };
 
-export default compose(
-  connect(mapStateToProps,mapDispatchToProps),
-  // firestoreConnect([
-  //   {
-  //     collection: "blogPosts",
-  //     where: ["isPublished", "==", true],
-  //     orderBy: ["createdAt", "desc"]
-  //   }
-  // ])
-)(TheBlog)
+export default compose(connect(mapStateToProps,mapDispatchToProps))(TheBlog)

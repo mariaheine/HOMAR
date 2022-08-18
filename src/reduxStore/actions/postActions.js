@@ -7,11 +7,6 @@ import {
   DELETE_POST_ERROR
 } from "../types";
 
-// export const setEditedLanguage = editedLanguage => ({
-//   type: "SET_EDITED_LANGUAGE",
-//   editedLanguage
-// });
-
 export const createPost = post => {
   /*
     thunk.withExtraArgument({...}) at index.js

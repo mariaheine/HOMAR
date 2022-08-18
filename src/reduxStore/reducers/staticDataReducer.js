@@ -3,6 +3,8 @@ import {
     LOAD_PREVIOUS_FIVE_POSTS
 } from "../types";
 
+// TODO make a python script to gather all accessible images that are hidden in this data, start with avatars
+
 const raw = {
     "blogPosts": {
         "21UbhbpoEOGLYYJuDryV": {
@@ -1124,44 +1126,6 @@ const initState = {
     isLastPage: false
 }
 
-console.log(initState);
-
-// TODO WHERE TO CONTINUE?
-// those methods cannot be here,
-// possibly gonna have to move
-
-
-function updateObject(oldObject, newValues) {
-    // Encapsulate the idea of passing a new object as the first parameter
-    // to Object.assign to ensure we correctly copy data instead of mutating
-    return Object.assign({}, oldObject, newValues)
-}
-
-function getNextFivePosts(oldPosts, isLastPage, index) {
-    if (isLastPage) return oldPosts;
-    else {
-        let from = index + 4;
-        let to = index + 8;
-
-        if (to > maxIndex) to = maxIndex;
-
-        return postsDB.slice(from, to);
-    }
-}
-
-function getPreviousFivePosts(oldPosts, isFirstPage, index) {
-    if (isFirstPage) return oldPosts;
-    else {
-        let from = index - 4;
-
-        if (from < 0) from = 0;
-
-        let to = from + 4;
-
-        return postsDB.slice(from, to);
-    }
-}
-
 const staticDataReducer = (state = initState, action) => {
 
     switch (action.type) {
@@ -1207,5 +1171,38 @@ const staticDataReducer = (state = initState, action) => {
             return state;
     }
 };
+
+
+
+function updateObject(oldObject, newValues) {
+    // Encapsulate the idea of passing a new object as the first parameter
+    // to Object.assign to ensure we correctly copy data instead of mutating
+    return Object.assign({}, oldObject, newValues)
+}
+
+function getNextFivePosts(oldPosts, isLastPage, index) {
+    if (isLastPage) return oldPosts;
+    else {
+        let from = index + 4;
+        let to = index + 8;
+
+        if (to > maxIndex) to = maxIndex;
+
+        return postsDB.slice(from, to);
+    }
+}
+
+function getPreviousFivePosts(oldPosts, isFirstPage, index) {
+    if (isFirstPage) return oldPosts;
+    else {
+        let from = index - 4;
+
+        if (from < 0) from = 0;
+
+        let to = from + 4;
+
+        return postsDB.slice(from, to);
+    }
+}
 
 export default staticDataReducer;

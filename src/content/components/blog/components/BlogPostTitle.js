@@ -106,7 +106,7 @@ const mapStateToProps = (state, ownProps) => {
 export default compose(
   connect(mapStateToProps),
   firestoreConnect(props => {
-    // console.log(props);
+    console.log(props);
     return [{ collection: "users", doc: `${props.post.authorId}` }];
   })
 )(BlogPostTitle);
