@@ -1,5 +1,4 @@
 import {
-    LOAD_FIRST_FIVE_POSTS,
     LOAD_NEXT_FIVE_POSTS,
     LOAD_PREVIOUS_FIVE_POSTS
 } from "../types";
@@ -1102,7 +1101,7 @@ const raw = {
 const postEntries = Object.entries(raw.blogPosts);
 // console.log(postRawData);
 
-const posts = postEntries.map(entry => {
+const postsDB = postEntries.map(entry => {
     return {
         id: entry[0],
         ...entry[1],
@@ -1110,21 +1109,85 @@ const posts = postEntries.map(entry => {
     }
 });
 
-posts.sort((a, b) => b.createdAt - a.createdAt);
+postsDB.sort((a, b) => b.createdAt - a.createdAt);
 
+let i = 0;
+const maxIndex = postsDB.length - 1;
+const firstFivePosts = postsDB.slice(0,4);
+let posts = firstFivePosts;
 
 // console.log(posts);
 const initState = {
-    posts
+    posts,
+    index: 0,
+    isFirstPage: true,
+    isLastPage: false
 }
 
 console.log(initState);
 
+// TODO WHERE TO CONTINUE?
+// those methods cannot be here,
+// possibly gonna have to move
+
 const staticDataReducer = (state = initState, action) => {
 
     switch (action.type) {
-        case LOAD_FIRST_FIVE_POSTS:
-            return state;
+        case LOAD_NEXT_FIVE_POSTS:
+            return {
+                ...state,
+                posts: (function() {
+
+                    console.log("next5")
+
+                    
+                    if (state.isLastPage) return state.posts;
+                    else
+                    {
+                        let from = state.index + 4;
+                        let to = state.index + 8;
+
+                        if (to > maxIndex) to = maxIndex;
+                        
+                        return postsDB.slice(from, to);
+                    }
+                })(),
+                index: () => state.index + 4,
+                isFirstPage: false,
+                isLastPage: () => state.index + 8 > maxIndex
+            }
+            case LOAD_PREVIOUS_FIVE_POSTS:
+            return {
+                ...state,
+                posts: () => {
+
+                    console.log("oprev5")
+                    
+                    if (state.isFirstPage) return state.posts;
+                    else
+                    {
+                        let from = state.index - 4;
+
+                        if (from < 0) from = 0;
+
+                        let to = from + 4;
+
+                        return postsDB.slice(from, to);
+                    }
+                },
+                index: () => {
+                    if (state.index - 4 < 0)
+                    {
+                        return 0;
+                    }
+                    else
+                    {
+                        return state.index - 4;
+                    }
+                },
+                isFirstPage: () => state.index - 4 <= 0, 
+                isLastPage: false // hehe idc
+            }
         default:
             return state;
     }
