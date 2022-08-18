@@ -1113,7 +1113,7 @@ postsDB.sort((a, b) => b.createdAt - a.createdAt);
 
 let i = 0;
 const maxIndex = postsDB.length - 1;
-const firstFivePosts = postsDB.slice(0,4);
+const firstFivePosts = postsDB.slice(0, 4);
 let posts = firstFivePosts;
 
 // console.log(posts);
@@ -1130,64 +1130,79 @@ console.log(initState);
 // those methods cannot be here,
 // possibly gonna have to move
 
+
+function updateObject(oldObject, newValues) {
+    // Encapsulate the idea of passing a new object as the first parameter
+    // to Object.assign to ensure we correctly copy data instead of mutating
+    return Object.assign({}, oldObject, newValues)
+}
+
+function getNextFivePosts(oldPosts, isLastPage, index) {
+    if (isLastPage) return oldPosts;
+    else {
+        let from = index + 4;
+        let to = index + 8;
+
+        if (to > maxIndex) to = maxIndex;
+
+        return postsDB.slice(from, to);
+    }
+}
+
+function getPreviousFivePosts(oldPosts, isFirstPage, index) {
+    if (isFirstPage) return oldPosts;
+    else {
+        let from = index - 4;
+
+        if (from < 0) from = 0;
+
+        let to = from + 4;
+
+        return postsDB.slice(from, to);
+    }
+}
+
 const staticDataReducer = (state = initState, action) => {
 
     switch (action.type) {
-        case LOAD_NEXT_FIVE_POSTS:
-            return {
-                ...state,
-                posts: (function() {
+        case LOAD_NEXT_FIVE_POSTS: {
 
-                    console.log("next5")
+            const newPosts = getNextFivePosts(
+                state.posts, state.isLastPage, state.index);
 
-                    
-                    if (state.isLastPage) return state.posts;
-                    else
-                    {
-                        let from = state.index + 4;
-                        let to = state.index + 8;
+            const newIndex = state.index + 4;
+            const newIsFirstPage = false;
+            const newIsLastPage = state.index + 8 > maxIndex;
 
-                        if (to > maxIndex) to = maxIndex;
-                        
-                        return postsDB.slice(from, to);
-                    }
-                })(),
-                index: () => state.index + 4,
-                isFirstPage: false,
-                isLastPage: () => state.index + 8 > maxIndex
+            return updateObject(state, {
+                posts: newPosts,
+                index: newIndex,
+                isFirstPage: newIsFirstPage,
+                isLastPage: newIsLastPage
+            });
+        }
+        case LOAD_PREVIOUS_FIVE_POSTS: {
+
+            const newPosts = getPreviousFivePosts(
+                state.posts, state.isFirstPage, state.index);
+
+            let newIndex;
+            if (state.index - 4 < 0) {
+                newIndex = 0;
+            } else {
+                newIndex = state.index - 4;
             }
-            case LOAD_PREVIOUS_FIVE_POSTS:
-            return {
-                ...state,
-                posts: () => {
 
-                    console.log("oprev5")
-                    
-                    if (state.isFirstPage) return state.posts;
-                    else
-                    {
-                        let from = state.index - 4;
+            const newIsFirstPage = state.index - 4 <= 0;
+            const newIsLastPage = false;
 
-                        if (from < 0) from = 0;
-
-                        let to = from + 4;
-
-                        return postsDB.slice(from, to);
-                    }
-                },
-                index: () => {
-                    if (state.index - 4 < 0)
-                    {
-                        return 0;
-                    }
-                    else
-                    {
-                        return state.index - 4;
-                    }
-                },
-                isFirstPage: () => state.index - 4 <= 0, 
-                isLastPage: false // hehe idc
-            }
+            return updateObject(state, {
+                posts: newPosts,
+                index: newIndex,
+                isFirstPage: newIsFirstPage,
+                isLastPage: newIsLastPage
+            });
+        }
         default:
             return state;
     }
