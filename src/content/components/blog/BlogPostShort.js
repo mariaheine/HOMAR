@@ -24,7 +24,7 @@ class BlogPostShort extends Component {
       ReadMore = (
         <div>
           <Link to={`/blog/${post.id}`}>
-            <Button color="danger">Read more</Button>
+            <Button outline={true} color="warning">Read more</Button>
           </Link>
         </div>
       );

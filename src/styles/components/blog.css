@@ -77,20 +77,28 @@ div.abstractHeader {
   font-size: 1.3rem;
 }
 
-div.abstractHeader .abstractDetails {
-  font-family: "Anonymous Pro", monospace;
+span.abstractDetails {
+  font-family: initial;
   font-size: 0.9em;
-  font-style: italic;
-  padding-top: 1vh;
+  /* font-style: italic; */
+  /* padding-top: 1vh; */
 }
+
+span.abstractDetails.author {
+  color: #5ef083;
+}
+
+span.abstractDetails.date {
+  color: inherit;
+}
+
 
 /* abstract content */
 
 div.abstractContent {
   color: #f1f1f1;
   text-shadow: #232323 2px 5px 10px;
-  font-size: 1.06em;
-  padding: 2.5vh 0.4rem;
+  padding: 1rem 2rem;
 }
 
 div.abstractContent span {
@@ -105,7 +113,7 @@ div.abstractFooter {
   display: flex;    
   flex-direction: row;
   justify-content: flex-start;
-  padding: 0.2rem;
+  padding: 0.2rem 2rem;
   /* padding: 0.5rem;   */
   align-items: center
 }

@@ -26,7 +26,6 @@ var navHashtags = Array(
   "TERMINATE",
   "ACCELERATE",
   "ANTICIPATE",
-  "INFATUATE",
   "INTOXICATE",
   "TESSELATE"
 );
@@ -83,7 +82,7 @@ export default class Menu extends Component {
             </NavLink>
             <Link to="/entity/" onClick={this.toggleNavbar}>
               <DropdownItem>
-                <h1 className="menuButton">🔮 die Entität</h1>
+                <h1 className="menuButton">🌋 die Entität</h1>
               </DropdownItem>
             </Link>
             <Link to="/manifesto/" onClick={this.toggleNavbar}>
@@ -93,12 +92,12 @@ export default class Menu extends Component {
             </Link>
             <Link to="/outrocuteness" onClick={this.toggleNavbar}>
               <DropdownItem>
-                <h1 className="menuButton">🏧 outro cuteness</h1>
+                <h1 className="menuButton">👽 outro cuteness</h1>
               </DropdownItem>
             </Link>
             <Link to="/homaremenon" onClick={this.toggleNavbar}>
               <DropdownItem>
-                <h1 className="menuButton">🏩 homaremenon</h1>
+                <h1 className="menuButton">🦞 homaremenon</h1>
               </DropdownItem>
             </Link>
           </DropdownMenu>

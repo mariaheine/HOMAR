@@ -21,9 +21,9 @@ const outerHeaderContainer = {
 const avatarImage = {
   width: "64px",
   height: "64px",
-  border: "2px solid black",
   borderRadius: "2px",
-  margin: "0.5rem 0 0.5rem 0.5rem"
+  margin: "0.5rem 0 0.5rem 0.5rem",
+  backgroundSize: "contain"
 };
 
 const innerHeaderContainer = {
@@ -41,7 +41,7 @@ class BlogPostTitle extends Component {
   render() {
     const { author, isEditable, post } = this.props;
 
-    // console.log(post);
+    console.log(author);
 
     var Editor;
     if (isEditable) {
@@ -69,13 +69,16 @@ class BlogPostTitle extends Component {
     return (
       <div className="abstractHeader" style={outerHeaderContainer}>
         <div>
-          <img alt="avateur" style={avatarImage} src={author.avatarURL} />
+          <div className={author.avatarCSSName} style={avatarImage}></div>
         </div>
         <div className="" style={innerHeaderContainer}>
           <div id="abstractTitle" className="abstractTitle">
             {Editor}
           </div>
-          <span className="abstractDetails">{`${date} by ${author.nick}`}</span>
+          <span>
+            <span className="abstractDetails author">{`${author.nick}`}</span>
+            <span className="abstractDetails date">{` at ${date}`}</span>
+          </span>
         </div>
       </div>
     );
@@ -83,30 +86,11 @@ class BlogPostTitle extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  var authorId = ownProps.post.authorId;
-
-  var author = getVal(state.firestore.data, `users/${authorId}`);
-
-  var nick = author ? author.nick : "null";
-
-  var avatarURL = author ? author.avatarURL : null;
-
-  // Check it!
-  // It seems I get access to blogPosts thanks to the parent of this component
-  // console.log(state.firestore.data);
-
-  return {
-    author: {
-      nick: nick,
-      avatarURL: avatarURL
-    }
-  };
+  let authorId = ownProps.post.authorId;
+  let author = state.staticDataReducer.users.find(user => user.id == authorId);
+  return {author};
 };
 
 export default compose(
-  connect(mapStateToProps),
-  firestoreConnect(props => {
-    console.log(props);
-    return [{ collection: "users", doc: `${props.post.authorId}` }];
-  })
+  connect(mapStateToProps)
 )(BlogPostTitle);

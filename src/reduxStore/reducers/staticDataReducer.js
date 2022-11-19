@@ -993,14 +993,6 @@ const raw = {
                 "_nanoseconds": 180000000
             }
         },
-        "Ed46vQktgedJmGwt8T4wdzYsla42": {
-            "nick": "test",
-            "registeredAt": {
-                "_seconds": 1576529130,
-                "_nanoseconds": 476000000
-            },
-            "avatarURL": ""
-        },
         "HK9zRecxqobUgIu3qv1I1FSBU5G2": {
             "nick": "aa",
             "avatarURL": "https://images.gr-assets.com/authors/1455294131p4/1938.jpg",
@@ -1017,14 +1009,6 @@ const raw = {
             "avatarURL": "",
             "nick": "eva01"
         },
-        "UZP5oeaBBkTmqhmyAABsyFZhvmj2": {
-            "registeredAt": {
-                "_seconds": 1554212145,
-                "_nanoseconds": 198000000
-            },
-            "avatarURL": "",
-            "nick": "blabla"
-        },
         "VGxw6qCUlMZAAbd4VvlIag4FCD73": {
             "registeredAt": {
                 "_seconds": 1606308417,
@@ -1032,14 +1016,6 @@ const raw = {
             },
             "nick": "xmxo",
             "avatarURL": ""
-        },
-        "VzJ1pAbJUHfnZwhn3wpblaaTz1s1": {
-            "avatarURL": "",
-            "nick": "lol",
-            "registeredAt": {
-                "_seconds": 1554140259,
-                "_nanoseconds": 695000000
-            }
         },
         "XNmhs6v2PgRleWVhwGCozWi20Df2": {
             "registeredAt": {
@@ -1050,8 +1026,9 @@ const raw = {
             "nick": "zajasex"
         },
         "YVh72W6M1KXzEx7RjPXyPSLXnMA3": {
-            "avatarURL": "https://i.imgur.com/0tEF6Rw.png",
+            "avatarURL": "public/avatars/0tEF6Rw.png",
             "nick": "HOMAR",
+            "avatarCSSName": "avatarHomar",
             "registeredAt": {
                 "_seconds": 1576526170,
                 "_nanoseconds": 475000000
@@ -1100,28 +1077,55 @@ const raw = {
     }
 };
 
-const postEntries = Object.entries(raw.blogPosts);
-// console.log(postRawData);
+/* P0STS */
 
-const postsDB = postEntries.map(entry => {
-    return {
-        id: entry[0],
-        ...entry[1],
-        createdAt: new Date(entry[1].createdAt._seconds * 1000),
-    }
+const postsDB = Object
+    .entries(raw.blogPosts)
+    .map(entry => {
+        return {
+            id: entry[0],
+            ...entry[1],
+            createdAt: new Date(entry[1].createdAt._seconds * 1000),
+        }
 });
 
 postsDB.sort((a, b) => b.createdAt - a.createdAt);
 
-let i = 0;
+const POSTS_PER_PAGE = 5;
 const maxIndex = postsDB.length - 1;
-const firstFivePosts = postsDB.slice(0, 4);
-let posts = firstFivePosts;
+const firstFivePosts = postsDB.slice(0, POSTS_PER_PAGE - 1);
+const totalPageCount = postsDB.length / POSTS_PER_PAGE;
 
-// console.log(posts);
+/* USERS */
+
+const usersDB = Object
+    .entries(raw.users)
+    .map(user => {
+        let userData = user[1];
+
+        console.log(userData.avatarCSSName)
+
+        let nick = userData.nick
+            ? userData.nick
+            : user[0].toString();
+
+        let avatarCSSName = userData.avatarCSSName 
+            ? userData.avatarCSSName 
+            : "avatarMissing";
+        
+        return {
+            id: user[0],
+            nick,
+            avatarURL: userData.avatarURL,
+            avatarCSSName
+        }
+});
+
 const initState = {
-    posts,
-    index: 0,
+    users: usersDB,
+    posts: firstFivePosts,
+    totalPageCount,
+    blogPageIndex: 0, // * blog page index, this isn't clear enough
     isFirstPage: true,
     isLastPage: false
 }
@@ -1132,11 +1136,11 @@ const staticDataReducer = (state = initState, action) => {
         case LOAD_NEXT_FIVE_POSTS: {
 
             const newPosts = getNextFivePosts(
-                state.posts, state.isLastPage, state.index);
+                state.posts, state.isLastPage, state.blogPageIndex);
 
-            const newIndex = state.index + 4;
+            const newIndex = state.blogPageIndex + 4;
             const newIsFirstPage = false;
-            const newIsLastPage = state.index + 8 > maxIndex;
+            const newIsLastPage = state.blogPageIndex + 8 > maxIndex;
 
             return updateObject(state, {
                 posts: newPosts,
@@ -1148,16 +1152,16 @@ const staticDataReducer = (state = initState, action) => {
         case LOAD_PREVIOUS_FIVE_POSTS: {
 
             const newPosts = getPreviousFivePosts(
-                state.posts, state.isFirstPage, state.index);
+                state.posts, state.isFirstPage, state.blogPageIndex);
 
             let newIndex;
-            if (state.index - 4 < 0) {
+            if (state.blogPageIndex - 4 < 0) {
                 newIndex = 0;
             } else {
-                newIndex = state.index - 4;
+                newIndex = state.blogPageIndex - 4;
             }
 
-            const newIsFirstPage = state.index - 4 <= 0;
+            const newIsFirstPage = state.blogPageIndex - 4 <= 0;
             const newIsLastPage = false;
 
             return updateObject(state, {

@@ -55,10 +55,7 @@ class DisplayableRichText extends Component {
     });
   };
 
-  // focus = () => {
-  //   this.editor.focus();
-  // };
-
+  // * This is no longer used here since firebase is switched out
   componentDidUpdate(prevProps) {
     const { displayedContent } = this.props;
 
@@ -81,7 +78,7 @@ class DisplayableRichText extends Component {
           <Editor
             readOnly="true"
             onChange={this.onChange}
-            editorState={this.state.editorState}
+            editorState={this.props.displayedContent} // * simply getting post from props now
             plugins={this.plugins}
             customStyleMap={colorStyleMap}
             ref={element => {

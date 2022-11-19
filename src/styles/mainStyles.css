@@ -35,6 +35,16 @@ div.container {
   color: ghostwhite;
 }
 
+/* AVATARS */
+
+div.avatarHomar { 
+  background: url(./../media/avatars/homar.png) center no-repeat;
+}
+
+div.avatarMissing { 
+  background: url(./../media/avatars/missing.jpg) center no-repeat;
+}
+
 /* SHADOWS */
 
 @keyframes shadow {
