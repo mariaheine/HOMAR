@@ -10,7 +10,7 @@ import {
 
 class TheBlog extends Component {
   render() {
-    const { posts, currentPageIndex, lastPageIndex } = this.props
+    const { posts, currentPageIndex, totalPageCount } = this.props
 
     // console.log(posts);
 
@@ -31,9 +31,6 @@ class TheBlog extends Component {
           >
             PREVIOUS
           </Button>
-          <h5 style={{padding: 0, margin: '0 1rem', fontFamily: 'times'}}>
-            📜 {currentPageIndex + 1} of {lastPageIndex + 1}
-          </h5>
           <Button
             color="primary"
             outline={true}
@@ -42,6 +39,9 @@ class TheBlog extends Component {
           >
             NEXT
           </Button>
+          <h5 style={{padding: 0, margin: '0 1rem', fontFamily: 'times'}}>
+            📜 {currentPageIndex + 1} of {totalPageCount}
+          </h5>
         </div>
       </div>
     )
@@ -52,7 +52,7 @@ const mapStateToProps = (state) => {
   return {
     posts: state.staticDataReducer.posts,
     currentPageIndex: state.staticDataReducer.currentPage,
-    lastPageIndex: state.staticDataReducer.totalPageCount,
+    totalPageCount: state.staticDataReducer.totalPageCount,
     isFirstPage: state.staticDataReducer.isFirstPage,
     isLastPage: state.staticDataReducer.isLastPage,
     editedLanguage: state.postEdit.editedLanguage,

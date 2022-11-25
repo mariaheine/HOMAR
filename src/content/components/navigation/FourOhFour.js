@@ -8,8 +8,7 @@ import {
   CardText
 } from "reactstrap";
 
-const imgURL =
-  "https://firebasestorage.googleapis.com/v0/b/homar-webapp.appspot.com/o/media%2Fimages%2F404.jpg?alt=media&token=4c06156c-022d-4519-923a-32df428bb355";
+const img404 = require('../../../media/404.jpg');
 
 const card = {
   animation: "infinite",
@@ -62,7 +61,7 @@ const FourOhFour = props => {
             <span style={headerLeft}>2🐟1🍄</span>
           </CardTitle>
         </CardBody>
-        <CardImg style={image404} width="30%" src={imgURL} />
+        <CardImg style={image404} width="30%" src={img404} />
         <CardBody style={body}>
           <CardText />
           <CardText style={quoteText}>

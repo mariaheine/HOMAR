@@ -42,8 +42,20 @@ div.avatarHomar {
   background: url(./../media/avatars/homar.png) center no-repeat;
 }
 
+div.avatarDuszek { 
+  background: url(./../media/avatars/duszek.jpg) center no-repeat;
+}
+
 div.avatarMissing { 
   background: url(./../media/avatars/missing.jpg) center no-repeat;
+}
+
+div.avatarMaria { 
+  background: url(./../media/avatars/niceisntit.jpg) center no-repeat;
+}
+
+div.avatarSingomega { 
+  background: url(./../media/avatars/xechidna.jpg) center no-repeat;
 }
 
 /* SHADOWS */

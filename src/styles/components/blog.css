@@ -43,6 +43,7 @@ div.postAbstract {
   width: 95%;
   max-width: 650px;
   line-height: 1.2;
+  padding-bottom: 1rem;
 }
 
 @media screen and (min-width: 1000px) {

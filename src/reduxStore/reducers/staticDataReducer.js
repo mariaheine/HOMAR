@@ -975,7 +975,8 @@ const raw = {
                 "_seconds": 1577348461,
                 "_nanoseconds": 558000000
             },
-            "avatarURL": "https://i.pinimg.com/736x/81/d7/30/81d73085cfb371fd0024b67e2a3d56bc.jpg"
+            "avatarURL": "https://i.pinimg.com/736x/81/d7/30/81d73085cfb371fd0024b67e2a3d56bc.jpg",
+            "avatarCSSName": "avatarDuszek",
         },
         "7qXNQ29EAVbNqKKhWofzSXPUTyx2": {
             "nick": "mariee",
@@ -983,7 +984,8 @@ const raw = {
                 "_seconds": 1548886772,
                 "_nanoseconds": 518000000
             },
-            "avatarURL": "https://s3.r29static.com//bin/entry/214/410x492,80/1621855/image.jpg"
+            "avatarURL": "https://s3.r29static.com//bin/entry/214/410x492,80/1621855/image.jpg",
+            "avatarCSSName": "avatarMaria",
         },
         "8w0RGn1trrUMur3W6SxLw8Rw3iw2": {
             "nick": "Nick Cave",
@@ -1026,7 +1028,7 @@ const raw = {
             "nick": "zajasex"
         },
         "YVh72W6M1KXzEx7RjPXyPSLXnMA3": {
-            "avatarURL": "public/avatars/0tEF6Rw.png",
+            "avatarURL": "",
             "nick": "HOMAR",
             "avatarCSSName": "avatarHomar",
             "registeredAt": {
@@ -1072,7 +1074,8 @@ const raw = {
                 "_nanoseconds": 435000000
             },
             "avatarURL": "http://www.gods-and-monsters.com/images/xechidna-mythology.jpg.pagespeed.ic.8r_RwSNFbd.jpg",
-            "nick": "singomega"
+            "nick": "singomega",
+            "avatarCSSName": "avatarSingomega",
         }
     }
 };
@@ -1081,6 +1084,7 @@ const raw = {
 
 const postsDB = Object
     .entries(raw.blogPosts)
+    .filter(entry => entry[1].isPublished)
     .map(entry => {
         return {
             id: entry[0],
@@ -1090,6 +1094,8 @@ const postsDB = Object
 });
 
 postsDB.sort((a, b) => b.createdAt - a.createdAt);
+
+console.log(postsDB.length)
 
 const POSTS_PER_PAGE = 5;
 const MAX_POST_INDEX = postsDB.length - 1;
@@ -1102,8 +1108,6 @@ const usersDB = Object
     .entries(raw.users)
     .map(user => {
         let userData = user[1];
-
-        console.log(userData.avatarCSSName)
 
         let nick = userData.nick
             ? userData.nick
@@ -1146,7 +1150,6 @@ const staticDataReducer = (state = initState, action) => {
             const to = newIsLastPage ? MAX_POST_INDEX : from + POSTS_PER_PAGE;
             const newPosts = postsDB.slice(from, to);
 
-            
             return updateObject(state, {
                 posts: newPosts,
                 postIndex: newIndex,

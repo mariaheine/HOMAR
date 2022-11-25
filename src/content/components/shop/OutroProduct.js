@@ -4,6 +4,8 @@ import { Button } from "reactstrap";
 
 import outroproducts from "./products/outrocuteness.json";
 
+import { outroMemeArray } from "./OutroCutenessImages";
+
 export default class OutroProduct extends Component {
   render() {
     var id = this.props.match.params.productId;
@@ -28,13 +30,12 @@ export default class OutroProduct extends Component {
     );
 
     let memeId = product.memId;
-    var imageSrc = `https://s3.eu-central-1.amazonaws.com/homar/outrocuteness/meme${memeId}.jpg`;
 
     return (
       <div className="flex-container outro">
         <div className="flex-item outro">
           {header}
-          <img alt="outro product" className="flex-item outro" src={imageSrc} />
+          <img alt="outro product" className="flex-item outro" src={outroMemeArray[id]} />
         </div>
         <div id="outroDescription" className="flex-item outro">
           {paragraphs}

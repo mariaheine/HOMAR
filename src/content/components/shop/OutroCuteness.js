@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import outroproducts from "./products/outrocuteness.json";
 import "./../../../styles/components/shopStyles.css";
 
+import { outroMemeArray } from "./OutroCutenessImages";
+
 export default class OutroCuteness extends Component {
   render() {
 
@@ -28,12 +30,10 @@ export default class OutroCuteness extends Component {
 
 const CuteProduct = props => {
 
-  let imgSrc = `https://s3.eu-central-1.amazonaws.com/homar/outrocuteness/meme${props.imgSrc}.jpg`;
-  
   return (
     <Link to={`/outrocuteness/${props.id}`}>
       <div className="listedOutro">
-        <img className="listedOutro" alt="" src={imgSrc} />
+        <img className="listedOutro" alt="" src={outroMemeArray[props.id]} />
       </div>
     </Link>
   );
