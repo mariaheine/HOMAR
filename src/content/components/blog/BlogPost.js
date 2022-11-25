@@ -60,7 +60,7 @@ class BlogPost extends Component {
 const mapStateToProps = (state, ownProps) => {
 
   const postId = ownProps.match.params.postId;
-  var post = getVal(state.firestore.data, `blogPosts/${postId}`);
+  const post = state.staticDataReducer.posts.find(post => post.id == postId);
 
   return {
     post
@@ -69,13 +69,4 @@ const mapStateToProps = (state, ownProps) => {
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect(props => {
-    
-    // console.log(props)
-    var postId = props.match.params.postId;
-
-    return [
-      { collection: "blogPosts", doc: `${postId}` },
-    ];
-  })
 )(BlogPost);

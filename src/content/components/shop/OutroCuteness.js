@@ -29,7 +29,7 @@ export default class OutroCuteness extends Component {
 const CuteProduct = props => {
 
   let imgSrc = `https://s3.eu-central-1.amazonaws.com/homar/outrocuteness/meme${props.imgSrc}.jpg`;
-
+  
   return (
     <Link to={`/outrocuteness/${props.id}`}>
       <div className="listedOutro">

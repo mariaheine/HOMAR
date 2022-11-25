@@ -1092,9 +1092,9 @@ const postsDB = Object
 postsDB.sort((a, b) => b.createdAt - a.createdAt);
 
 const POSTS_PER_PAGE = 5;
-const maxIndex = postsDB.length - 1;
-const firstFivePosts = postsDB.slice(0, POSTS_PER_PAGE - 1);
-const totalPageCount = postsDB.length / POSTS_PER_PAGE;
+const MAX_POST_INDEX = postsDB.length - 1;
+const firstFivePosts = postsDB.slice(0, POSTS_PER_PAGE);
+const TOTAL_PAGE_COUNT = postsDB.length / POSTS_PER_PAGE;
 
 /* USERS */
 
@@ -1124,8 +1124,9 @@ const usersDB = Object
 const initState = {
     users: usersDB,
     posts: firstFivePosts,
-    totalPageCount,
-    blogPageIndex: 0, // * blog page index, this isn't clear enough
+    currentPage: 0,
+    totalPageCount: TOTAL_PAGE_COUNT,
+    postIndex: 0, // * blog page index, this isn't clear enough
     isFirstPage: true,
     isLastPage: false
 }
@@ -1134,39 +1135,43 @@ const staticDataReducer = (state = initState, action) => {
 
     switch (action.type) {
         case LOAD_NEXT_FIVE_POSTS: {
-
-            const newPosts = getNextFivePosts(
-                state.posts, state.isLastPage, state.blogPageIndex);
-
-            const newIndex = state.blogPageIndex + 4;
+            
+            if(state.isLastPage == true) return state;
+            
+            const newIndex = state.postIndex + POSTS_PER_PAGE;
+            const newIsLastPage = newIndex + POSTS_PER_PAGE > MAX_POST_INDEX;
             const newIsFirstPage = false;
-            const newIsLastPage = state.blogPageIndex + 8 > maxIndex;
 
+            const from = newIndex;
+            const to = newIsLastPage ? MAX_POST_INDEX : from + POSTS_PER_PAGE;
+            const newPosts = postsDB.slice(from, to);
+
+            
             return updateObject(state, {
                 posts: newPosts,
-                index: newIndex,
+                postIndex: newIndex,
+                currentPage: state.currentPage + 1,
                 isFirstPage: newIsFirstPage,
                 isLastPage: newIsLastPage
             });
         }
         case LOAD_PREVIOUS_FIVE_POSTS: {
-
-            const newPosts = getPreviousFivePosts(
-                state.posts, state.isFirstPage, state.blogPageIndex);
-
-            let newIndex;
-            if (state.blogPageIndex - 4 < 0) {
-                newIndex = 0;
-            } else {
-                newIndex = state.blogPageIndex - 4;
-            }
-
-            const newIsFirstPage = state.blogPageIndex - 4 <= 0;
+            
+            if(state.isFirstPage == true) return state;
+            
             const newIsLastPage = false;
+
+            let newIsFirstPage = state.postIndex - POSTS_PER_PAGE < 0;
+            let newIndex = newIsFirstPage ? 0 : state.postIndex - POSTS_PER_PAGE;
+
+            const from = newIndex;
+            const to = newIndex + POSTS_PER_PAGE;
+            const newPosts = postsDB.slice(from, to);
 
             return updateObject(state, {
                 posts: newPosts,
-                index: newIndex,
+                currentPage: state.currentPage - 1,
+                postIndex: newIndex,
                 isFirstPage: newIsFirstPage,
                 isLastPage: newIsLastPage
             });
@@ -1176,37 +1181,10 @@ const staticDataReducer = (state = initState, action) => {
     }
 };
 
-
-
 function updateObject(oldObject, newValues) {
     // Encapsulate the idea of passing a new object as the first parameter
     // to Object.assign to ensure we correctly copy data instead of mutating
     return Object.assign({}, oldObject, newValues)
-}
-
-function getNextFivePosts(oldPosts, isLastPage, index) {
-    if (isLastPage) return oldPosts;
-    else {
-        let from = index + 4;
-        let to = index + 8;
-
-        if (to > maxIndex) to = maxIndex;
-
-        return postsDB.slice(from, to);
-    }
-}
-
-function getPreviousFivePosts(oldPosts, isFirstPage, index) {
-    if (isFirstPage) return oldPosts;
-    else {
-        let from = index - 4;
-
-        if (from < 0) from = 0;
-
-        let to = from + 4;
-
-        return postsDB.slice(from, to);
-    }
 }
 
 export default staticDataReducer;

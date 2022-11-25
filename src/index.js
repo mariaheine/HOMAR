@@ -22,25 +22,35 @@ import firebaseConfig from "./config/firebaseConfig";
  Thunk lets us return a function inside our action creators
  which can then interact with the database
  */
-const store = createStore(
-  rootReducer,
-  compose(
-    applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
-    reduxFirestore(firebaseConfig),
-    reactReduxFirebase(firebaseConfig, {
-      useFirestoreForProfile: true,
-      userProfile: "users",
-      attachAuthIsReady: true
-    })
-  )
-);
+// const store = createStore(
+//   rootReducer,
+//   compose(
+//     applyMiddleware(thunk.withExtraArgument({ getFirebase, getFirestore })),
+//     reduxFirestore(firebaseConfig),
+//     reactReduxFirebase(firebaseConfig, {
+//       useFirestoreForProfile: true,
+//       userProfile: "users",
+//       attachAuthIsReady: true
+//     })
+//   )
+// );
 
-// Rendr the DOM only when firebase auth is ready, cool!
-store.firebaseAuthIsReady.then(() => {
-  ReactDOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
-    document.getElementById("root")
-  );
-});
+// // Rendr the DOM only when firebase auth is ready, cool!
+// store.firebaseAuthIsReady.then(() => {
+//   ReactDOM.render(
+//     <Provider store={store}>
+//       <App />
+//     </Provider>,
+//     document.getElementById("root")
+//   );
+// });
+
+const store = createStore(rootReducer);
+
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById("root")
+);
