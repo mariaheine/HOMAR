@@ -58,6 +58,15 @@ div.avatarSingomega {
   background: url(./../media/avatars/xechidna.jpg) center no-repeat;
 }
 
+div.avatarXmxo { 
+  background: url(./../media/avatars/xmo.jpg) center no-repeat;
+}
+
+div.avatarKitsu { 
+  background: url(./../media/avatars/kitsu.jpg) center no-repeat;
+}
+
+
 /* SHADOWS */
 
 @keyframes shadow {

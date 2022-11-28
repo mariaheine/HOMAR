@@ -101,6 +101,7 @@ ul.flex-container {
   width: auto;
   height: auto;
   background: #272727bc;
+  padding: 1rem;
 }
 
 img.flex-item.outro {

@@ -1017,7 +1017,8 @@ const raw = {
                 "_nanoseconds": 87000000
             },
             "nick": "xmxo",
-            "avatarURL": ""
+            "avatarURL": "",
+            "avatarCSSName": "avatarXmxo",
         },
         "XNmhs6v2PgRleWVhwGCozWi20Df2": {
             "registeredAt": {
@@ -1058,15 +1059,8 @@ const raw = {
             "registeredAt": {
                 "_seconds": 1556060271,
                 "_nanoseconds": 455000000
-            }
-        },
-        "wIB9NWzWnFg1lntsNiilPUYYPf62": {
-            "nick": "kitsumute",
-            "registeredAt": {
-                "_seconds": 1555450686,
-                "_nanoseconds": 173000000
             },
-            "avatarURL": ""
+            "avatarCSSName": "avatarKitsu",
         },
         "wjGn8Izl7vSH5mMLyENra3Hj4B92": {
             "registeredAt": {
