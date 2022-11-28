@@ -2,11 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import moment from "moment";
-import {
-  firestoreConnect,
-  getVal,
-  firebaseConnect
-} from "react-redux-firebase";
 import EditableRichText from "../editable/EditableRichText";
 import DisplayableRichText from "../displayable/DisplayableRichText";
 

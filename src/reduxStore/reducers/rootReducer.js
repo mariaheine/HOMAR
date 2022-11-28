@@ -5,16 +5,16 @@ import postEditReducer from "./postEditReducer";
 import staticDataReducer from "./staticDataReducer";
 
 import { combineReducers } from "redux";
-import { firestoreReducer } from "redux-firestore";
-import { firebaseReducer } from "react-redux-firebase"
+// import { firestoreReducer } from "redux-firestore";
+// import { firebaseReducer } from "react-redux-firebase"
 
 const rootReducer = combineReducers({
   auth: authReducer,
   post: postReducer,
   language: langReducer,
   postEdit: postEditReducer,
-  firestore: firestoreReducer,
-  firebase: firebaseReducer,
+  // firestore: firestoreReducer,
+  // firebase: firebaseReducer,
   staticDataReducer: staticDataReducer
 });
 

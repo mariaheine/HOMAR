@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { firestoreConnect } from "react-redux-firebase";
+// import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import moment from "moment";
 
@@ -42,5 +42,5 @@ const mapStateToProps = state => {
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([{ collection: "notifications", orderBy: ['time', 'desc'], limit: 27 }])
+  // firestoreConnect([{ collection: "notifications", orderBy: ['time', 'desc'], limit: 27 }])
 )(Notifications);

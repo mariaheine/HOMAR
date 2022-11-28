@@ -13,7 +13,6 @@ import {
   CardBody
 } from "reactstrap";
 import { connect } from "react-redux";
-import Recaptcha from "react-recaptcha";
 
 import { signIn } from "../../../../reduxStore/actions/authActions";
 
@@ -27,12 +26,12 @@ class SignIn extends Component {
 
     this.state = {
       popoverOpen: false,
-      isVerified: false,
+      isVerified: true,
       errorMessage:
         "Generic error message, well, you shouldn't really see that.",
       credentials: {
-        email: "",
-        password: ""
+        email: "admin",
+        password: "admin"
       }
     };
   }
@@ -52,12 +51,12 @@ class SignIn extends Component {
 
   onChange = e => {
     e.persist();
-    this.setState(prevState => ({
-      credentials: {
-        ...prevState.credentials,
-        [e.target.name]: e.target.value
-      }
-    }));
+    // this.setState(prevState => ({
+    //   credentials: {
+    //     ...prevState.credentials,
+    //     [e.target.name]: e.target.value
+    //   }
+    // }));
   };
 
   togglePopover = () => {
@@ -66,13 +65,13 @@ class SignIn extends Component {
     });
   };
 
-  verifyCaptcha = res => {
-    if (res) {
-      this.setState({
-        isVerified: true
-      });
-    }
-  };
+  // verifyCaptcha = res => {
+  //   if (res) {
+  //     this.setState({
+  //       isVerified: true
+  //     });
+  //   }
+  // };
 
   render() {
     const { auth } = this.props;
@@ -105,12 +104,6 @@ class SignIn extends Component {
                   onChange={this.onChange}
                 />
               </FormGroup>
-              <Recaptcha
-                sitekey="6LcNBZUUAAAAAMo-x7rjv-s7UqLaFCPbomWIJywY"
-                verifyCallback={this.verifyCaptcha}
-                render="explicit"
-                theme="dark"
-              />
               <br />
               <Button style={wideButton} color="warning" id="loginButton">
                 Signin

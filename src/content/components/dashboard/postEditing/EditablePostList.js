@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { firestoreConnect } from "react-redux-firebase";
+// import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Link } from "react-router-dom";
 import { Editor } from "draft-js";
@@ -87,10 +87,10 @@ const mapStateToProps = state => {
 
 export default compose(
   connect(mapStateToProps),
-  firestoreConnect([
-    { collection: "blogPosts", orderBy: ["createdAt", "desc"] },
-    { collection: "users" }
-  ])
+  // firestoreConnect([
+  //   { collection: "blogPosts", orderBy: ["createdAt", "desc"] },
+  //   { collection: "users" }
+  // ])
 )(EditablePostList);
 
 

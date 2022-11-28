@@ -16,7 +16,6 @@ import {
   Badge
 } from "reactstrap";
 import { connect } from "react-redux";
-import Recaptcha from "react-recaptcha";
 import { signUp } from "../../../../reduxStore/actions/authActions";
 
 const captchaDiv = {
@@ -29,7 +28,7 @@ class SignUp extends Component {
 
     this.state = {
       popoverOpen: false,
-      isVerified: false,
+      isVerified: true,
       errorMessage:
         "Generic error message, well, you shouldn't really see that.",
       newUser: {
@@ -142,12 +141,12 @@ class SignUp extends Component {
                 />
               </FormGroup>
               <div style={captchaDiv}>
-                <Recaptcha
+                {/* <Recaptcha
                   sitekey="6LcNBZUUAAAAAMo-x7rjv-s7UqLaFCPbomWIJywY"
                   verifyCallback={this.verifyCaptcha}
                   render="explicit"
                   theme="dark"
-                />
+                /> */}
               </div>
               <CardFooter>
                 <Button id="submitButton" color="warning">

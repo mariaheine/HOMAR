@@ -7,15 +7,15 @@ import { Provider } from "react-redux";
 import rootReducer from "./reduxStore/reducers/rootReducer";
 
 import thunk from "redux-thunk";
-import { reduxFirestore, getFirestore } from "redux-firestore";
-import {
-  reactReduxFirebase,
-  getFirebase,
-  reduxFirebase
-} from "react-redux-firebase";
+// import { reduxFirestore, getFirestore } from "redux-firestore";
+// import {
+//   reactReduxFirebase,
+//   getFirebase,
+//   reduxFirebase
+// } from "react-redux-firebase";
 
-// this place here is where we connect redux to the firebase
-import firebaseConfig from "./config/firebaseConfig";
+// // this place here is where we connect redux to the firebase
+// import firebaseConfig from "./config/firebaseConfig";
 
 /* 
  We could have many diffrent store enhancers/middleware here

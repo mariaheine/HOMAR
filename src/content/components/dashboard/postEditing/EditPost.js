@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Prompt } from "react-router-dom";
-import { firestoreConnect } from "react-redux-firebase";
+// import { firestoreConnect } from "react-redux-firebase";
 import { compose } from "redux";
 import { Redirect } from "react-router-dom";
 import { Button, Popover, PopoverHeader, PopoverBody } from "reactstrap";
@@ -224,5 +224,5 @@ export default compose(
     mapStateToProps,
     mapDispatchToProps
   ),
-  firestoreConnect([{ collection: "blogPosts" }])
+  // firestoreConnect([{ collection: "blogPosts" }])
 )(EditPost);
