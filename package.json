@@ -2,7 +2,7 @@
   "name": "homar-mummified",
   "version": "0.2.0",
   "private": true,
-  "homepage": "https://homar.xyz/",
+  "homepage": "https://mariaheine.github.io/homar",
   "engines": {
     "node": "8"
   },
@@ -33,6 +33,7 @@
     "three": "^0.111.0"
   },
   "devDependencies": {
+    "gh-pages": "^4.0.0",
     "react-scripts": "^2.1.1"
   },
   "scripts": {
@@ -40,7 +41,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "deploy": "firebase deploy"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "browserslist": [
     ">0.2%",
