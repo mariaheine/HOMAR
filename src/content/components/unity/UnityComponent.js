@@ -41,8 +41,8 @@ class UnityComponent extends Component {
     };
 
     this.unityContent = new UnityContent(
-      "/UnityBuild/DefaultBuild.json",
-      "/UnityBuild/UnityLoader.js"
+      `${process.env.PUBLIC_URL}/UnityBuild/DefaultBuild.json`,
+      `${process.env.PUBLIC_URL}/UnityBuild/UnityLoader.js`
     );
 
     this.unityContent.on("progress", progression => {

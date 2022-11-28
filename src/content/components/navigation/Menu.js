@@ -75,11 +75,11 @@ export default class Menu extends Component {
             {navHashtag}
           </DropdownToggle>
           <DropdownMenu>
-            <NavLink href="/blog/" onClick={this.toggleNavbar}>
+            <Link to="/blog/" onClick={this.toggleNavbar}>
               <DropdownItem>
                 <h1 className="menuButton">👾 blog</h1>
               </DropdownItem>
-            </NavLink>
+            </Link>
             <Link to="/entity/" onClick={this.toggleNavbar}>
               <DropdownItem>
                 <h1 className="menuButton">🌋 die Entität</h1>
