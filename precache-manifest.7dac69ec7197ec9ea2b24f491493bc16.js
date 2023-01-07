@@ -76,6 +76,10 @@ self.__precacheManifest = [
     "url": "/HOMAR/static/media/niceisntit.256fe503.jpg"
   },
   {
+    "revision": "967c0fc6f20d320086ab84b057bc288d",
+    "url": "/HOMAR/static/media/kitsu.967c0fc6.jpg"
+  },
+  {
     "revision": "f524583462f880b83a29c86f07c3cebd",
     "url": "/HOMAR/static/media/xmo.f5245834.jpg"
   },
@@ -84,15 +88,11 @@ self.__precacheManifest = [
     "url": "/HOMAR/static/media/xechidna.f2bfd1c1.jpg"
   },
   {
-    "revision": "967c0fc6f20d320086ab84b057bc288d",
-    "url": "/HOMAR/static/media/kitsu.967c0fc6.jpg"
-  },
-  {
     "revision": "fb49545c3c85ef6df0eecc0b43d7269b",
     "url": "/HOMAR/static/media/missing.fb49545c.jpg"
   },
   {
-    "revision": "b0f70e4d44ecd604ac11c39054812d0d",
+    "revision": "db2123ff01625ef358db618993af6c9f",
     "url": "/HOMAR/index.html"
   }
 ];
